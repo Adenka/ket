@@ -229,8 +229,8 @@ class Game {
         player.select(card);
 
         if (player.isSetSelected()) {
-            //const isGameOver = this.#handleSetSelected(player.selections);
-            const isGameOver = true;
+            const isGameOver = this.#handleSetSelected(player.selections);
+            //const isGameOver = true;
             player.handleSet();
             broadcastToPlayers("players", getPlayersInfo(this.players), this.players);
             broadcastToPlayers(

@@ -3,7 +3,6 @@ const path = require("path");
 const WebSocket = require("ws");
 const http = require("http");
 const {v4: uuidv4} = require("uuid");
-const bodyParser = require("body-parser");
 
 const { Player } = require("./classes/player");
 
