@@ -69,7 +69,7 @@ export function Sockets() {
     }
 
     const connect = () => {
-        socket.current = new WebSocket("ws://localhost:5000");
+        socket.current = new WebSocket(`ws://${window.location.hostname}`);
         
         socket.current.onopen = () => {
             console.log("Connected socket main component");
