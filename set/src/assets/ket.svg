@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="180.46" height="52.433" version="1.1" viewBox="0 0 180.46 52.433" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-.17864 2.4662)">
+  <g transform="matrix(.31109 0 0 .31109 -423.57 -139.33)" stroke="#000" stroke-linecap="round">
+   <path d="m1367.5 452.77-0.375 126.36" fill="none" stroke-width="10"/>
+   <g stroke-linejoin="round">
+    <path d="m1456.5 454.11c-32.141 1.0124-79.387 37.458-87.422 67.059-8.0352 29.6 24.641 29.6 24.641 29.6l16.392-11.281 1.982 26.563s8.2494 0.24107 14.57 4.9655 6.321 11.522 6.321 11.522l26.57-10.172s-0.75 14.414-5.089 19.476" fill="none" stroke-width="10"/>
+    <circle cx="1419.1" cy="601.34" r="3.8123" stroke-width="6.682" style="paint-order:stroke fill markers"/>
+    <circle cx="1396.9" cy="586.31" r="3.8123" stroke-width="6.682" style="paint-order:stroke fill markers"/>
+   </g>
+  </g>
+  <g transform="matrix(.25 0 0 .25 -121.75 -75.4)">
+   <g transform="matrix(1.4311 0 0 1.4311 -483.86 -174.02)">
+    <g transform="translate(-1.0191 .25015)">
+     <path d="m964.11 439.24c-0.85709 28.684-86.405 28.588-91.065-0.38566-4.6604-28.974 33.051-34.952 33.051-34.952s-34.23-7.1831-33.319-26.611c0.91065-19.428 9.6422-22.706 9.6422-22.706l9.3208-21.983 14.463 17.162s9.3208-3.5675 15.16-3.5675c5.8389 0 12.588 5.1102 12.588 5.1102l17.195-20.392s8.8922 12.342 7.8209 19.573" fill="none" stroke="#030000" stroke-linecap="round" stroke-linejoin="round" stroke-width="10"/>
+    </g>
+    <circle cx="908.3" cy="378.56" r="3.8123" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.682" style="paint-order:stroke fill markers"/>
+    <circle cx="934.86" cy="378.43" r="3.8123" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.682" style="paint-order:stroke fill markers"/>
+   </g>
+  </g>
+  <g transform="matrix(.33389 0 0 .33389 -90.356 -334.92)" stroke="#000">
+   <g transform="translate(-145.32 387.28)">
+    <g transform="translate(145.4 -387.33)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="10">
+     <path d="m806.55 1036.5-10.231-23.14-14.678 19.862s-5.5175-3.5675-14.785-3.4229-16.552 5.6887-16.552 5.6887-14.41-35.193-61.442-34.759" stroke-linejoin="round" style="paint-order:stroke fill markers"/>
+     <path d="m729.11 1140.5-0.20575-127.42"/>
+    </g>
+   </g>
+   <circle cx="779.71" cy="1062.8" r="3.8123" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.682" style="paint-order:stroke fill markers"/>
+   <circle cx="753.42" cy="1062.9" r="3.8123" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.682" style="paint-order:stroke fill markers"/>
+  </g>
+ </g>
+</svg>
