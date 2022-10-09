@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const WebSocket = require("ws");
-const http = require("http");
 const {v4: uuidv4} = require("uuid");
 
 const { Player } = require("./classes/player");
@@ -9,9 +8,7 @@ const { Player } = require("./classes/player");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const server = http.createServer(app);
-
-const wss = new WebSocket.Server({ server })
+const wss = new WebSocket.Server({ noServer: true })
 
 app.use(express.static(path.join(__dirname, "../", "set", "build")));
 app.use(express.json());
@@ -135,6 +132,7 @@ app.post("/newRoom", (req, res) => {
         console.log("name: ", req.body);
         console.log("name: ", req.body.name);
         currentRooms.addRoomDisassembled(roomId, req.body.name, req.body.gamemode);
+        //todo - timeout jeśli nikt nie wszedł
         res.json(roomId);
     }
     catch {
@@ -172,4 +170,11 @@ app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "../", "set", "build", "index.html"));
 })
 
-server.listen(PORT, () => {console.log(`Listening on port ${PORT}`)});
+const server = app.listen(PORT, () => {console.log(`Listening on port ${PORT}`)});
+
+server.on('upgrade', (request, socket, head) => {
+    console.log('websocket attempt')
+    wss.handleUpgrade(request, socket, head, socket => {
+        wss.emit('connection', socket, request);
+    });
+});
