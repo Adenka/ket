@@ -5,7 +5,11 @@ import { ErrorContext } from "./errors";
 import { GameContext } from "./gameContext";
 
 export function Sockets() {
-    const { setAddPlayerError, setCardNotOnTable }  = useContext(ErrorContext);
+    const {
+        setAddPlayerError,
+        setCardNotOnTable,
+        setStartNotByHost
+    }  = useContext(ErrorContext);
 
     const socket = useRef(null);
     const [ socketConnected, setSocketConnected ] = useState(false);
@@ -69,7 +73,8 @@ export function Sockets() {
     }
 
     const connect = () => {
-        socket.current = new WebSocket(`wss://${window.location.hostname}`);
+        //socket.current = new WebSocket(`wss://${window.location.hostname}`);
+        socket.current = new WebSocket(`ws://localhost:5000`);
         
         socket.current.onopen = () => {
             console.log("Connected socket main component");
@@ -160,6 +165,10 @@ export function Sockets() {
                         case "cardNotOnTable":
                             setCardNotOnTable(content.message);
                             break;
+                        case "startNotByHost": {
+                            setStartNotByHost(content.message);
+                            break;
+                        }
                         case "":
                             break;
                     }
@@ -214,8 +223,6 @@ export function Sockets() {
             connect();
         }
     }
-
-    console.log("roomId: ", roomId);
 
     return <GameContext.Provider
         value = {{

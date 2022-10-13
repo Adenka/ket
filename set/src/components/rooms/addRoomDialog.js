@@ -34,8 +34,6 @@ function AddRoomDialog(props) {
         setMode(event.target.value);
     }
 
-    console.log("default value nananna: ", props.defaultValue);
-
     return <Dialog open = {props.open} onClose = {props.onClose} maxWidth = "sm" sx = {{padding: "2rem"}} fullWidth >
         <DialogTitle sx = {{fontSize: "2rem", paddingTop: "1rem"}}>
             New kitteh bed

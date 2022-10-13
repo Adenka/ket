@@ -5,6 +5,8 @@ import { makeStyles } from "@mui/styles";
 import RoomLink from "./roomLink";
 import LoadingRoom from "./loadingRoom";
 import { GameContext } from "../gameContext";
+import SnackBar from "../snackBar";
+import { ErrorContext } from "../errors";
 
 const useStyles = makeStyles({
     root: {
@@ -30,11 +32,12 @@ const useStyles = makeStyles({
 function WaitingRoom() {
     const classes = useStyles();
     const { socket, roomId, players, socketConnected } = useContext(GameContext);
+    const { startNotByHost, setStartNotByHost } = useContext(ErrorContext);
 
     function handleButtonOnClick() {
         socket.current.send(JSON.stringify({
             type: "redirectToGame",  
-            roomId: roomId
+            roomId: roomId,
         }))
     }
 
@@ -44,6 +47,14 @@ function WaitingRoom() {
         }
     }
 
+    const handleCloseSnackBar = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setStartNotByHost(false);
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", handleKeyPressed)
 
@@ -51,8 +62,6 @@ function WaitingRoom() {
             window.removeEventListener("keydown", handleKeyPressed);
         }
     }, [])
-
-    console.log("players", players);
     
     return <div>
         {
@@ -73,6 +82,12 @@ function WaitingRoom() {
                 </div>
             </div>
         }
+        <SnackBar
+            text = "Othr kitteh iz bos"
+            severity = "error"
+            open = {startNotByHost}
+            onClose = {handleCloseSnackBar}
+        />
     </div>
 }
 

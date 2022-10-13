@@ -39,7 +39,7 @@ class Player {
         this.#colorNumber = number;
     }
 
-    #addPoint = () => {
+    addPoint = () => {
         this.#points = this.#points + 1;
     }
 
@@ -56,7 +56,6 @@ class Player {
 
     #removeSelection = (card) => {
         this.selections = this.selections.filter(selectedCard => selectedCard.name != card.name);
-        console.log(this.selections);
     }
 
     select = (card) => {
@@ -85,9 +84,12 @@ class Player {
         );
     }
 
-    handleSet = () => {
-        this.#addPoint();
-        this.selections = new Array();
+    removeSetFromSelections = (set) => {
+        set.forEach(setCard => {
+            this.#removeSelection(setCard);
+        });
+
+        console.log("players selections: ", this.selections.map((card) => card.cardMap()));
     }
 
     isSetSelected = () => {

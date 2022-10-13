@@ -131,7 +131,6 @@ function Rooms() {
         setAlignment(index);
     }
 
-    console.log("add player error: ", addPlayerError);
     return <div
         style = {{
             minHeight: "100vh",

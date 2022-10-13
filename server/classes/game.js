@@ -126,7 +126,7 @@ class Game {
     }
     
     #addCardToTable = (cardsOnTable) => {
-        console.log(cardsOnTable.length);
+        console.log("cardsOnTable length", cardsOnTable.length);
         while (!this.#isSetOnTable(cardsOnTable) && this.#cardsUsed < this.#DECK_AMOUNT) {
             cardsOnTable.push(this.cards[this.#cardsUsed]);
             cardsOnTable.push(this.cards[this.#cardsUsed + 1]);
@@ -229,9 +229,13 @@ class Game {
         player.select(card);
 
         if (player.isSetSelected()) {
-            const isGameOver = this.#handleSelectedSet(player.selections);
+            const playerSelections = [...player.selections];
+            player.addPoint();
+            Object.values(this.players).forEach(otherPlayer => {
+                otherPlayer.removeSetFromSelections(playerSelections);
+            });
+            const isGameOver = this.#handleSelectedSet(playerSelections);
             //const isGameOver = true;
-            player.handleSet();
             broadcastToPlayers("players", getPlayersInfo(this.players), this.players);
             broadcastToPlayers(
                 "gotSet",
@@ -239,7 +243,7 @@ class Game {
                 this.players
             );
         }
-
+        
         broadcastToPlayers("cardClicked", this.#cardsOnTableInfo(), this.players);
     }
 

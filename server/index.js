@@ -46,6 +46,15 @@ wss.on("connection", (ws) => {
                 }
 
                 case "redirectToGame": {
+                    if (room.hostId != "" && ws.playerId != room.hostId) {
+                        ws.send(JSON.stringify({
+                            type: "error",
+                            content: {message: "startNotByHost"}
+                        }));
+
+                        break;
+                    }
+
                     room.newGame(room.players);
                     room.broadcastToRoom("players", room.getPlayersInfo())
                     const initialInfo = room.game.initialInfo();
@@ -86,7 +95,7 @@ wss.on("connection", (ws) => {
         catch (err) {
             ws.send(JSON.stringify({
                 type: "error",
-                content: {message: ""}
+                content: {message: err}
             }));
         }
     })
@@ -132,6 +141,7 @@ app.post("/newRoom", (req, res) => {
         console.log("name: ", req.body);
         console.log("name: ", req.body.name);
         currentRooms.addRoomDisassembled(roomId, req.body.name, req.body.gamemode);
+        
         //todo - timeout jeśli nikt nie wszedł
         res.json(roomId);
     }
@@ -141,7 +151,6 @@ app.post("/newRoom", (req, res) => {
 })
 
 app.post("/canPlayerJoin", (req, res) => {
-    console.log("nanana");
     const room = currentRooms.returnRoom(req.body.roomId);
 
     if (!room) {

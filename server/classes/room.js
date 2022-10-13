@@ -4,6 +4,7 @@ class Room {
     #roomId;
     #name;
     #gamemode;
+    #hostId;
 
     players;
     game;
@@ -13,6 +14,7 @@ class Room {
         this.#roomId = roomId;
         this.#name = name;
         this.#gamemode = gamemode;
+        this.#hostId = "";
 
         this.players = {};
         this.game = null;
@@ -29,6 +31,10 @@ class Room {
 
     get gamemode() {
         return this.#gamemode;
+    }
+
+    get hostId() {
+        return this.#hostId;
     }
 
     newGame = (players) => {
@@ -60,8 +66,15 @@ class Room {
             return { added: false, message: "Kittehz pluying!" };
         }
 
-        if (this.players.length === 6) {
+        const playerAmount = Object.keys(this.players).length;
+
+        if (playerAmount === 6) {
             return { added: false, message: "2 lotz da kittehz!" };
+        }
+
+        if (playerAmount == 0) {
+            this.#hostId = player.playerId;
+            console.log("set host id: ", this.#hostId);
         }
 
         player.websocket.roomId = this.#roomId;
