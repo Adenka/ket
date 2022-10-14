@@ -72,6 +72,7 @@ export function Singleplayer() {
 
     const gamemode = "Singleplayer";
     const [ isGameOver, setIsGameOver ]         = useState(false);
+    const [ gameId, setGameId ]                 = useState(0);
     const [ gameStartTime, setGameStartTime]    = useState(0);
     const [ gameOverTime, setGameOverTime ]     = useState(0);
 
@@ -85,14 +86,14 @@ export function Singleplayer() {
             setSelections([]);
             setColorNumber(Math.floor(Math.random() * 6));
 
-            const aaaaaaaaaaaaaaaaa = shuffleCards()
-            setCards(aaaaaaaaaaaaaaaaa);
+            const shuffledCards = shuffleCards();
+            setCards(shuffledCards);
             setCardsUsed(12);
-            setCardsOnTable(layTheTable(aaaaaaaaaaaaaaaaa));
+            setCardsOnTable(layTheTable(shuffledCards, 12));
 
-
-            console.log(aaaaaaaaaaaaaaaaa)
-
+            console.log(shuffledCards);
+            
+            setGameId(gameId => gameId + 1);
             setGameStartTime(Date.now());
         }
     }, [isGameOver])
@@ -150,10 +151,10 @@ export function Singleplayer() {
     }
 
 
-    const layTheTable = (cardsss) => {
+    const layTheTable = (cardsss, cardsUsedCopy) => {
         let cardsssOnTable = cardsss.slice(0, 12);
 
-        addCardToTable(cardsssOnTable, cardsUsed);
+        addCardToTable(cardsssOnTable, cardsUsedCopy);
 
         return cardsssOnTable;
     }
@@ -282,7 +283,8 @@ export function Singleplayer() {
             cardOnClick,
 
             gamemode,
-            aaamI: (cardObject) => selections.some(cardSelected => cardSelected.name === cardObject.name),
+            gameId,
+            amI: (cardObject) => selections.some(cardSelected => cardSelected.name === cardObject.name),
             returnPlayer: () => player,
 
             isGameOver,

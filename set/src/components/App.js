@@ -9,6 +9,7 @@ import WaitingRoom from "./waitingRoom/waitingRoom";
 import { Sockets } from "./sockets";
 import { Errors } from "./errors";
 import { Singleplayer } from "./singleplayer";
+import SnackBar from "./snackBar";
 
 export const UsernameContext    = React.createContext();
 
@@ -54,6 +55,7 @@ function App() {
                                 <Route path = "*"       element = {<StartPage/>}/>
                             </Routes>
                         </BrowserRouter>
+                        <SnackBar/>
                     </ThemeProvider>
                 </Errors>
             </UsernameContext.Provider>

@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const WebSocket = require("ws");
 const {v4: uuidv4} = require("uuid");
+const { broadcastToPlayers, getPlayersInfo } = require("./utils");
 
 const { Player } = require("./classes/player");
 
@@ -30,6 +31,11 @@ wss.on("connection", (ws) => {
 
             const room = currentRooms.returnRoom(ws.roomId || data.roomId);
 
+            if (room === null) {
+                ws.send(JSON.stringify({type: "error", content: "wrongRoomId"}));
+                return;
+            }
+
             switch(type) {
                 case "newPlayerInRoom": {
                     const player = new Player(data.username, ws);
@@ -39,7 +45,7 @@ wss.on("connection", (ws) => {
                         ws.send(JSON.stringify({type: "playerId", content: addRes.playerId}));
                     }
                     else {
-                        ws.send(JSON.stringify({type: "playerJoinError", content: addRes.message}));
+                        ws.send(JSON.stringify({type: "error", content: addRes.message}));
                     }
 
                     break;
@@ -49,25 +55,26 @@ wss.on("connection", (ws) => {
                     if (room.hostId != "" && ws.playerId != room.hostId) {
                         ws.send(JSON.stringify({
                             type: "error",
-                            content: {message: "startNotByHost"}
+                            content: "startNotByHost"
                         }));
 
                         break;
                     }
 
                     room.newGame(room.players);
-                    room.broadcastToRoom("players", room.getPlayersInfo())
+                    broadcastToPlayers("players", getPlayersInfo(room.players), room.players);
                     const initialInfo = room.game.initialInfo();
 
                     console.log("INITIAL INFO:", initialInfo);
                     console.log("game id: ", room.game.gameId);
-                    room.broadcastToRoom(
+                    broadcastToPlayers(
                         "redirectToGame",
                         {
                             roomId: data.roomId,
                             initialInfo: initialInfo,
                             gameId: room.game.gameId
-                        }
+                        },
+                        room.players
                     );
                     break;
                 }
@@ -95,7 +102,7 @@ wss.on("connection", (ws) => {
         catch (err) {
             ws.send(JSON.stringify({
                 type: "error",
-                content: {message: err}
+                content: err.message.message
             }));
         }
     })
@@ -103,10 +110,13 @@ wss.on("connection", (ws) => {
     ws.on('close', () => {
         console.log("leef ", ws.roomId, ws.playerId);
         const room = currentRooms.returnRoom(ws.roomId);
-        room.removePlayer(ws.playerId);
 
-        if (Object.entries(room.players).length == 0) {
-            currentRooms.removeRoom(ws.roomId);
+        if (room != null) {
+            room.removePlayer(ws.playerId);
+
+            if (Object.entries(room.players).length == 0) {
+                currentRooms.removeRoom(ws.roomId);
+            }
         }
     })
 

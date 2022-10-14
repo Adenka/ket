@@ -36,7 +36,7 @@ function RoomTopMenu() {
             </IconButton>
             <Typography
                 className = {classes.werUPlayin}
-                variant = "h3"
+                variant = "h4"
                 sx = {{fontFamily: "Architects Daughter"}}
             >
                 Wer u playin
@@ -53,7 +53,7 @@ function ModeTabs(props) {
         };
     }
 
-    return <div style = {{padding: "3rem"}}>
+    return <div style = {{padding: "1rem", paddingTop: "2rem"}}>
     <TabContext value = {props.value}>
         <Tabs
             value = {props.value}
@@ -100,24 +100,6 @@ function Rooms() {
         setAlignment(newAlignment);
     };
 
-    const [openSnackBar, setOpenSnackBar] = useState(false);
-    const { addPlayerError, setAddPlayerError } = useContext(ErrorContext);
-
-    useEffect(() => {
-        if (addPlayerError !== "") {
-            setOpenSnackBar(true);
-        }
-    }, [addPlayerError])
-
-    const handleCloseSnackBar = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-
-        setAddPlayerError("");
-        setOpenSnackBar(false);
-    }
-
     const [openDialog, setOpenDialog] = useState(false);
     function handleOpenDialog() {
         setOpenDialog(true);
@@ -147,12 +129,6 @@ function Rooms() {
         />
         <AddRoomDialog open = {openDialog} onClose = {handleCloseDialog} defaultValue = {alignment}/>
         <AddRoomButton onClick = {handleOpenDialog}/>
-        <SnackBar
-            text = {addPlayerError}
-            severity = "error"
-            open = {openSnackBar}
-            onClose = {handleCloseSnackBar}
-        />
     </div>
 }
 

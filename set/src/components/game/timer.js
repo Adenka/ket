@@ -6,12 +6,12 @@ import { GameContext } from "../gameContext";
 function Timer() {
     const theme = useTheme();
     const [time, setTime] = useState(0);
-    const { isGameOver, gameId } = useContext(GameContext);
+    const { isGameOver, gameId, gameStartTime, gameOverTime } = useContext(GameContext);
     const startDate = useRef(null);
     const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
 
     useEffect(() => {
-        startDate.current = Date.now();
+        startDate.current = gameStartTime;
     }, [gameId])
 
     useEffect(() => {
@@ -24,6 +24,7 @@ function Timer() {
         }
         else {
             clearInterval(interval);
+            setTime(gameOverTime - gameStartTime);
         }
 
         return () => clearInterval(interval);

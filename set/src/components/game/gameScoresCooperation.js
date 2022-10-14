@@ -40,6 +40,7 @@ function GameScoresCooperation() {
     const { players } = useContext(GameContext);
     const classes = useStyles();
 
+    //TODO - players leave with their points!
     Object.values(players).map(player => totalPoints += player.points);
 
     return <div className = {classes.root}>

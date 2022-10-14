@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams, Outlet } from "react-router-dom";
+import { useNavigate, useParams, Outlet, useLocation, matchRoutes } from "react-router-dom";
 import { UsernameContext } from "./App";
 import { ErrorContext } from "./errors";
 import { GameContext } from "./gameContext";
 
+const routes = [{ path: "/:roomId/game" }, {path: "/:roomId/wait"}];
+
 export function Sockets() {
     const {
-        setAddPlayerError,
-        setCardNotOnTable,
-        setStartNotByHost
+        setIsMessageOn,
+        setCurrentMessage,
+        setCurrentSeverity
     }  = useContext(ErrorContext);
 
     const socket = useRef(null);
@@ -29,6 +31,9 @@ export function Sockets() {
     const [ gameOverTime, setGameOverTime ]     = useState(0);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const [{ route }] = matchRoutes(routes, location);
+    console.log("route: ", route);
     const connectionTimeout = useRef(1000);
     const timeoutNumber = useRef(null);
 
@@ -36,7 +41,7 @@ export function Sockets() {
 
     const { username } = useContext(UsernameContext);
 
-    const aaamI = (cardObject) => {
+    const amI = (cardObject) => {
         return Object.values(cardObject.clicked).some(click => click.playerId === playerId);
     }
 
@@ -73,8 +78,8 @@ export function Sockets() {
     }
 
     const connect = () => {
-        socket.current = new WebSocket(`wss://${window.location.hostname}`);
-        //socket.current = new WebSocket(`ws://localhost:5000`);
+        //socket.current = new WebSocket(`wss://${window.location.hostname}`);
+        socket.current = new WebSocket(`ws://localhost:5000`);
         
         socket.current.onopen = () => {
             console.log("Connected socket main component");
@@ -118,13 +123,12 @@ export function Sockets() {
                     break;
                 }
 
-                case "playerJoinError": {
-                    console.log("błąd dodania");
-                    socket.current.onclose = () => {};
-                    socket.current.close();
-                    setSocketConnected(false);
-                    setAddPlayerError(content)
-                    navigate("/rooms");
+                case "madeHost": {
+                    console.log("host");
+                    setIsMessageOn(true);
+                    setCurrentMessage("U r boz now");
+                    setCurrentSeverity("info");
+
                     break;
                 }
 
@@ -160,16 +164,36 @@ export function Sockets() {
 
                 case "error": {
                     console.log("sussy bakka");
+
+                    setIsMessageOn(true);
+                    setCurrentSeverity("error");
                     
-                    switch(content.message) {
-                        case "cardNotOnTable":
-                            setCardNotOnTable(content.message);
-                            break;
-                        case "startNotByHost": {
-                            setStartNotByHost(content.message);
+                    switch(content) {
+                        case "wrongRoomId": {
+                            setCurrentMessage("Bad kitteh bed number!");
+                            leave();
                             break;
                         }
-                        case "":
+                        case "gameOnGoing": {
+                            setCurrentMessage("Kittehz pluying!");
+                            leave();
+                            break;
+                        }
+                        case "playerLimitExceeded": {
+                            setCurrentMessage("2 lotz da kittehz!");
+                            leave();
+                            break;
+                        }
+                        case "cardNotOnTable":
+                            setCurrentMessage("Da hell dude");
+                            break;
+                        case "startNotByHost": {
+                            setCurrentMessage("Othr kitteh iz bos");
+                            break;
+                        }
+                        default:
+                            console.log("content: ", content);
+                            setCurrentMessage(content);
                             break;
                     }
                     
@@ -203,6 +227,16 @@ export function Sockets() {
     }
 
     useEffect(() => {
+        console.log("xddddddddddd");
+
+        if (route.path === "/:roomId/game" && socket.current === null) {
+            setIsMessageOn(true);
+            setCurrentMessage("Left gaem");
+            setCurrentSeverity("info");
+            navigate("/rooms");
+            return;
+        }
+
         stupidTimeoutNumber.current = setTimeout(() => {
             connect();
             stupidTimeoutNumber.current = null;
@@ -216,6 +250,12 @@ export function Sockets() {
             }
         }
     }, [])
+
+
+    console.log("soket: ", socket.current);
+    console.log("route path: ", route.path);
+
+    console.log("jebany if: ", route.path === "/:roomId/game", socket.current === null);
 
     const reConnect = () => {
         timeoutNumber.current = null;
@@ -238,7 +278,7 @@ export function Sockets() {
 
             gameId,
             gamemode,
-            aaamI,
+            amI,
             returnPlayer,
             isGameOver,
             gameStartTime,
@@ -247,6 +287,6 @@ export function Sockets() {
             leave,
         }}
     >
-        <Outlet/>
+        {route.path === "/:roomId/game" && socket.current === null ? <div></div> : <Outlet/>}
     </GameContext.Provider>
 }

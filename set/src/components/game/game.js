@@ -9,11 +9,10 @@ import Timer from "./timer.js";
 import{ ReactComponent as CardIcon} from "../../assets/cardIcon.svg"
 import { cyan } from "@mui/material/colors";
 import "../../assets/fonts.css"
-import SnackBar from "../snackBar.js";
-import { ErrorContext } from "../errors.js";
 import GameScoresCooperation from "./gameScoresCooperation.js";
 import GameScoresAgainst from "./gameScoresAgainst.js";
 import { GameContext } from "../gameContext.js";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -318,12 +317,8 @@ function PostGameDialog(props) {
 function Game() {
     const theme = useTheme();
     const classes = useStyles();
-    const { cardNotOnTable, setCardNotOnTable } = useContext(ErrorContext);
     const { cardsOnTable, isGameOver, gamemode, cardOnClick } = useContext(GameContext);
     const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
-    
-    console.log("halo");
-    console.log("karty", cardsOnTable);
 
     let GameScores = null;
 
@@ -333,16 +328,6 @@ function Game() {
     else if (gamemode === "Against" || gamemode === "Singleplayer") {
         GameScores = GameScoresAgainst;
     }
-
-    const handleCloseSnackBar = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-
-        setCardNotOnTable(false);
-    }
-
-    console.log("CARDS ON TABLE: ", cardsOnTable);
 
     return <div className = {classes.root}>
         <PostGameDialog open = {isGameOver}/>
@@ -368,12 +353,6 @@ function Game() {
             </div>
         </div>
         <GameScores/>
-        <SnackBar
-            text = "Da hell dude"
-            severity = "error"
-            open = {cardNotOnTable}
-            onClose = {handleCloseSnackBar}
-        />
     </div>
 }
 

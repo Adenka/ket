@@ -1,6 +1,6 @@
-import { IconButton, keyframes } from "@mui/material";
+import { Fab, keyframes } from "@mui/material";
 import React, { useState } from "react";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 
 const buttonClockwise = keyframes`
     100% {
@@ -25,17 +25,14 @@ function AddRoomButton(props) {
         setAnimationStyle('anticlockwise');
     }
 
-    return <IconButton
-        onMouseOver = {handleMouseOver}
-        onMouseOut = {handleMouseOut}
-        onClick = {props.onClick}
-        
+    return <Fab 
         color = "primary"
-        size = "large"
+        onClick = {props.onClick}
         sx = {{
             position: "fixed",
-            right: "2rem",
-            bottom: "2rem",
+            right: "4rem",
+            bottom: "4rem",
+            padding: "2.5rem",
 
             "path:first-of-type": {
                 transformOrigin: "center",
@@ -45,9 +42,14 @@ function AddRoomButton(props) {
                     : `${buttonAnticlockwise} 0.5s forwards 1`
             }
             
-        }}>
-        <AddCircleIcon sx = {{fontSize: "6.25rem"}}/>
-    </IconButton>
+        }}
+    >
+        <AddIcon 
+            sx = {{fontSize: "4rem", color: "#ffffff"}}
+            onMouseOver = {handleMouseOver}
+            onMouseOut = {handleMouseOut}
+        />
+    </Fab>
 }
 
 export default AddRoomButton;

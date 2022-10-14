@@ -58,7 +58,7 @@ function Room(props) {
     const classes = useStyles();
     const navigate = useNavigate();
     const timer = useRef();
-    const { setAddPlayerError } = useContext(ErrorContext);
+    const { setIsMessageOn, setCurrentMessage, setCurrentSeverity } = useContext(ErrorContext);
 
     useEffect(() => {
         return () => {
@@ -82,7 +82,9 @@ function Room(props) {
                 navigate(`/${props.roomId}/wait`)
             }
             else {
-                setAddPlayerError(data.message)
+                setIsMessageOn(true);
+                setCurrentMessage(data.message)
+                setCurrentSeverity("error");
             }
         })
     }

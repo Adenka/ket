@@ -221,7 +221,7 @@ class Game {
 
         if (!this.#isCardOnTable(cardName)) {
             console.log("Da hell mate");
-            player.websocket.send(JSON.stringify({type: "error", content: { message: "cardNotOnTable"}}));
+            player.websocket.send(JSON.stringify({type: "error", content: "cardNotOnTable"}));
             return;
         }
 

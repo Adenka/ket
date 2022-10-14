@@ -1,10 +1,12 @@
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useContext } from "react";
 import "../../assets/fonts.css"
 import{ ReactComponent as K} from "../../assets/k.svg"
 import{ ReactComponent as E} from "../../assets/e.svg"
 import{ ReactComponent as T} from "../../assets/t.svg"
+import { useTheme } from "@emotion/react";
+import { GameContext } from "../gameContext";
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +30,8 @@ const useStyles = makeStyles({
 
 function BellsAndWhistles(props) {
     const classes = useStyles();
+    const theme = useTheme();
+    const { leave } = useContext(GameContext);
 
     return <div className = {classes.root}>
         <div>
@@ -49,6 +53,23 @@ function BellsAndWhistles(props) {
                     letterSpacing: "0.375rem"
                 }}>
                 Start!
+            </Button>
+            <Button
+                color = "error"
+                onClick = { leave }
+                sx = {{
+                    height: "7.5rem",
+                    width: "100%",
+                    fontSize: "2.25rem",
+                    fontFamily: "Prompt",
+                    letterSpacing: "0.375rem",
+                    backgroundColor: "white",
+                    "&:hover": {
+                        backgroundColor: theme.palette.secondary.light
+                    },
+                    marginTop: "2rem"
+                }}>
+                Leef...
             </Button>
         </div>
     </div>

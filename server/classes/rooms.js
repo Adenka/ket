@@ -40,6 +40,7 @@ class Rooms {
     #isIdOK = (roomId) => {
         if (!this.rooms.hasOwnProperty(roomId)) {
             console.log("Wrong id");
+            
             return false;
         }
 

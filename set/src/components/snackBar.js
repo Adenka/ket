@@ -1,15 +1,36 @@
 import { Alert, Snackbar } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import "../assets/fonts.css";
+import { ErrorContext } from "./errors";
 
-function SnackBar(props) {
-    return <Snackbar open = {props.open} autoHideDuration = {2000} onClose = {props.onClose}>
+function SnackBar() {
+    const {
+        isMessageOn, setIsMessageOn,
+        currentSeverity,
+        currentMessage
+    } = useContext(ErrorContext);    
+
+    const handleCloseSnackBar = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setIsMessageOn(false);
+    }
+
+    console.log("current message: ", currentMessage);
+    
+    return <Snackbar
+        open = {isMessageOn}
+        autoHideDuration = {2000}
+        onClose = {handleCloseSnackBar}
+    >
         <Alert
             variant = "filled"
-            severity = {props.severity}
+            severity = {currentSeverity}
             sx = {{fontFamily: "Prompt", fontSize: "1rem", letterSpacing: "0.125rem"}}
         >
-            {props.text}
+            {currentMessage}
         </Alert>
     </Snackbar>
 }

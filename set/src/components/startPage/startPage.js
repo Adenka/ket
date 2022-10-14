@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
 
         backgroundImage: `url(${WaveStartPage})`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "150% 0%",
+        backgroundPosition: "right min(-10.75rem, -15vw) bottom min(-15rem, -21vw)",
+        backgroundSize: "max(50rem, 70vw)"
     },
 
     toolbar: {
@@ -60,6 +61,7 @@ const useStyles = makeStyles(theme => ({
         flex: 1,
         alignContent: "center",
         justifyContent: "center",
+        backgroundColor: "rgba(255, 255, 255, 75%)"
     },
 
     rightWrap: {
@@ -91,7 +93,6 @@ function NicknameInput() {
     const classes = useStyles();
     const { username, setUsername } = useContext(UsernameContext);
     const theme = useTheme();
-    const navigate = useNavigate();
 
     function handleTextFieldChange(event) {
         setUsername(event.target.value)
@@ -100,7 +101,14 @@ function NicknameInput() {
     return <div className = {classes.nicknameInputWrap}>
         <TextField
             autoFocus
-            inputProps = {{style: {fontSize: 35, width: "min(40rem, 100%)", padding: "2rem", backgroundColor: theme.palette.secondary.light}}}
+            inputProps = {{
+                style: {
+                    fontSize: "min(3vh, 5vw)",
+                    width: "min(40rem, 100%)",
+                    padding: "2rem",
+                    backgroundColor: theme.palette.secondary.light
+                }
+            }}
             value = {username}
             onChange = {handleTextFieldChange}
             placeholder = "Ur naym"
@@ -137,7 +145,9 @@ function StartPage() {
         <div className = {classes.root}>
             <div className = {classes.leftWrap}>
                 <div>
-                    <Typography sx = {{fontFamily: "Righteous", paddingLeft: "1rem", fontSize: "5rem"}}>
+                    <Typography
+                        sx = {{fontFamily: "Righteous", paddingLeft: "1rem", fontSize: "min(10vw, 8vh)"}}
+                    >
                         Speedy card klikin
                     </Typography>
                     <NicknameInput/>

@@ -1,9 +1,10 @@
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { IconButton } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import "../../assets/fonts.css";
 import { useParams } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,11 +20,7 @@ const useStyles = makeStyles(theme => ({
         flexWrap: "wrap",
         alignItems: "center",
         height: "100%",
-        padding: "0.5rem",
-        fontSize: "1.375rem",
-        fontFamily: "Prompt",
-        letterSpacing: "0.125rem",
-        wordWrap: "anywhere",
+        padding: "1rem",
         //backgroundColor: "blue",
         flex: 7
     },
@@ -39,17 +36,40 @@ const useStyles = makeStyles(theme => ({
 function RoomLink() {
     const classes = useStyles();
     const { roomId } = useParams();
+    const theme = useTheme();
+    const url = `https://ket.onrender.com/${roomId}/wait`;
 
-    return <div className = {classes.root}>
-        <div className = {classes.textWrap}>
-        www.dupawtrokach.org.com.pl/{roomId}/wait
-        </div>
-        <div className = {classes.iconWrap}>
-            <IconButton size = "large">
-                <ContentCopyIcon fontSize = "large"/>
-            </IconButton>
-        </div>
-    </div>
+    return <TextField
+        //className = {classes.textWrap}
+        variant = "standard"
+        InputProps = {{
+            disableUnderline: "true",
+            endAdornment:
+                <InputAdornment position="end">
+                    <div className = {classes.iconWrap}>
+                    <IconButton
+                        size = "large"
+                        onClick = {() => navigator.clipboard.writeText(url)}
+                    >
+                        <ContentCopyIcon fontSize = "large"/>
+                    </IconButton>
+                    </div>
+                </InputAdornment>,
+            
+            style: {
+                fontSize: "min(2.5vh, 5vw)",
+                width: "min(40rem, 100%)",
+                padding: "2rem",
+                backgroundColor: theme.palette.secondary.light,
+                borderRadius: "100rem",
+                fontFamily: "Prompt",
+                letterSpacing: "0.125rem",
+            }
+        }}
+        value = {url}
+    >
+    
+    </TextField>
 }
 
 export default RoomLink;

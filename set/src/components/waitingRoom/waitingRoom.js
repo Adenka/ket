@@ -5,8 +5,8 @@ import { makeStyles } from "@mui/styles";
 import RoomLink from "./roomLink";
 import LoadingRoom from "./loadingRoom";
 import { GameContext } from "../gameContext";
-import SnackBar from "../snackBar";
-import { ErrorContext } from "../errors";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 const useStyles = makeStyles({
     root: {
@@ -19,7 +19,6 @@ const useStyles = makeStyles({
     },
 
     leftWrap: {
-        width: "35%",
         height: "100%",
         padding: "1.5rem",
         borderRadius: "2rem",
@@ -32,7 +31,8 @@ const useStyles = makeStyles({
 function WaitingRoom() {
     const classes = useStyles();
     const { socket, roomId, players, socketConnected } = useContext(GameContext);
-    const { startNotByHost, setStartNotByHost } = useContext(ErrorContext);
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
 
     function handleButtonOnClick() {
         socket.current.send(JSON.stringify({
@@ -45,14 +45,6 @@ function WaitingRoom() {
         if (event.key === "Enter") {
             handleButtonOnClick();
         }
-    }
-
-    const handleCloseSnackBar = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-
-        setStartNotByHost(false);
     }
 
     useEffect(() => {
@@ -69,9 +61,9 @@ function WaitingRoom() {
             ?
             <LoadingRoom/>
             :
-            <div className = {classes.root}>
-                <div style = {{display: "flex"}}>
-                    <div className = {classes.leftWrap}>
+            (
+                <div className = {classes.root}>
+                    <div className = {classes.leftWrap} style = {{width: "35%"}}>
                         <PlayerList players = {players}/>
                         <RoomLink/>
                     </div>
@@ -80,14 +72,8 @@ function WaitingRoom() {
                         onKeyPress = {handleKeyPressed}
                     />
                 </div>
-            </div>
+            )
         }
-        <SnackBar
-            text = "Othr kitteh iz bos"
-            severity = "error"
-            open = {startNotByHost}
-            onClose = {handleCloseSnackBar}
-        />
     </div>
 }
 

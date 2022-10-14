@@ -1,5 +1,4 @@
 import { Avatar, Chip, Typography } from "@mui/material";
-import { orange, pink, purple, red, yellow, cyan } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import "../../assets/fonts.css";
@@ -18,8 +17,6 @@ const useStyles = makeStyles({
 })
 
 function WaitingRoomAvatar(props) {
-    console.log("kolorekAvatar: ", props.colorNumber);
-
     return <Avatar
         title = {props.title}
         sx = {{
@@ -80,10 +77,6 @@ function PlayerList(props) {
                     text = {player.username}
                     colorNumber = {player.colorNumber}/>
             ))}
-            {/*<WaitingRoomChip text = "Adaś"/>
-            <WaitingRoomChip text = "Antoś"/>
-            <WaitingRoomChip text = "Gusia"/>
-            <WaitingRoomChip text = "Misza"/>*/}
         </div>
     </div>
 }

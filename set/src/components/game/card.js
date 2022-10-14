@@ -46,6 +46,8 @@ const useStyles = makeStyles({
         width: "30%",
         margin: "0.25rem",
 
+        position: "relative",
+
         "&:hover": {
             background: "#f0f0f0",
         }
@@ -118,12 +120,12 @@ const shapeMapSmall = {
 
 function Card(props) {
     const classes = useStyles();
-    const { aaamI, returnPlayer } = useContext(GameContext);
+    const { amI, returnPlayer } = useContext(GameContext);
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
     const shapeMap = isSmall ? shapeMapSmall : shapeMapBig;
 
-    const amI = aaamI(props.cardObject);
+    const amIInClicked = amI(props.cardObject);
 
     let playerInRes = returnPlayer();
 
@@ -136,7 +138,7 @@ function Card(props) {
             }),
             
             outline:
-                amI
+                amIInClicked
                 ? `solid 0.25rem ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
         }}

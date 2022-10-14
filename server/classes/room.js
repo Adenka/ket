@@ -1,4 +1,5 @@
 const { Game } = require("./game");
+const { broadcastToPlayers, getPlayersInfo } = require("../utils");
 
 class Room {
     #roomId;
@@ -46,35 +47,27 @@ class Room {
         });
     }
 
-    getPlayersInfo = () => {
-        return Object.values(this.players).map((player) => ({
-            playerId: player.playerId,
-            username: player.username,
-            points: player.points,
-            colorNumber: player.colorNumber
-        }))
-    }
+    setHost = () => {
+        console.log("setHost");
+        const playerArray = Object.keys(this.players);
+        if (playerArray.length == 0) {
+            return;
+        }
 
-    broadcastToRoom = (type, res) => {
-        Object.values(this.players).forEach(player => {
-            player.websocket.send(JSON.stringify({type: type, content: res}));
-        });        
+        const hostId = playerArray[0];
+        this.#hostId = hostId;
+        this.players[hostId].websocket.send(JSON.stringify({type: "madeHost"}));
     }
 
     addPlayer = (player) => {
         if (this.game !== null) {
-            return { added: false, message: "Kittehz pluying!" };
+            return { added: false, message: "gameOnGoing" };
         }
 
         const playerAmount = Object.keys(this.players).length;
 
         if (playerAmount === 6) {
-            return { added: false, message: "2 lotz da kittehz!" };
-        }
-
-        if (playerAmount == 0) {
-            this.#hostId = player.playerId;
-            console.log("set host id: ", this.#hostId);
+            return { added: false, message: "playerLimitExceeded" };
         }
 
         player.websocket.roomId = this.#roomId;
@@ -82,7 +75,11 @@ class Room {
         player.colorNumber = this.colors[Object.keys(this.players).length];
         this.players[player.playerId] = player;
 
-        this.broadcastToRoom("players", this.getPlayersInfo());
+        if (playerAmount == 0) {
+            this.setHost();
+        }
+
+        broadcastToPlayers("players", getPlayersInfo(this.players), this.players);
 
         return { added: true, playerId: player.playerId };
     }
@@ -91,7 +88,11 @@ class Room {
         this.players[playerId].websocket.close();
         delete this.players[playerId];
 
-        this.broadcastToRoom("players", this.getPlayersInfo());
+        if (playerId == this.#hostId) {
+            this.setHost();
+        }
+
+        broadcastToPlayers("players", getPlayersInfo(this.players), this.players);
     }
 }
 
