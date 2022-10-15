@@ -14,8 +14,6 @@ function GameScore(props) {
     const { returnPlayer } = useContext(GameContext);
     const player = returnPlayer();
 
-    console.log("gracz: ", player);
-
     return <Grid item xs = {12}>
         <Paper
             className = {classes[`scoreWrap${bigOrSmall}`]}

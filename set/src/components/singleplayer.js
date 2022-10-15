@@ -90,8 +90,6 @@ export function Singleplayer() {
             setCards(shuffledCards);
             setCardsUsed(12);
             setCardsOnTable(layTheTable(shuffledCards, 12));
-
-            console.log(shuffledCards);
             
             setGameId(gameId => gameId + 1);
             setGameStartTime(Date.now());
@@ -198,7 +196,6 @@ export function Singleplayer() {
     }
 
     const isSetSelected = (newSelections) => {
-        console.log(newSelections)
         if (newSelections.length < 3) {
             return false;
         }
@@ -272,8 +269,6 @@ export function Singleplayer() {
         selections,
         username
     }
-
-    console.log("karty ad fontes", cardsOnTable, selections);
 
     return <GameContext.Provider
         value = {{

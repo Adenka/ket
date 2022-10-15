@@ -210,9 +210,9 @@ function DialogContentCooperation() {
 
 function DialogContentAgainst() {
     const classes = useStyles();
-    const { players, playerId } = useContext(GameContext);
+    const { players, returnPlayer } = useContext(GameContext);
 
-    function isssWinner() {
+    function isPlayerWinner() {
         let max = 0, winners = [];
         players.forEach(player => {
             if (player.points > max) {
@@ -224,14 +224,15 @@ function DialogContentAgainst() {
             }
         });
         
+        console.log("player id: ", returnPlayer().playerId);
         console.log("winnersRes: ", winners);
-        const isWinner = winners.some(id => playerId === id);
+        const isWinner = winners.some(id => returnPlayer().playerId === id);
         console.log("isWinner: ", isWinner);
     
         return isWinner;
     }
 
-    const isWinner = isssWinner();
+    const isWinner = isPlayerWinner();
 
     return <DialogContent>
         <div className = {classes.resultImg}>

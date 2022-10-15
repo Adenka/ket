@@ -33,7 +33,6 @@ export function Sockets() {
     const navigate = useNavigate();
     const location = useLocation();
     const [{ route }] = matchRoutes(routes, location);
-    console.log("route: ", route);
     const connectionTimeout = useRef(1000);
     const timeoutNumber = useRef(null);
 
@@ -86,8 +85,6 @@ export function Sockets() {
             setSocketConnected(true);
 
             connectionTimeout.current = 250;
-            console.log("wysylam newplayerinroom");
-            console.log("roomid: ", roomId);
 
             socket.current.send(JSON.stringify({
                 type: "newPlayerInRoom",
@@ -146,7 +143,6 @@ export function Sockets() {
                     setCardsOnTable(info.cardsOnTable);
                     setCardsLeft(DECK_AMOUNT - info.cardsUsed);
                     setGameStartTime(info.startTime);
-                    console.log("start time: ", info.startTime);
                     setGamemode(info.gamemode);
 
                     setGameId(content.gameId);
@@ -206,7 +202,7 @@ export function Sockets() {
                     setIsGameOver(content.isGameOver);
                     if (content.isGameOver) {
                         setGameOverTime(content.time);
-                        console.log("over time: ", content.time);
+    
                     }
                     break;
                 }
@@ -227,8 +223,6 @@ export function Sockets() {
     }
 
     useEffect(() => {
-        console.log("xddddddddddd");
-
         if (route.path === "/:roomId/game" && socket.current === null) {
             setIsMessageOn(true);
             setCurrentMessage("Left gaem");
@@ -250,12 +244,6 @@ export function Sockets() {
             }
         }
     }, [])
-
-
-    console.log("soket: ", socket.current);
-    console.log("route path: ", route.path);
-
-    console.log("jebany if: ", route.path === "/:roomId/game", socket.current === null);
 
     const reConnect = () => {
         timeoutNumber.current = null;

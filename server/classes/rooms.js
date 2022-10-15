@@ -24,7 +24,6 @@ class Rooms {
 
     addRoomAssembled = (room) => {
         if (this.rooms.hasOwnProperty(room.roomId)) {
-            console.log("Key exists in map");
             return;
         }
 

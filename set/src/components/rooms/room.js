@@ -67,7 +67,6 @@ function Room(props) {
     }, []);
 
     function handlePlayOnClick() {
-        console.log("klik");
         fetch("/canPlayerJoin", {
             method: "POST",
             headers: {
