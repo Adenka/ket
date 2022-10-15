@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 
     cardWrap: {
         width: "100vw",
+        height: "calc(100vh - 88px - 10rem)",
 
         display: "flex",
         flexDirection: "column",
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
     cardsBig: {
         flexDirection: "column",
-        height: "40rem",
+        height: "calc(100vh - 10rem - 88px)",
         width: "100%",
         margin: "1.5rem",
     },
@@ -94,14 +95,14 @@ const useStyles = makeStyles(theme => ({
 function CardsLeft() {
     const { cardsLeft } = useContext(GameContext);
 
-    return <div style = {{display: "flex", width: "10rem"}}>
+    return <div style = {{display: "flex", alignContent: "center", justifyContent: "center", width: "min(16vw, 10rem)"}}>
         <CardIcon/>
         <div
             style = {{
                 display: "flex",
                 alignItems: "center",
-                fontSize: "2.5rem",
-                marginLeft: "1.25rem"
+                fontSize: "min(6.25vw, 2.5rem)",
+                marginLeft: "min(2vw, 1.25rem)"
             }}
         >
             {cardsLeft}
@@ -121,9 +122,9 @@ function GameTopMenu() {
         }}
     >
         <Toolbar>
-            <div style = {{width: "10rem"}}>
+            <div style = {{width: "min(16vw, 10rem)"}}>
             <IconButton>
-                <ArrowBackIcon fontSize = "large" color = "error" onClick = {leave}/>
+                <ArrowBackIcon fontSize = "large" color = "black" onClick = {leave}/>
             </IconButton>
             </div>
             <div
@@ -319,7 +320,7 @@ function Game() {
     const theme = useTheme();
     const classes = useStyles();
     const { cardsOnTable, isGameOver, gamemode, cardOnClick } = useContext(GameContext);
-    const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
 
     let GameScores = null;
 

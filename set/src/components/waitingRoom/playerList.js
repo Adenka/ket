@@ -63,7 +63,7 @@ function PlayerList(props) {
     return <div className = {classes.root}>
         <Typography
             sx = {{
-                fontSize: "3.5rem",
+                fontSize: "min(3.5rem, 10vw)",
                 fontFamily: "Prompt",
                 padding: "1.5rem"
             }}

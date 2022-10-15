@@ -10,7 +10,7 @@ import { GameContext } from "../gameContext";
 function GameScore(props) {
     const theme = useTheme();
     const classes = useStyles();
-    const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
     const bigOrSmall = isSmall ? "Small" : "Big";
     const { players } = useContext(GameContext);
     const numberOfPlayers = players.length;

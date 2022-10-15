@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
         backgroundImage: `url(${WaveStartPage})`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "right min(-10.75rem, -15vw) bottom min(-15rem, -21vw)",
+        backgroundPosition: "right min(-11.75rem, -16.5vw) bottom min(-15rem, -21vw)",
         backgroundSize: "max(50rem, 70vw)"
     },
 

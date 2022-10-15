@@ -7,7 +7,8 @@ const useStyles = makeStyles({
         flex: 1,
         width: "95vw",
         alignItems: "end",
-        paddingBottom: "2rem"
+        paddingBottom: "2rem",
+        height: "100%"
     },
 
     gridWrap: {
@@ -18,7 +19,6 @@ const useStyles = makeStyles({
     },
 
     scoresWrap: {
-        //padding: "1rem",
         display: "flex",
         flexGrow: 1,
         alignContent: "center",
@@ -26,44 +26,24 @@ const useStyles = makeStyles({
 
     //GameScore
 
-    scoreWrapBig: {
-        padding: "1.25rem",
+    scoreWrap: {
+        padding: "min(1.25rem, 2.5vw)",
         display: "flex",
     },
 
-    scoreWrapSmall: {
-        padding: "0.5rem",
-        display: "flex"
-    },
-
-    usernameWrapBig: {
+    usernameWrap: {
         display: "flex",
         alignItems: "center",
         flexGrow: 1,
-        fontSize: "1.5rem"
+        fontSize: "min(1.5rem, 3vw)"
     },
 
-    usernameWrapSmall: {
-        display: "flex",
-        alignItems: "center",
-        flexGrow: 1,
-        fontSize: "1rem"
-    },
-
-    pointsWrapBig: {
+    pointsWrap: {
         display: "flex",
         width: "3rem",
         justifyContent: "right",
-        fontSize: "2rem"
+        fontSize: "min(2rem, 4vw)"
     },
-
-    pointsWrapSmall: {
-        display: "flex",
-        width: "3rem",
-        justifyContent: "right",
-        fontSize: "1.25rem"
-    }
-
 })
 
 export default useStyles;

@@ -66,7 +66,6 @@ wss.on("connection", (ws) => {
                     const initialInfo = room.game.initialInfo();
 
                     console.log("INITIAL INFO:", initialInfo);
-                    console.log("game id: ", room.game.gameId);
                     broadcastToPlayers(
                         "redirectToGame",
                         {
@@ -148,8 +147,6 @@ app.post("/newRoom", (req, res) => {
     const roomId = uuidv4();
     
     try {
-        console.log("name: ", req.body);
-        console.log("name: ", req.body.name);
         currentRooms.addRoomDisassembled(roomId, req.body.name, req.body.gamemode);
         
         //todo - timeout jeśli nikt nie wszedł

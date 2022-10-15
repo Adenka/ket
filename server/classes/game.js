@@ -126,7 +126,6 @@ class Game {
     }
     
     #addCardToTable = (cardsOnTable) => {
-        console.log("cardsOnTable length", cardsOnTable.length);
         while (!this.#isSetOnTable(cardsOnTable) && this.#cardsUsed < this.#DECK_AMOUNT) {
             cardsOnTable.push(this.cards[this.#cardsUsed]);
             cardsOnTable.push(this.cards[this.#cardsUsed + 1]);
@@ -154,7 +153,6 @@ class Game {
 
     initialInfo = () => {
         const cardsData = this.#cardsMap(this.cardsOnTable);
-        console.log("start time: ", this.#startTime)
         return {
             cardsOnTable: cardsData,
             cardsUsed: this.#cardsUsed,
@@ -220,7 +218,6 @@ class Game {
         const player = this.players[playerId];
 
         if (!this.#isCardOnTable(cardName)) {
-            console.log("Da hell mate");
             player.websocket.send(JSON.stringify({type: "error", content: "cardNotOnTable"}));
             return;
         }

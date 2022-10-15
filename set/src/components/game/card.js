@@ -6,6 +6,11 @@ import { useTheme } from "@emotion/react";
 import { kolorki } from "../../assets/kolorki"
 import { GameContext } from "../gameContext";
 
+// 192 - scores, 88 - top menu, 24 - padding between cards, 48 - top and bottom wrapper margin
+const heightBig = "min(calc((100vh - 10rem - 88px - 24px - 48px)/3), 12.5rem)";
+
+const widthSmall = "min(calc((100vw - 48px)/3), 14rem)";
+
 const useStyles = makeStyles({
     rootBig: {
         display: "flex",
@@ -14,8 +19,8 @@ const useStyles = makeStyles({
         justifyContent: "center",
 
         padding: "1rem",
-        height: "12.5rem",
-        width: "10rem",
+        height: `${heightBig}`,
+        width: `calc(4*${heightBig}/5)`,
         margin: "0.25rem",
 
         position: "relative",
@@ -31,7 +36,6 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "center",
         boxSizing: "border-box",
-
         padding: "0.25rem",
         height: "100%",
     },
@@ -40,10 +44,9 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-
         padding: "1rem",
-        height: "6.25rem",
-        width: "30%",
+        height: `calc((2*${widthSmall})/3)`,
+        width: `${widthSmall}`,
         margin: "0.25rem",
 
         position: "relative",
@@ -122,7 +125,7 @@ function Card(props) {
     const classes = useStyles();
     const { amI, returnPlayer } = useContext(GameContext);
     const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
     const shapeMap = isSmall ? shapeMapSmall : shapeMapBig;
 
     const amIInClicked = amI(props.cardObject);
@@ -160,7 +163,7 @@ function Card(props) {
             {Array.from(Array(parseInt(props.amount))).map((_, index) =>
             <div key = {index} className = {isSmall ? classes.cardWrapSmall : classes.cardWrapBig}>
                 <svg
-                    width = {isSmall ? 40 : 100}
+                    width = {isSmall ? `calc(${widthSmall}/5)` : `calc(${heightBig}/2)`}
                     height = "auto"
                     viewBox={shapeMap[props.shape].viewBox}
                 >

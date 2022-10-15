@@ -1,14 +1,10 @@
-import { useTheme } from "@emotion/react";
-import { useMediaQuery } from "@mui/material";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { GameContext } from "../gameContext";
 
 function Timer() {
-    const theme = useTheme();
     const [time, setTime] = useState(0);
     const { isGameOver, gameId, gameStartTime, gameOverTime } = useContext(GameContext);
     const startDate = useRef(null);
-    const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
 
     useEffect(() => {
         startDate.current = gameStartTime;
@@ -34,7 +30,12 @@ function Timer() {
     const seconds = Math.floor(time / 1000) % 60;
     const milliseconds = Math.floor((time / 100) % 10);
 
-    return <div style = {{fontSize: isSmall ? "2.5rem" : "3rem"}}>
+    return <div style = {{
+        display: "flex",
+        alignItems: "center",
+        justifyItems: "center",
+        fontSize: "min(7.5vw, 3rem)"
+    }}>
         {(minutes < 10 ? "0" : "") + minutes} : {("0" + seconds).slice(-2)} . {milliseconds}
     </div>
 }

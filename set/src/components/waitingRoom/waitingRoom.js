@@ -32,7 +32,7 @@ function WaitingRoom() {
     const classes = useStyles();
     const { socket, roomId, players, socketConnected } = useContext(GameContext);
     const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down("lg"));
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
 
     function handleButtonOnClick() {
         socket.current.send(JSON.stringify({
@@ -62,8 +62,8 @@ function WaitingRoom() {
             <LoadingRoom/>
             :
             (
-                <div className = {classes.root}>
-                    <div className = {classes.leftWrap} style = {{width: "35%"}}>
+                <div className = {classes.root} style = {{flexDirection: isSmall ? "column" : "row"}}>
+                    <div className = {classes.leftWrap} style = {{width: isSmall ? "100%" : "35%"}}>
                         <PlayerList players = {players}/>
                         <RoomLink/>
                     </div>

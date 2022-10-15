@@ -35,7 +35,6 @@ class Player {
     }
 
     set colorNumber(number) {
-        console.log("ustawiam kolorek");
         this.#colorNumber = number;
     }
 
@@ -88,8 +87,6 @@ class Player {
         set.forEach(setCard => {
             this.#removeSelection(setCard);
         });
-
-        console.log("players selections: ", this.selections.map((card) => card.cardMap()));
     }
 
     isSetSelected = () => {

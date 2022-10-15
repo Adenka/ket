@@ -1,30 +1,13 @@
 import { makeStyles } from "@mui/styles";
-import React from "react";
+import React, { useContext } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import "../../assets/fonts.css";
 import { useParams } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { ErrorContext } from "../errors";
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.secondary.light,
-        borderRadius: "100rem",
-        padding: "1rem",
-        display: "flex",
-        width: "100%"
-    },
-
-    textWrap: {
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        height: "100%",
-        padding: "1rem",
-        //backgroundColor: "blue",
-        flex: 7
-    },
-
     iconWrap: {
         display: "flex",
         alignItems: "center",
@@ -38,6 +21,7 @@ function RoomLink() {
     const { roomId } = useParams();
     const theme = useTheme();
     const url = `https://ket.onrender.com/${roomId}/wait`;
+    const { setIsMessageOn, setCurrentMessage, setCurrentSeverity } = useContext(ErrorContext);
 
     return <TextField
         //className = {classes.textWrap}
@@ -49,7 +33,12 @@ function RoomLink() {
                     <div className = {classes.iconWrap}>
                     <IconButton
                         size = "large"
-                        onClick = {() => navigator.clipboard.writeText(url)}
+                        onClick = {() => {
+                            navigator.clipboard.writeText(url);
+                            setIsMessageOn(true);
+                            setCurrentMessage("Link copid!");
+                            setCurrentSeverity("info");
+                        }}
                     >
                         <ContentCopyIcon fontSize = "large"/>
                     </IconButton>
@@ -57,8 +46,8 @@ function RoomLink() {
                 </InputAdornment>,
             
             style: {
-                fontSize: "min(2.5vh, 5vw)",
-                width: "min(40rem, 100%)",
+                fontSize: "min(1.5rem, 5vw)",
+                width: "100%",
                 padding: "2rem",
                 backgroundColor: theme.palette.secondary.light,
                 borderRadius: "100rem",
