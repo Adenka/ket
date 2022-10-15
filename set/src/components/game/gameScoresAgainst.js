@@ -1,33 +1,28 @@
 import React, { useContext } from "react";
 import { Grid, Paper } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
-import { useTheme } from "@emotion/react";
 import "../../assets/fonts.css"
 import useStyles from "./gameScoreStyles"
 import { kolorki } from "../../assets/kolorki"
 import { GameContext } from "../gameContext";
 
 function GameScore(props) {
-    const theme = useTheme();
     const classes = useStyles();
-    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
-    const bigOrSmall = isSmall ? "Small" : "Big";
     const { players } = useContext(GameContext);
     const numberOfPlayers = players.length;
 
     return <Grid item xs = {Math.max(12/numberOfPlayers)}>
         <Paper
-            className = {classes[`scoreWrap${bigOrSmall}`]}
+            className = {classes.scoreWrap}
             sx = {{
                 backgroundColor: kolorki[props.colorNumber][500],
                 fontFamily: "Prompt",
                 borderRadius: "1rem"
             }}
         >
-            <div className = {classes[`usernameWrap${bigOrSmall}`]}>
+            <div className = {classes.usernameWrap}>
                 {props.username}
             </div>
-            <div className = {classes[`pointsWrap${bigOrSmall}`]}>
+            <div className = {classes.pointsWrap}>
                 {props.points}
             </div>
         </Paper>
