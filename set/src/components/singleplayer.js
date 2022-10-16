@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { UsernameContext } from "./App";
 import { GameContext } from "./gameContext";
 
 export function Singleplayer() {
     const navigate = useNavigate();
-
-    const { username } = useContext(UsernameContext);
 
     const DECK_AMOUNT = 81;
     const SET_AMOUNT = 3;
@@ -267,7 +264,7 @@ export function Singleplayer() {
         colorNumber,
         points,
         selections,
-        username
+        username: localStorage.getItem("username")
     }
 
     return <GameContext.Provider

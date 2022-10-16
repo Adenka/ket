@@ -23,18 +23,19 @@ function RoomPaper(props) {
             flexWrap: "wrap",
             justifyContent: "center",
             paddingTop: "1rem",
-            paddingBottom: "1rem"
+            paddingBottom: "1rem",
+            minHeight: "70vh",
+            flexGrow: 1
         }}
     >
         {rooms.filter(room => room.gamemode === gameModes[props.alignment]).map((room) => (
-            <div key = {room.roomId}>
-                <Room
-                    roomId = {room.roomId}
-                    name = {room.name}
-                    usernames = {room.players}
-                    gameOnGoing = {room.game}
-                />
-            </div>
+            <Room
+                key = {room.roomId}
+                roomId = {room.roomId}
+                name = {room.name}
+                usernames = {room.players}
+                gameOnGoing = {room.game}
+            />
         ))}
     </div>
 }

@@ -149,7 +149,6 @@ app.post("/newRoom", (req, res) => {
     try {
         currentRooms.addRoomDisassembled(roomId, req.body.name, req.body.gamemode);
         
-        //todo - timeout jeśli nikt nie wszedł
         res.json(roomId);
     }
     catch {

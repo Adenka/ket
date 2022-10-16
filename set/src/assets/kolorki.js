@@ -1,3 +1,3 @@
-import { cyan, orange, pink, purple, red, yellow } from "@mui/material/colors";
+import { cyan, orange, pink, purple, red, green } from "@mui/material/colors";
 
-export const kolorki = [red, pink, purple, cyan, yellow, orange];
+export const kolorki = [red, pink, purple, cyan, green, orange];

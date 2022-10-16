@@ -12,8 +12,8 @@ const useStyles = makeStyles({
         margin: "0.5rem",
         display: "flex",
         padding: "1rem",
-        width: "30rem",
-        height: "13rem"
+        width: "min(95%, 30rem)",
+        height: "12rem"
     },
 
     list: {
@@ -98,7 +98,7 @@ function Room(props) {
         <div className = {classes.leftWrap}>
             <Typography
                 className = {classes.title}
-                sx = {{fontSize: "2rem", fontFamily: "Prompt"}}>
+                sx = {{fontSize: "min(2rem, 6.25vw)", fontFamily: "Prompt"}}>
                 {props.name}
             </Typography>
             <AvatarGroup max = {4} classes = {{ avatar: classes.avatar, root: classes.rootAvatar }}>
@@ -114,9 +114,9 @@ function Room(props) {
             <Button
                 variant = "contained"
                 onClick = {handlePlayOnClick}
-                sx = {{height: "4.5rem", width: "7.5rem",}}
+                sx = {{height: "min(4.5rem, 15vw)", width: "min(7.5rem, 25vw)",}}
             >
-                <Typography sx = {{fontSize: "1.25rem", letterSpacing: "0.125rem"}}>
+                <Typography sx = {{fontSize: "min(4vw, 1.25rem)", letterSpacing: "0.125rem"}}>
                     pulay
                 </Typography>
             </Button>

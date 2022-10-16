@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Typography, useMediaQuery, Button, TextField, AppBar, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import WaveStartPage from "../../assets/waveStartPage.svg"
 import "../../assets/fonts.css";
-import { UsernameContext } from "../App.js";
 import{ ReactComponent as Ket} from "../../assets/ket.svg"
 
 const useStyles = makeStyles(theme => ({
@@ -91,11 +90,13 @@ function StartPageTopMenu() {
 
 function NicknameInput() {
     const classes = useStyles();
-    const { username, setUsername } = useContext(UsernameContext);
     const theme = useTheme();
 
+    const [rerenderState, setRerenderState] = useState(0);
+
     function handleTextFieldChange(event) {
-        setUsername(event.target.value)
+        setRerenderState(rerenderState => rerenderState + 1);
+        localStorage.setItem("username", event.target.value);
     }
 
     return <div className = {classes.nicknameInputWrap}>
@@ -103,13 +104,13 @@ function NicknameInput() {
             autoFocus
             inputProps = {{
                 style: {
-                    fontSize: "min(3vh, 5vw)",
+                    fontSize: "min(1.75rem, 5vw)",
                     width: "min(40rem, 100%)",
-                    padding: "2rem",
+                    padding: "min(2rem, 5.5vw)",
                     backgroundColor: theme.palette.secondary.light
                 }
             }}
-            value = {username}
+            value = {localStorage.getItem("username")}
             onChange = {handleTextFieldChange}
             placeholder = "Ur naym"
             variant = "filled"
@@ -127,7 +128,7 @@ function PlayButton(props) {
             variant = "contained"
             className = {classes.button}
             onClick = {props.onClick}
-            sx = {{fontSize: "1.25rem",}}
+            sx = {{fontSize: "min(4vw, 1.25rem)"}}
         >
             {props.text}
         </Button>
@@ -142,7 +143,7 @@ function StartPage() {
 
     return <div>
         <StartPageTopMenu/>
-        <div className = {classes.root}>
+        <div className = {classes.root} style = {{alignItems: isBig ? "center" : "start", paddingTop: isBig ? 0 : "10vh"}}>
             <div className = {classes.leftWrap}>
                 <div>
                     <Typography

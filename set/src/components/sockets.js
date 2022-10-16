@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Outlet, useLocation, matchRoutes } from "react-router-dom";
-import { UsernameContext } from "./App";
 import { ErrorContext } from "./errors";
 import { GameContext } from "./gameContext";
 
@@ -37,8 +36,6 @@ export function Sockets() {
     const timeoutNumber = useRef(null);
 
     const stupidTimeoutNumber = useRef(null);
-
-    const { username } = useContext(UsernameContext);
 
     const amI = (cardObject) => {
         return Object.values(cardObject.clicked).some(click => click.playerId === playerId);
@@ -88,7 +85,7 @@ export function Sockets() {
 
             socket.current.send(JSON.stringify({
                 type: "newPlayerInRoom",
-                username: username,
+                username: localStorage.getItem("username"),
                 roomId: roomId,  
             }));
         }

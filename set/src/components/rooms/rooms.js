@@ -66,7 +66,7 @@ function ModeTabs(props) {
                 sx = {{
                     width: "50%",
                     minWidth: "33%",
-                    fontSize: "1.25rem",
+                    fontSize: "min(4vw, 1.25rem)",
                     height: "4.5rem",
                 }}
                 {...a11yProps(0)}
@@ -76,7 +76,7 @@ function ModeTabs(props) {
                 sx = {{
                     width: "50%",
                     minWidth: "33%",
-                    fontSize: "1.25rem",
+                    fontSize: "min(4vw, 1.25rem)",
                 }}
                 {...a11yProps(1)}
             ></Tab>
@@ -118,7 +118,7 @@ function Rooms() {
             minHeight: "100vh",
             backgroundImage: `url(${CatsCorner})`,
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "left 2rem bottom 1rem"
+            backgroundPosition: "left 2rem bottom 1rem",
         }}
     >
         <RoomTopMenu/>

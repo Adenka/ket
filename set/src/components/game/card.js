@@ -9,7 +9,7 @@ import { GameContext } from "../gameContext";
 // 192 - scores, 88 - top menu, 24 - padding between cards, 48 - top and bottom wrapper margin
 const heightBig = "min(calc((100vh - 10rem - 88px - 24px - 48px)/3), 12.5rem)";
 
-const widthSmall = "min(calc((100vw - 48px)/3), 14rem)";
+const widthSmall = "calc((100vw - 48px)/3)";
 
 const useStyles = makeStyles({
     rootBig: {
@@ -44,10 +44,9 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "1rem",
         height: `calc((2*${widthSmall})/3)`,
         width: `${widthSmall}`,
-        margin: "0.25rem",
+        margin: "min(0.25rem, 1vw)",
 
         position: "relative",
 
@@ -62,7 +61,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "center",
 
-        padding: "0.25rem",
+        padding: `calc(${widthSmall}/75)`,
         height: "100%",
     },
 
@@ -142,7 +141,7 @@ function Card(props) {
             
             outline:
                 amIInClicked
-                ? `solid 0.25rem ${kolorki[playerInRes.colorNumber][500]}`
+                ? `solid min(0.75vw, 0.25rem) ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
         }}
         onClick = {props.onClick}
@@ -163,15 +162,15 @@ function Card(props) {
             {Array.from(Array(parseInt(props.amount))).map((_, index) =>
             <div key = {index} className = {isSmall ? classes.cardWrapSmall : classes.cardWrapBig}>
                 <svg
-                    width = {isSmall ? `calc(${widthSmall}/5)` : `calc(${heightBig}/2)`}
-                    height = "auto"
+                    width = {isSmall ? `calc(${widthSmall}/4)` : `calc(${heightBig}/2)`}
+                    height = {isSmall ? `calc(${widthSmall}/1.5)` : "auto"}
                     viewBox={shapeMap[props.shape].viewBox}
                 >
                     <defs>
                         <pattern
                             id = {`stripes${props.color}${props.shape}${props.amount}`}
                             patternUnits = "userSpaceOnUse"
-                            width = "20"
+                            width = "25"
                             height = "1"
                         >
                             <line
@@ -180,7 +179,7 @@ function Card(props) {
                                 x2 = "0"
                                 y2 = "9.5"
                                 stroke = {props.color}
-                                strokeWidth = "20"
+                                strokeWidth = "25"
                             />
                         </pattern>
                     </defs>
@@ -194,7 +193,7 @@ function Card(props) {
                                 )
                             }
                             stroke = {props.color}
-                            strokeWidth = "10"
+                            strokeWidth = {isSmall ? "13" : "11"}
                         />
                     </g>
                 </svg>

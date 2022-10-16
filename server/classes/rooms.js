@@ -10,7 +10,9 @@ class Rooms {
 
     toJSONPreview = () => {
         return JSON.stringify(
-            Object.values(this.rooms).map((room) => ({
+            Object.values(this.rooms)
+            .filter((room) => Object.keys(room.players).length > 0)
+            .map((room) => ({
                 roomId: room.roomId,
                 name: room.name,
                 gamemode: room.gamemode,
@@ -28,6 +30,12 @@ class Rooms {
         }
 
         this.rooms[room.roomId] = room;
+
+        setTimeout(() => {
+            if (Object.entries(room.players).length == 0) {
+                this.removeRoom(room.roomId);
+            }
+        }, 5000);
     }
 
     addRoomDisassembled = (roomId, name, gamemode) => {

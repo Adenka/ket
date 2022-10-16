@@ -30,8 +30,8 @@ function AddRoomButton(props) {
         onClick = {props.onClick}
         sx = {{
             position: "fixed",
-            right: "4rem",
-            bottom: "4rem",
+            right: "min(4rem, 10vw)",
+            bottom: "min(4rem, 10vw)",
             padding: "2.5rem",
 
             "path:first-of-type": {
