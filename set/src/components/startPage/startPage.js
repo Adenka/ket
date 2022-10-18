@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, useMediaQuery, Button, TextField, AppBar, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
@@ -140,6 +140,10 @@ function StartPage() {
     const classes = useStyles(theme);
     const navigate = useNavigate();
     const isBig = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+
+    useEffect(() => {
+        localStorage.setItem("username", "");
+    }, []);
 
     return <div>
         <StartPageTopMenu/>
