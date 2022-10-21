@@ -142,8 +142,10 @@ function StartPage() {
     const isBig = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
     useEffect(() => {
-        localStorage.setItem("username", "");
-    }, []);
+        if (localStorage.getItem("username") === null) {
+            localStorage.setItem("username", "");
+        }
+    }, [])
 
     return <div>
         <StartPageTopMenu/>

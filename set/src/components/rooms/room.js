@@ -6,6 +6,7 @@ import "../../assets/fonts.css"
 import { useTheme } from "@emotion/react";
 import { pink } from "@mui/material/colors";
 import { ErrorContext } from "../errors";
+import { kolorki } from "../../assets/kolorki";
 
 const useStyles = makeStyles({
     root: {
@@ -88,12 +89,6 @@ function Room(props) {
         })
     }
 
-    function randomPink() {
-        let rnd = (Math.floor(Math.random() * 9) + 1) * 100;
-        
-        return rnd;
-    }
-
     return <Paper className = {classes.root} sx = {{backgroundColor: theme.palette.secondary.light}}>
         <div className = {classes.leftWrap}>
             <Typography
@@ -105,7 +100,7 @@ function Room(props) {
                 {props.usernames.map((item, key) =>
                     <Avatar key = {key}
                         alt = {item.username}
-                        sx = {{backgroundColor: pink[randomPink()]}}
+                        sx = {{backgroundColor: kolorki[item.colorNumber][500]}}
                     >{item.username[0]}</Avatar>
                 )}
             </AvatarGroup>

@@ -19,6 +19,7 @@ class Rooms {
                 game: room.game ? true : false,
                 players: Object.values(room.players).map(player => ({
                     username: player.username,
+                    colorNumber: player.colorNumber
                 })),
             }))
         )

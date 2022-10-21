@@ -95,8 +95,9 @@ function ModeTabs(props) {
 }
 
 function Rooms() {
-    const [alignment, setAlignment] = useState(0);
+    const [alignment, setAlignment] = useState(parseInt(localStorage.getItem("alignment")) || 0);
     const handleAlignment = (event, newAlignment) => {
+        localStorage.setItem("alignment", newAlignment);
         setAlignment(newAlignment);
     };
 
