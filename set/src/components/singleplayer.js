@@ -77,6 +77,12 @@ export function Singleplayer() {
     const [ points, setPoints ]                 = useState(0);
     const [ colorNumber, setColorNumber ]       = useState(0);
 
+    // This should guarantee that we lay the table only AFTER cards
+    // variable has been already set.
+    useEffect(() => {
+        setCardsOnTable(layTheTable(cards, 12));
+    }, [cards]);
+
     useEffect(() => {
         if (!isGameOver) {
             setPoints(0);
@@ -84,10 +90,11 @@ export function Singleplayer() {
             setColorNumber(Math.floor(Math.random() * 6));
 
             const shuffledCards = shuffleCards();
+           
+            // Now we can safely set the cards and not worry about async.
             setCards(shuffledCards);
+
             setCardsUsed(12);
-            setCardsOnTable(layTheTable(shuffledCards, 12));
-            
             setGameId(gameId => gameId + 1);
             setGameStartTime(Date.now());
         }
