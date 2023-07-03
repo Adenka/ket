@@ -1,8 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, NativeSelect, TextField } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function AddRoomDialog(props) {
+const AddRoomDialog = (props) => {
     const navigate = useNavigate();
     const gameModes = ["Cooperation", "Against"];
     const [name, setName] = useState("Ket game");
@@ -12,7 +12,7 @@ function AddRoomDialog(props) {
         setMode(props.defaultValue);
     }, [props.defaultValue])
 
-    function handleYes() {
+    const handleYes = () => {
         fetch("/newRoom", {
             method: "POST",
             headers: {

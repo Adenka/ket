@@ -6,11 +6,7 @@ import { GameContext } from "./gameContext";
 const routes = [{ path: "/:roomId/game" }, {path: "/:roomId/wait"}];
 
 export function Sockets() {
-    const {
-        setIsMessageOn,
-        setCurrentMessage,
-        setCurrentSeverity
-    }  = useContext(ErrorContext);
+    const { setSnackbar } = useContext(ErrorContext);
 
     const socket = useRef(null);
     const [ socketConnected, setSocketConnected ] = useState(false);
@@ -58,7 +54,6 @@ export function Sockets() {
     }
 
     const rematch = () => {
-        console.log("wysyłam skarpete o rematch");
         socket.current.send(JSON.stringify({
             type: "rematch",
             roomId: roomId
@@ -112,28 +107,23 @@ export function Sockets() {
 
             switch(type) {
                 case "playerId": {
-                    console.log("ustawiam id");
                     setPlayerId(content);
+
                     break;
                 }
 
                 case "madeHost": {
-                    console.log("host");
-                    setIsMessageOn(true);
-                    setCurrentMessage("U r boz now");
-                    setCurrentSeverity("info");
+                    setSnackbar("U r bos now", "info");
 
                     break;
                 }
 
                 case "players": {
-                    console.log("ustawiam graczy");
                     setPlayers(content);
                     break;
                 }
 
                 case "redirectToGame": {
-                    console.log("przekierowywuję graczy");
                     const info = content.initialInfo;
                     navigate(`/${content.roomId}/game`);
 
@@ -150,43 +140,38 @@ export function Sockets() {
                 }
 
                 case "cardClicked": {
-                    console.log("kliknięto kartę");
                     setCardsOnTable(content);
+
                     break;
                 }
 
                 case "error": {
-                    console.log("sussy bakka");
-
-                    setIsMessageOn(true);
-                    setCurrentSeverity("error");
-                    
                     switch(content) {
                         case "wrongRoomId": {
-                            setCurrentMessage("Bad kitteh bed number!");
+                            setSnackbar("Bad kitteh bed number!", "error");
                             leave();
                             break;
                         }
                         case "gameOnGoing": {
-                            setCurrentMessage("Kittehz pluying!");
+                            setSnackbar("Kittehz pluying!", "error");
                             leave();
                             break;
                         }
                         case "playerLimitExceeded": {
-                            setCurrentMessage("2 lotz da kittehz!");
+                            setSnackbar("2 lotz da kittehz!", "error");
                             leave();
                             break;
                         }
                         case "cardNotOnTable":
-                            setCurrentMessage("Da hell dude");
+                            setSnackbar("Da hell dude", "error");
                             break;
                         case "startNotByHost": {
-                            setCurrentMessage("Othr kitteh iz bos");
+                            setSnackbar("Othr kitteh iz bos", "error");
                             break;
                         }
                         default:
                             console.log("content: ", content);
-                            setCurrentMessage(content);
+                            setSnackbar(content, "error");
                             break;
                     }
                     
@@ -221,9 +206,7 @@ export function Sockets() {
 
     useEffect(() => {
         if (route.path === "/:roomId/game" && socket.current === null) {
-            setIsMessageOn(true);
-            setCurrentMessage("Left gaem");
-            setCurrentSeverity("info");
+            setSnackbar("Left gaem", "info");
             navigate("/rooms");
             return;
         }

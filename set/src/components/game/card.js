@@ -120,14 +120,14 @@ const shapeMapSmall = {
     }
 };
 
-function Card(props) {
+function Card({cardObject, onClick}) {
     const classes = useStyles();
     const { amI, returnPlayer } = useContext(GameContext);
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("md"));
     const shapeMap = isSmall ? shapeMapSmall : shapeMapBig;
 
-    const amIInClicked = amI(props.cardObject);
+    const amIInClicked = amI(cardObject);
 
     let playerInRes = returnPlayer();
 
@@ -144,10 +144,10 @@ function Card(props) {
                 ? `solid min(0.75vw, 0.25rem) ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
         }}
-        onClick = {props.onClick}
+        onClick = {onClick}
         >   
             <div className = {classes.dots}>
-            {Object.values(props.clicked).filter(
+            {Object.values(cardObject.clicked).filter(
                 click => click.playerId !== playerInRes.playerId
             ).map((click) => 
                 <div
@@ -159,16 +159,16 @@ function Card(props) {
                 />
                 )}
             </div>
-            {Array.from(Array(parseInt(props.amount))).map((_, index) =>
+            {Array.from(Array(parseInt(cardObject.number))).map((_, index) =>
             <div key = {index} className = {isSmall ? classes.cardWrapSmall : classes.cardWrapBig}>
                 <svg
                     width = {isSmall ? `calc(${widthSmall}/4)` : `calc(${heightBig}/2)`}
                     height = {isSmall ? `calc(${widthSmall}/1.5)` : "auto"}
-                    viewBox={shapeMap[props.shape].viewBox}
+                    viewBox={shapeMap[cardObject.shape].viewBox}
                 >
                     <defs>
                         <pattern
-                            id = {`stripes${props.color}${props.shape}${props.amount}`}
+                            id = {`stripes${cardObject.color}${cardObject.shape}${cardObject.number}`}
                             patternUnits = "userSpaceOnUse"
                             width = "25"
                             height = "1"
@@ -178,21 +178,21 @@ function Card(props) {
                                 y = "0"
                                 x2 = "0"
                                 y2 = "9.5"
-                                stroke = {props.color}
+                                stroke = {cardObject.color}
                                 strokeWidth = "25"
                             />
                         </pattern>
                     </defs>
-                    <g transform = {shapeMap[props.shape].transform}>
+                    <g transform = {shapeMap[cardObject.shape].transform}>
                         <path
-                            d = {shapeMap[props.shape].d} 
-                            fill = {props.fill === "none" ? "none" :
-                                (props.fill === "striped"
-                                    ?`url(#stripes${props.color}${props.shape}${props.amount})`
-                                    : `${props.color}`
+                            d = {shapeMap[cardObject.shape].d} 
+                            fill = {cardObject.fill === "none" ? "none" :
+                                (cardObject.fill === "striped"
+                                    ?`url(#stripes${cardObject.color}${cardObject.shape}${cardObject.number})`
+                                    : `${cardObject.color}`
                                 )
                             }
-                            stroke = {props.color}
+                            stroke = {cardObject.color}
                             strokeWidth = {isSmall ? "13" : "11"}
                         />
                     </g>

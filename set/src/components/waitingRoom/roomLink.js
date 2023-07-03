@@ -21,7 +21,7 @@ function RoomLink() {
     const { roomId } = useParams();
     const theme = useTheme();
     const url = `https://ket.onrender.com/${roomId}/wait`;
-    const { setIsMessageOn, setCurrentMessage, setCurrentSeverity } = useContext(ErrorContext);
+    const { setSnackbar } = useContext(ErrorContext);
 
     return <TextField
         //className = {classes.textWrap}
@@ -35,9 +35,7 @@ function RoomLink() {
                         size = "large"
                         onClick = {() => {
                             navigator.clipboard.writeText(url);
-                            setIsMessageOn(true);
-                            setCurrentMessage("Link copid!");
-                            setCurrentSeverity("info");
+                            setSnackbar("Link copid!", "info");
                         }}
                     >
                         <ContentCopyIcon fontSize = "large"/>

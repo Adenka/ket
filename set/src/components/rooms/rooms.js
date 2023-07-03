@@ -21,17 +21,13 @@ const useStyles = makeStyles({
     }
 })
 
-function RoomTopMenu() {
+const RoomTopMenu = () => {
     const classes = useStyles();
     const navigate = useNavigate();
 
-    function redirectToHome() {
-        navigate("/");
-    }
-
     return <AppBar position = "static" sx = {{height: "5.5rem"}}>
         <Toolbar>
-            <IconButton onClick = {redirectToHome}>
+            <IconButton onClick = {() => navigate("/")}>
                 <HomeIcon fontSize = "large"/>
             </IconButton>
             <Typography
@@ -45,7 +41,20 @@ function RoomTopMenu() {
     </AppBar>
 }
 
-function ModeTabs(props) {
+const ModeTab = ({label, index, a11yProps}) => {
+    return <Tab
+        label = {label}
+        sx = {{
+            width: "50%",
+            minWidth: "33%",
+            fontSize: "min(4vw, 1.25rem)",
+            height: "4.5rem",
+        }}
+        {...a11yProps(index)}
+    ></Tab>
+}
+
+const ModeTabs = (props) => {
     function a11yProps(index) {
         return {
             id: `full-width-tab-${index}`,
@@ -54,63 +63,58 @@ function ModeTabs(props) {
     }
 
     return <div style = {{padding: "1rem", paddingTop: "2rem"}}>
-    <TabContext value = {props.value}>
-        <Tabs
-            value = {props.value}
-            onChange = {props.onChange}
-            aria-label = "gamemode"
-            centered
-        >
-            <Tab
-                label = "Cooperashun wif othr kittehz"
-                sx = {{
-                    width: "50%",
-                    minWidth: "33%",
-                    fontSize: "min(4vw, 1.25rem)",
-                    height: "4.5rem",
-                }}
-                {...a11yProps(0)}
-            ></Tab>
-            <Tab 
-                label = "Aganzt othr kittehz"
-                sx = {{
-                    width: "50%",
-                    minWidth: "33%",
-                    fontSize: "min(4vw, 1.25rem)",
-                }}
-                {...a11yProps(1)}
-            ></Tab>
-        </Tabs>
-        <SwipeableViews axis = "x" index = {props.value} onChangeIndex = {props.onChangeIndex}>
-            <TabPanel value = {props.value} index = {0} sx = {{padding: 0}}>
-                <RoomPaper alignment = {props.value}/>
-            </TabPanel>
-            <TabPanel value = {props.value} index = {1} sx = {{padding: 0}}>
-                <RoomPaper alignment = {props.value}/>
-            </TabPanel>
-        </SwipeableViews>
-    </TabContext>
-</div>
-
+        <TabContext value = {props.value}>
+            <Tabs
+                value = {props.value}
+                onChange = {props.onChange}
+                aria-label = "gamemode"
+                centered
+            >
+                <Tab
+                    label = "Cooperashun wif othr kittehz"
+                    sx = {{
+                        width: "50%",
+                        minWidth: "33%",
+                        fontSize: "min(4vw, 1.25rem)",
+                        height: "4.5rem",
+                    }}
+                    {...a11yProps(0)}
+                ></Tab>
+                {/*<ModeTab label = "Cooperashun wif othr kittehz" index = {0} a11yProps = {a11yProps}/>*/}
+                {/*<ModeTab label = "Aganzt othr kittehz" index = {1} a11yProps = {a11yProps}/>*/}
+                <Tab 
+                    label = "Aganzt othr kittehz"
+                    sx = {{
+                        width: "50%",
+                        minWidth: "33%",
+                        fontSize: "min(4vw, 1.25rem)",
+                    }}
+                    {...a11yProps(1)}
+                ></Tab>
+            </Tabs>
+            <SwipeableViews axis = "x" index = {props.value} onChangeIndex = {props.onChangeIndex}>
+                <TabPanel value = {props.value} index = {0} sx = {{padding: 0}}>
+                    <RoomPaper alignment = {props.value}/>
+                </TabPanel>
+                <TabPanel value = {props.value} index = {1} sx = {{padding: 0}}>
+                    <RoomPaper alignment = {props.value}/>
+                </TabPanel>
+            </SwipeableViews>
+        </TabContext>
+    </div>
 }
 
-function Rooms() {
+const Rooms = () => {
     const [alignment, setAlignment] = useState(parseInt(localStorage.getItem("alignment")) || 0);
     const handleAlignment = (event, newAlignment) => {
+        console.log(newAlignment);
         localStorage.setItem("alignment", newAlignment);
         setAlignment(newAlignment);
     };
 
     const [openDialog, setOpenDialog] = useState(false);
-    function handleOpenDialog() {
-        setOpenDialog(true);
-    }
 
-    function handleCloseDialog() {
-        setOpenDialog(false);
-    }
-
-    function handleChangeIndex(index) {
+    const handleChangeIndex = (index) => {
         setAlignment(index);
     }
 
@@ -128,8 +132,8 @@ function Rooms() {
             onChange = {handleAlignment}
             onChangeIndex = {handleChangeIndex}
         />
-        <AddRoomDialog open = {openDialog} onClose = {handleCloseDialog} defaultValue = {alignment}/>
-        <AddRoomButton onClick = {handleOpenDialog}/>
+        <AddRoomDialog open = {openDialog} onClose = {() => setOpenDialog(false)} defaultValue = {alignment}/>
+        <AddRoomButton onClick = {() => setOpenDialog(true)}/>
     </div>
 }
 

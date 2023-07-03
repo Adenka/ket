@@ -54,12 +54,12 @@ const useStyles = makeStyles({
     }
 })
 
-function Room(props) {
+const Room = ({roomObject}) => {
     const theme = useTheme();
     const classes = useStyles();
     const navigate = useNavigate();
     const timer = useRef();
-    const { setIsMessageOn, setCurrentMessage, setCurrentSeverity } = useContext(ErrorContext);
+    const { setSnackbar } = useContext(ErrorContext);
 
     useEffect(() => {
         return () => {
@@ -67,24 +67,22 @@ function Room(props) {
         };
     }, []);
 
-    function handlePlayOnClick() {
+    const handlePlayOnClick = () => {
         fetch("/canPlayerJoin", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({roomId: props.roomId})
+            body: JSON.stringify({roomId: roomObject.roomId})
         }).then(
             response => response.json()
         ).then(function(data) {
             console.log(data);
             if (data.addRes) {
-                navigate(`/${props.roomId}/wait`)
+                navigate(`/${roomObject.roomId}/wait`)
             }
             else {
-                setIsMessageOn(true);
-                setCurrentMessage(data.message)
-                setCurrentSeverity("error");
+                setSnackbar(data.message, "error");
             }
         })
     }
@@ -94,10 +92,10 @@ function Room(props) {
             <Typography
                 className = {classes.title}
                 sx = {{fontSize: "min(2rem, 6.25vw)", fontFamily: "Prompt"}}>
-                {props.name}
+                {roomObject.name}
             </Typography>
             <AvatarGroup max = {4} classes = {{ avatar: classes.avatar, root: classes.rootAvatar }}>
-                {props.usernames.map((item, key) =>
+                {roomObject.usernames.map((item, key) =>
                     <Avatar key = {key}
                         alt = {item.username}
                         sx = {{backgroundColor: kolorki[item.colorNumber][500]}}

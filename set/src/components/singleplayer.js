@@ -64,7 +64,7 @@ export function Singleplayer() {
     }
 
     const [ cards, setCards ]                   = useState(shuffleCards());
-    const [ cardsUsed, setCardsUsed ]           = useState(12);
+    const [ cardsInUse, setCardsInUse ]         = useState(12);
     const [ cardsOnTable, setCardsOnTable ]     = useState([]);
 
     const gamemode = "Singleplayer";
@@ -85,7 +85,7 @@ export function Singleplayer() {
 
             const shuffledCards = shuffleCards();
             setCards(shuffledCards);
-            setCardsUsed(12);
+            setCardsInUse(12);
             setCardsOnTable(layTheTable(shuffledCards, 12));
             
             setGameId(gameId => gameId + 1);
@@ -131,27 +131,27 @@ export function Singleplayer() {
         return false;
     }
 
-    const addCardToTable = (cardsssOnTable, cardsUsedCopy) => {
-        while (!isSetOnTable(cardsssOnTable) && cardsUsedCopy < DECK_AMOUNT) {
-            cardsssOnTable.push(cards[cardsUsedCopy]);
-            cardsssOnTable.push(cards[cardsUsedCopy + 1]);
-            cardsssOnTable.push(cards[cardsUsedCopy + 2]);
+    const addCardToTable = (_cards, _cardsOnTable, _cardInUse) => {
+        while (!isSetOnTable(_cardsOnTable) && _cardInUse < DECK_AMOUNT) {
+            _cardsOnTable.push(_cards[_cardInUse]);
+            _cardsOnTable.push(_cards[_cardInUse + 1]);
+            _cardsOnTable.push(_cards[_cardInUse + 2]);
             
-            cardsUsedCopy += SET_AMOUNT;
+            _cardInUse += SET_AMOUNT;
         }
 
-        setCardsUsed(cardsUsedCopy);
+        setCardsInUse(_cardInUse);
 
-        return !isSetOnTable(cardsssOnTable);
+        return !isSetOnTable(_cardsOnTable);
     }
 
 
-    const layTheTable = (cardsss, cardsUsedCopy) => {
-        let cardsssOnTable = cardsss.slice(0, 12);
+    const layTheTable = (_cards, _cardsInUse) => {
+        let _cardsOnTable = _cards.slice(0, 12);
 
-        addCardToTable(cardsssOnTable, cardsUsedCopy);
+        addCardToTable(_cards, _cardsOnTable, _cardsInUse);
 
-        return cardsssOnTable;
+        return _cardsOnTable;
     }
 
     const cardOnClick = (cardName) => {
@@ -209,31 +209,31 @@ export function Singleplayer() {
     }
 
     const handleSelectedSet = (set) => {
-        let indexes = new Array(SET_AMOUNT);
+        let indexesOfSet = new Array(SET_AMOUNT);
         for (let i = 0; i < SET_AMOUNT; ++i) {
-            indexes[i] = cardsOnTable.findIndex(card => card.name === set[i].name);
+            indexesOfSet[i] = cardsOnTable.findIndex(card => card.name === set[i].name);
         }
 
-        indexes.sort((elem1, elem2) => elem2 - elem1);
+        indexesOfSet.sort((elem1, elem2) => elem2 - elem1);
         
-        const cardsOnTableCopy = [...cardsOnTable];
-        let cardsUsedCopy = cardsUsed;
+        const _cardsOnTable = [...cardsOnTable];
+        let _cardsInUse = cardsInUse;
         
-        if (cardsUsed < DECK_AMOUNT && cardsOnTableCopy.length === 12) {
+        if (cardsInUse < DECK_AMOUNT && _cardsOnTable.length === 12) {
             for (let i = 0; i < SET_AMOUNT; ++i) {
-                cardsOnTableCopy[indexes[i]] = cards[cardsUsedCopy++];
+                _cardsOnTable[indexesOfSet[i]] = cards[_cardsInUse++];
             }
         }
         else {
             for (let i = 0; i < SET_AMOUNT; ++i) {
-                cardsOnTableCopy.splice(indexes[i], 1);
+                _cardsOnTable.splice(indexesOfSet[i], 1);
             }
         }
         
-        const isssGameOver = addCardToTable(cardsOnTableCopy, cardsUsedCopy);
-        setCardsOnTable(cardsOnTableCopy);
+        const _isGameOver = addCardToTable(cards, _cardsOnTable, _cardsInUse);
+        setCardsOnTable(_cardsOnTable);
 
-        return isssGameOver;
+        return _isGameOver;
     }
 
     const select = (card) => {
@@ -271,7 +271,7 @@ export function Singleplayer() {
         value = {{
             players: [player],
             cardsOnTable,
-            cardsLeft: DECK_AMOUNT - cardsUsed,
+            cardsLeft: DECK_AMOUNT - cardsInUse,
             cardOnClick,
 
             gamemode,

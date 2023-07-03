@@ -14,16 +14,8 @@ const buttonAnticlockwise = keyframes`
     }
 `;
 
-function AddRoomButton(props) {
+const AddRoomButton = (props) => {
     const [animationStyle, setAnimationStyle] = useState({});
-
-    function handleMouseOver(){
-        setAnimationStyle('clockwise');
-    }
-
-    function handleMouseOut() {
-        setAnimationStyle('anticlockwise');
-    }
 
     return <Fab 
         color = "primary"
@@ -41,13 +33,12 @@ function AddRoomButton(props) {
                     ? `${buttonClockwise} 0.5s forwards 1`
                     : `${buttonAnticlockwise} 0.5s forwards 1`
             }
-            
         }}
     >
         <AddIcon 
             sx = {{fontSize: "4rem", color: "#ffffff"}}
-            onMouseOver = {handleMouseOver}
-            onMouseOut = {handleMouseOut}
+            onMouseOver = {() => setAnimationStyle('clockwise')}
+            onMouseOut = {() => setAnimationStyle('anticlockwise')}
         />
     </Fab>
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Room from "./room";
 
-function RoomPaper(props) {
+const RoomPaper = (props) => {
     const [rooms, setRooms] = useState([]);
 
     useEffect(() => {
@@ -29,13 +29,7 @@ function RoomPaper(props) {
         }}
     >
         {rooms.filter(room => room.gamemode === gameModes[props.alignment]).map((room) => (
-            <Room
-                key = {room.roomId}
-                roomId = {room.roomId}
-                name = {room.name}
-                usernames = {room.players}
-                gameOnGoing = {room.game}
-            />
+            <Room room = {room} />
         ))}
     </div>
 }

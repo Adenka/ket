@@ -7,15 +7,18 @@ export function Errors(props) {
     const [ currentMessage, setCurrentMessage ] = useState("");
     const [ currentSeverity, setCurrentSeverity] = useState("");
 
-    /*const [ addPlayerError, setAddPlayerError ] = useState("");
-    const [ cardNotOnTable, setCardNotOnTable ] = useState("");
-    const [ startNotByHost, setStartNotByHost ] = useState("")*/
+    const setSnackbar = (message, severity) => {
+        setIsMessageOn(true);
+        setCurrentMessage(message);
+        setCurrentSeverity(severity);
+    }
 
     return <ErrorContext.Provider
         value = {{
             isMessageOn, setIsMessageOn,
             currentMessage, setCurrentMessage,
-            currentSeverity, setCurrentSeverity
+            currentSeverity, setCurrentSeverity,
+            setSnackbar
         }}
     >
         {props.children}

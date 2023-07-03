@@ -70,13 +70,9 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         height: "100%"
     },
-
-    rightWrapSm: {
-
-    }
 }));
 
-function StartPageTopMenu() {
+const StartPageTopMenu = () => {
     const classes = useStyles();
 
     return <AppBar position = "static" sx = {{height: "5.5rem"}}>
@@ -88,14 +84,19 @@ function StartPageTopMenu() {
     </AppBar>
 }
 
-function NicknameInput() {
+const MainTitle = () => {
+    return <Typography
+        sx = {{fontFamily: "Righteous", paddingLeft: "1rem", fontSize: "min(10vw, 8vh)"}}
+    >
+        Speedy card klikin
+    </Typography>
+}
+
+const NicknameInput = () => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const [rerenderState, setRerenderState] = useState(0);
-
     function handleTextFieldChange(event) {
-        setRerenderState(rerenderState => rerenderState + 1);
         localStorage.setItem("username", event.target.value);
     }
 
@@ -110,7 +111,7 @@ function NicknameInput() {
                     backgroundColor: theme.palette.secondary.light
                 }
             }}
-            value = {localStorage.getItem("username")}
+            defaultValue = {localStorage.getItem("username")}
             onChange = {handleTextFieldChange}
             placeholder = "Ur naym"
             variant = "filled"
@@ -119,26 +120,26 @@ function NicknameInput() {
     </div>
 }
 
-function PlayButton(props) {
+const PlayButton = ({text, path}) => {
     const theme = useTheme();
     const classes = useStyles(theme);
+    const navigate = useNavigate();
 
     return <div className = {classes.buttonWrap}>
         <Button
             variant = "contained"
             className = {classes.button}
-            onClick = {props.onClick}
+            onClick = {() => navigate(path)}
             sx = {{fontSize: "min(4vw, 1.25rem)"}}
         >
-            {props.text}
+            {text}
         </Button>
     </div>
 }
 
-function StartPage() {
+const StartPage = () => {
     const theme = useTheme();
     const classes = useStyles(theme);
-    const navigate = useNavigate();
     const isBig = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
     useEffect(() => {
@@ -152,26 +153,21 @@ function StartPage() {
         <div className = {classes.root} style = {{alignItems: isBig ? "center" : "start", paddingTop: isBig ? 0 : "10vh"}}>
             <div className = {classes.leftWrap}>
                 <div>
-                    <Typography
-                        sx = {{fontFamily: "Righteous", paddingLeft: "1rem", fontSize: "min(10vw, 8vh)"}}
-                    >
-                        Speedy card klikin
-                    </Typography>
+                    <MainTitle/>
                     <NicknameInput/>
                     <div className = {classes.buttonsWrap}>
                         <PlayButton
                             text = "Lonely kitteh"
-                            onClick = {() => navigate("/singleplayer")}
+                            path = "/singleplayer"
                         />
                         <PlayButton
                             text = "Kitteh haz frenz"
-                            onClick = {() => navigate("/rooms")}
+                            path = "/rooms"
                         />
                     </div>
                 </div>
             </div>
-            <div className = {isBig ? classes.rightWrap : classes.rightWrapSm}>
-            </div>
+            <div className = {isBig ? classes.rightWrap : ""}></div>
         </div>
     </div>
 }
