@@ -1,4 +1,4 @@
-import { Button, useMediaQuery } from "@mui/material";
+import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useContext } from "react";
 import "../../assets/fonts.css"
@@ -6,7 +6,8 @@ import{ ReactComponent as K} from "../../assets/k.svg"
 import{ ReactComponent as E} from "../../assets/e.svg"
 import{ ReactComponent as T} from "../../assets/t.svg"
 import { useTheme } from "@emotion/react";
-import { GameContext } from "../gameContext";
+import { GameContext } from "../contexts/gameContext";
+import { SizeContext } from "../contexts/size";
 
 const useStyles = makeStyles({
     root: {
@@ -34,7 +35,7 @@ function BellsAndWhistles(props) {
     const classes = useStyles();
     const theme = useTheme();
     const { leave } = useContext(GameContext);
-    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+    const { isSmall } = useContext(SizeContext);
 
     return <div className = {classes.root}>
         <div style = {{

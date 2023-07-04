@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppBar, IconButton, Toolbar, useMediaQuery } from "@mui/material";
+import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import Card from "./card.js"
@@ -11,8 +11,9 @@ import { cyan } from "@mui/material/colors";
 import "../../assets/fonts.css"
 import GameScoresCooperation from "./gameScoresCooperation.js";
 import GameScoresAgainst from "./gameScoresAgainst.js";
-import { GameContext } from "../gameContext.js";
+import { GameContext } from "../contexts/gameContext.js";
 import PostGameDialog from "./PostGameDialog.js";
+import { SizeContext } from "../contexts/size.js";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -107,10 +108,9 @@ const GameTopMenu = () => {
 }
 
 const Game = () => {
-    const theme = useTheme();
     const classes = useStyles();
     const { cardsOnTable, isGameOver, gamemode, cardOnClick } = useContext(GameContext);
-    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+    const { isSmall } = useContext(SizeContext);
 
     let GameScores = null;
 

@@ -11,7 +11,7 @@ import "../../assets/fonts.css";
 import {TabPanel, TabContext} from "@mui/lab";
 import SwipeableViews from 'react-swipeable-views';
 import SnackBar from "../snackBar";
-import { ErrorContext } from "../errors";
+import { ErrorContext } from "../contexts/errors";
 
 const useStyles = makeStyles({
     werUPlayin: {

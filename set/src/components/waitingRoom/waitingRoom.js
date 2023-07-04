@@ -4,9 +4,8 @@ import PlayerList from "./playerList";
 import { makeStyles } from "@mui/styles";
 import RoomLink from "./roomLink";
 import LoadingRoom from "./loadingRoom";
-import { GameContext } from "../gameContext";
-import { useMediaQuery } from "@mui/material";
-import { useTheme } from "@emotion/react";
+import { GameContext } from "../contexts/gameContext";
+import { SizeContext } from "../contexts/size";
 
 const useStyles = makeStyles({
     root: {
@@ -31,8 +30,7 @@ const useStyles = makeStyles({
 function WaitingRoom() {
     const classes = useStyles();
     const { socket, roomId, players, socketConnected } = useContext(GameContext);
-    const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+    const { isSmall } = useContext(SizeContext);
 
     function handleButtonOnClick() {
         socket.current.send(JSON.stringify({

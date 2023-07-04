@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Paper, useMediaQuery } from "@mui/material";
+import { Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
-import { useTheme } from "@emotion/react";
 import { kolorki } from "../../assets/kolorki"
-import { GameContext } from "../gameContext";
+import { GameContext } from "../contexts/gameContext";
+import { SizeContext } from "../contexts/size";
+import { useTheme } from "@emotion/react";
 
 // 192 - scores, 88 - top menu, 24 - padding between cards, 48 - top and bottom wrapper margin
 const heightBig = "min(calc((100vh - 10rem - 88px - 24px - 48px)/3), 12.5rem)";
@@ -120,11 +120,11 @@ const shapeMapSmall = {
     }
 };
 
-function Card({cardObject, onClick}) {
+const Card = ({cardObject, onClick}) => {
     const classes = useStyles();
-    const { amI, returnPlayer } = useContext(GameContext);
     const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+    const { amI, returnPlayer } = useContext(GameContext);
+    const { isSmall } = useContext(SizeContext);
     const shapeMap = isSmall ? shapeMapSmall : shapeMapBig;
 
     const amIInClicked = amI(cardObject);

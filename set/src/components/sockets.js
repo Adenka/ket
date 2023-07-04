@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Outlet, useLocation, matchRoutes } from "react-router-dom";
-import { ErrorContext } from "./errors";
-import { GameContext } from "./gameContext";
+import { ErrorContext } from "./contexts/errors";
+import { GameContext } from "./contexts/gameContext";
 
 const routes = [{ path: "/:roomId/game" }, {path: "/:roomId/wait"}];
 

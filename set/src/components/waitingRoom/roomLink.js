@@ -5,7 +5,7 @@ import { IconButton, InputAdornment, TextField } from "@mui/material";
 import "../../assets/fonts.css";
 import { useParams } from "react-router-dom";
 import { useTheme } from "@emotion/react";
-import { ErrorContext } from "../errors";
+import { ErrorContext } from "../contexts/errors";
 
 const useStyles = makeStyles(theme => ({
     iconWrap: {

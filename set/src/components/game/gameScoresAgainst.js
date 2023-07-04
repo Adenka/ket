@@ -3,7 +3,7 @@ import { Grid, Paper } from "@mui/material";
 import "../../assets/fonts.css"
 import useStyles from "./gameScoreStyles"
 import { kolorki } from "../../assets/kolorki"
-import { GameContext } from "../gameContext";
+import { GameContext } from "../contexts/gameContext";
 
 function GameScore(props) {
     const classes = useStyles();

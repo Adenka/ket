@@ -1,7 +1,7 @@
 import { Alert, Snackbar } from "@mui/material";
 import React, { useContext } from "react";
 import "../assets/fonts.css";
-import { ErrorContext } from "./errors";
+import { ErrorContext } from "./contexts/errors";
 
 function SnackBar() {
     const {

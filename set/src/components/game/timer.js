@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { GameContext } from "../gameContext";
+import { GameContext } from "../contexts/gameContext";
 
 function Timer() {
     const [time, setTime] = useState(0);

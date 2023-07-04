@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Typography, useMediaQuery, Button, TextField, AppBar, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
@@ -96,7 +96,7 @@ const NicknameInput = () => {
     const classes = useStyles();
     const theme = useTheme();
 
-    function handleTextFieldChange(event) {
+    const handleTextFieldChange = (event) => {
         localStorage.setItem("username", event.target.value);
     }
 

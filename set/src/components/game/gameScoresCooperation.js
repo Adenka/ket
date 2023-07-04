@@ -1,8 +1,8 @@
-import { Grid, Paper, useMediaQuery } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import React, { useContext } from "react";
 import useStyles from "./gameScoreStyles";
 import { kolorki } from "../../assets/kolorki"
-import { GameContext } from "../gameContext";
+import { GameContext } from "../contexts/gameContext";
 
 function GameScore(props) {
     const classes = useStyles();

@@ -4,7 +4,7 @@ import { Button,
         Paper,
         Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useTheme } from "@emotion/react";
-import { GameContext } from "../gameContext.js";
+import { GameContext } from "../contexts/gameContext.js";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(theme => ({
