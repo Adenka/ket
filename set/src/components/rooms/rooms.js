@@ -3,43 +3,11 @@ import RoomPaper from "./roomPaper";
 import AddRoomButton from "./addRoomButton";
 import AddRoomDialog from "./addRoomDialog";
 import CatsCorner from "../../assets/cats/catsCorner.svg"
-import { makeStyles } from "@mui/styles";
-import { useNavigate } from "react-router-dom";
-import { AppBar, IconButton, Toolbar, Typography, Tab, Tabs } from "@mui/material";
-import HomeIcon from '@mui/icons-material/Home';
+import { Tab, Tabs } from "@mui/material";
 import "../../assets/fonts.css";
 import {TabPanel, TabContext} from "@mui/lab";
 import SwipeableViews from 'react-swipeable-views';
-import SnackBar from "../snackBar";
-import { ErrorContext } from "../contexts/errors";
-
-const useStyles = makeStyles({
-    werUPlayin: {
-        paddingLeft: "3rem",
-        paddingTop: "1.5rem",
-        paddingBottom: "1.5rem",
-    }
-})
-
-const RoomTopMenu = () => {
-    const classes = useStyles();
-    const navigate = useNavigate();
-
-    return <AppBar position = "static" sx = {{height: "5.5rem"}}>
-        <Toolbar>
-            <IconButton onClick = {() => navigate("/")}>
-                <HomeIcon fontSize = "large"/>
-            </IconButton>
-            <Typography
-                className = {classes.werUPlayin}
-                variant = "h4"
-                sx = {{fontFamily: "Architects Daughter"}}
-            >
-                Wer u playin
-            </Typography>
-        </Toolbar>
-    </AppBar>
-}
+import TopMenu from "../topMenu";
 
 const ModeTab = (props) => {
     return <Tab
@@ -99,7 +67,7 @@ const Rooms = () => {
             backgroundPosition: "left 2rem bottom 1rem",
         }}
     >
-        <RoomTopMenu/>
+        <TopMenu content="Wer u playin"/>
         <ModeTabs
             value = {alignment}
             onChange = {handleAlignment}

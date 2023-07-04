@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { Typography, useMediaQuery, Button, TextField, AppBar, Toolbar } from "@mui/material";
+import { Typography, useMediaQuery, Button, TextField, AppBar, Toolbar, IconButton } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import WaveStartPage from "../../assets/waveStartPage.svg"
 import "../../assets/fonts.css";
 import{ ReactComponent as Ket} from "../../assets/ket.svg"
+import StartPageDrawer from "./startPageDrawer";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,6 +35,12 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column",
         paddingLeft: "min(5rem, 5%)",
         height: "100%"
+    },
+
+    drawerButtonWrap: {
+        display: "flex",
+        width: "100%",
+        justifyContent: "right"
     },
 
     nicknameInputWrap: {
@@ -74,12 +82,19 @@ const useStyles = makeStyles(theme => ({
 
 const StartPageTopMenu = () => {
     const classes = useStyles();
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
 
     return <AppBar position = "static" sx = {{height: "5.5rem"}}>
         <Toolbar className = {classes.toolbar}>
             <div className = {classes.ketWrap}>
                 <Ket/>
             </div>
+            <div className={classes.drawerButtonWrap}>
+                <IconButton onClick={() => setDrawerOpen(true)}>
+                    <MenuIcon fontSize="large"/>
+                </IconButton>
+            </div>
+            <StartPageDrawer openDrawer = {drawerOpen} setOpenDrawer = {setDrawerOpen}/>
         </Toolbar>
     </AppBar>
 }
@@ -141,7 +156,7 @@ const StartPage = () => {
     const theme = useTheme();
     const classes = useStyles(theme);
     const isBig = useMediaQuery((theme) => theme.breakpoints.up("lg"));
-
+    
     useEffect(() => {
         if (localStorage.getItem("username") === null) {
             localStorage.setItem("username", "");
@@ -150,7 +165,10 @@ const StartPage = () => {
 
     return <div>
         <StartPageTopMenu/>
-        <div className = {classes.root} style = {{alignItems: isBig ? "center" : "start", paddingTop: isBig ? 0 : "10vh"}}>
+        <div
+            className = {classes.root}
+            style = {{alignItems: isBig ? "center" : "start", paddingTop: isBig ? 0 : "10vh"}}
+        >
             <div className = {classes.leftWrap}>
                 <div>
                     <MainTitle/>

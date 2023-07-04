@@ -11,6 +11,7 @@ import { Errors } from "./contexts/errors";
 import { Singleplayer } from "./singleplayer";
 import SnackBar from "./snackBar";
 import { Size } from "./contexts/size";
+import Scores from "./scores/scores";
 
 function App() {
     const theme = createTheme({
@@ -36,6 +37,7 @@ function App() {
                             <Routes>
                                 <Route path = "/"       element = {<StartPage/>}/>
                                 <Route path = "/rooms"  element = {<Rooms/>}/>
+                                <Route path = "/scores" element = {<Scores/>}/>
                                 <Route element = {<Sockets/>}>
                                     <Route
                                         path = "/:roomId/game"

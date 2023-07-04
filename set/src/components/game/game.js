@@ -3,7 +3,6 @@ import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import Card from "./card.js"
-import { useTheme } from "@emotion/react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Timer from "./timer.js";
 import{ ReactComponent as CardIcon} from "../../assets/cardIcon.svg"
@@ -12,7 +11,7 @@ import "../../assets/fonts.css"
 import GameScoresCooperation from "./gameScoresCooperation.js";
 import GameScoresAgainst from "./gameScoresAgainst.js";
 import { GameContext } from "../contexts/gameContext.js";
-import PostGameDialog from "./PostGameDialog.js";
+import PostGameDialog from "./postGameDialog.js";
 import { SizeContext } from "../contexts/size.js";
 
 const useStyles = makeStyles(theme => ({
