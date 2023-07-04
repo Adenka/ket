@@ -27,12 +27,12 @@ const useStyles = makeStyles({
     }
 })
 
-function WaitingRoom() {
+const WaitingRoom = () => {
     const classes = useStyles();
     const { socket, roomId, players, socketConnected } = useContext(GameContext);
     const { isSmall } = useContext(SizeContext);
 
-    function handleButtonOnClick() {
+    const handleButtonOnClick = () => {
         socket.current.send(JSON.stringify({
             type: "redirectToGame",  
             roomId: roomId,

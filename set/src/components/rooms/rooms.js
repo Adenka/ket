@@ -41,27 +41,19 @@ const RoomTopMenu = () => {
     </AppBar>
 }
 
-const ModeTab = ({label, index, a11yProps}) => {
+const ModeTab = (props) => {
     return <Tab
-        label = {label}
         sx = {{
             width: "50%",
             minWidth: "33%",
             fontSize: "min(4vw, 1.25rem)",
             height: "4.5rem",
         }}
-        {...a11yProps(index)}
-    ></Tab>
+        {...props}
+    />
 }
 
 const ModeTabs = (props) => {
-    function a11yProps(index) {
-        return {
-            id: `full-width-tab-${index}`,
-            'aria-controls': `full-width-tabpanel-${index}`,
-        };
-    }
-
     return <div style = {{padding: "1rem", paddingTop: "2rem"}}>
         <TabContext value = {props.value}>
             <Tabs
@@ -70,27 +62,8 @@ const ModeTabs = (props) => {
                 aria-label = "gamemode"
                 centered
             >
-                <Tab
-                    label = "Cooperashun wif othr kittehz"
-                    sx = {{
-                        width: "50%",
-                        minWidth: "33%",
-                        fontSize: "min(4vw, 1.25rem)",
-                        height: "4.5rem",
-                    }}
-                    {...a11yProps(0)}
-                ></Tab>
-                {/*<ModeTab label = "Cooperashun wif othr kittehz" index = {0} a11yProps = {a11yProps}/>*/}
-                {/*<ModeTab label = "Aganzt othr kittehz" index = {1} a11yProps = {a11yProps}/>*/}
-                <Tab 
-                    label = "Aganzt othr kittehz"
-                    sx = {{
-                        width: "50%",
-                        minWidth: "33%",
-                        fontSize: "min(4vw, 1.25rem)",
-                    }}
-                    {...a11yProps(1)}
-                ></Tab>
+                <ModeTab label = "Cooperashun wif othr kittehz" />
+                <ModeTab label = "Aganzt othr kittehz" />
             </Tabs>
             <SwipeableViews axis = "x" index = {props.value} onChangeIndex = {props.onChangeIndex}>
                 <TabPanel value = {props.value} index = {0} sx = {{padding: 0}}>

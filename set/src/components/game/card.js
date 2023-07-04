@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Paper } from "@mui/material";
+import { Fade, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { kolorki } from "../../assets/kolorki"
 import { GameContext } from "../contexts/gameContext";
 import { SizeContext } from "../contexts/size";
 import { useTheme } from "@emotion/react";
+import { shapeMapBig, shapeMapSmall } from "../../assets/shapes";
 
 // 192 - scores, 88 - top menu, 24 - padding between cards, 48 - top and bottom wrapper margin
 const heightBig = "min(calc((100vh - 10rem - 88px - 24px - 48px)/3), 12.5rem)";
@@ -80,46 +81,6 @@ const useStyles = makeStyles({
     }
 });
 
-const shapeMapBig = {
-    oval: {
-        d : "M-306.804 -148.53h136.958s63.076 0 63.076 62.275v0s0 62.275 -63.076 62.275h-136.958s-63.076 0 -63.076 -62.275v0s0 -62.275 63.076 -62.275",
-        viewBox: "0 0 278.11 139.55",
-        transform: "translate(377.38,156.03)",
-    },
-
-    diamond: {
-        d: "m-221.51-137.47 130.33 68.949c-65.417 33.662-65.392 33.691-131.23 67.021l-129.49-69.595c64.747-33.577 64.376-33.386 130.39-66.375z",
-        viewBox: "0 0 293 152.86",
-        transform: "translate(367.96 145.9)",
-    },
-
-    wave: {
-        d: "m-321.21-10.179c-23.485 6.0661-30.453-21.351-31.798-45.21-1.2695-22.523 22.579-76.873 65.711-75.54 43.132 1.3329 74.468 22.951 101.74 22.279 27.596-0.68004 45.973-12.35 56.885-22.251 7.2626-6.5904 15.51-10.893 26.266-0.87046 10.247 9.548 17.42 23.89 8.0098 52.555-5.0431 15.363-29.849 64.116-87.201 58.457-56.718-5.5957-50.835-15.705-73.902-16.022-17.309-0.23818-25.508 2.1242-40.552 11.921-6.6255 4.3145-13.431 12.151-25.159 14.683z",
-        viewBox: "0 0 278.05 144.59",
-        transform: "translate(360.57 145.19)",
-    }
-};
-
-const shapeMapSmall = {
-    oval: {
-        d : "M-306.804 -148.53h136.958s63.076 0 63.076 62.275v0s0 62.275 -63.076 62.275h-136.958s-63.076 0 -63.076 -62.275v0s0 -62.275 63.076 -62.275",
-        viewBox: "0 0 139.55 278.11",
-        transform: "rotate(-90 28.38 -127.65)",
-    },
-
-    diamond: {
-        d: "m-221.51-137.47 130.33 68.949c-65.417 33.662-65.392 33.691-131.23 67.021l-129.49-69.595c64.747-33.577 64.376-33.386 130.39-66.375z",
-        viewBox: "0 0 152.86 293",
-        transform: "rotate(-90 35.468 -110.44)",
-    },
-
-    wave: {
-        d: "m-321.21-10.179c-23.485 6.0661-30.453-21.351-31.798-45.21-1.2695-22.523 22.579-76.873 65.711-75.54 43.132 1.3329 74.468 22.951 101.74 22.279 27.596-0.68004 45.973-12.35 56.885-22.251 7.2626-6.5904 15.51-10.893 26.266-0.87046 10.247 9.548 17.42 23.89 8.0098 52.555-5.0431 15.363-29.849 64.116-87.201 58.457-56.718-5.5957-50.835-15.705-73.902-16.022-17.309-0.23818-25.508 2.1242-40.552 11.921-6.6255 4.3145-13.431 12.151-25.159 14.683z",
-        viewBox: "0 0 144.59 278.05",
-        transform: "rotate(-90 31.338 -113.85)",
-    }
-};
-
 const Card = ({cardObject, onClick}) => {
     const classes = useStyles();
     const theme = useTheme();
@@ -134,7 +95,7 @@ const Card = ({cardObject, onClick}) => {
     return <Paper
         className = {isSmall ? classes.rootSmall : classes.rootBig}
         sx = {{
-            transition: theme.transitions.create(["background", "outline"], {
+            transition: theme.transitions.create(["outline"], {
                 easing: theme.transitions.easing.sharp,
                 duration: "0.125s"
             }),
@@ -144,19 +105,25 @@ const Card = ({cardObject, onClick}) => {
                 ? `solid min(0.75vw, 0.25rem) ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
         }}
-        onClick = {onClick}
+        onTouch = {onClick}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
                 click => click.playerId !== playerInRes.playerId
-            ).map((click) => 
-                <div
-                    key = {click.playerId}
-                    className = {classes.dot}
-                    style = {{
-                        backgroundColor: kolorki[click.color][500]
-                    }}
-                />
+            ).map((click) =>
+                <Fade in={true} style={{transitionDuration: "0.25s"}}>
+                    <div
+                        key = {click.playerId}
+                        className = {classes.dot}
+                        style = {{
+                            transition: theme.transitions.create(["backgroundColor"], {
+                                easing: theme.transitions.easing.sharp,
+                                duration: "1s"
+                            }),
+                            backgroundColor: kolorki[click.color][500],
+                        }}
+                    />
+                </Fade>
                 )}
             </div>
             {Array.from(Array(parseInt(cardObject.number))).map((_, index) =>

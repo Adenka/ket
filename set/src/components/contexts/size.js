@@ -6,7 +6,7 @@ export const SizeContext = React.createContext();
 
 export function Size(props) {
     const theme = useTheme();
-    const [ isSmall, setIsSmall ] = React.useState(useMediaQuery(theme.breakpoints.down("md")));
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
 
     return <SizeContext.Provider value = {{ isSmall }}>
         {props.children}
