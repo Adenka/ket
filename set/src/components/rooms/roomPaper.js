@@ -13,7 +13,7 @@ const RoomPaper = (props) => {
             data => setRooms(data)
         )
     }, [])
-
+    console.log(rooms);
     const gameModes = ["Cooperation", "Against"];
 
     return <div
@@ -29,7 +29,7 @@ const RoomPaper = (props) => {
         }}
     >
         {rooms.filter(room => room.gamemode === gameModes[props.alignment]).map((room) => (
-            <Room room = {room} />
+            <Room roomObject = {room} />
         ))}
     </div>
 }

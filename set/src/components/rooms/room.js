@@ -95,7 +95,7 @@ const Room = ({roomObject}) => {
                 {roomObject.name}
             </Typography>
             <AvatarGroup max = {4} classes = {{ avatar: classes.avatar, root: classes.rootAvatar }}>
-                {roomObject.usernames.map((item, key) =>
+                {roomObject.players.map((item, key) =>
                     <Avatar key = {key}
                         alt = {item.username}
                         sx = {{backgroundColor: kolorki[item.colorNumber][500]}}
