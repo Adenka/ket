@@ -67,24 +67,23 @@ const Room = ({roomObject}) => {
         };
     }, []);
 
-    const handlePlayOnClick = () => {
-        fetch("/canPlayerJoin", {
+    const handlePlayOnClick = async () => {
+        const response = await fetch("/canPlayerJoin", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({roomId: roomObject.roomId})
-        }).then(
-            response => response.json()
-        ).then(function(data) {
-            console.log(data);
-            if (data.addRes) {
-                navigate(`/${roomObject.roomId}/wait`)
-            }
-            else {
-                setSnackbar(data.message, "error");
-            }
-        })
+        });
+        
+        const data = await response.json();
+        
+        if (data.addRes) {
+            navigate(`/${roomObject.roomId}/wait`)
+        }
+        else {
+            setSnackbar(data.message, "error");
+        }
     }
 
     return <Paper className = {classes.root} sx = {{backgroundColor: theme.palette.secondary.light}}>

@@ -4,17 +4,20 @@ import Room from "./room";
 const RoomPaper = (props) => {
     const [rooms, setRooms] = useState([]);
 
-    useEffect(() => {
-        fetch("/rooms", {
+    const fetchRooms = async () => {
+        const response = await fetch("/rooms", {
             method: "POST"
-        }).then(
-            response => response.json()
-        ).then(
-            data => setRooms(data)
-        )
+        });
+
+        const data = await response.json();
+
+        setRooms(data)
+    }
+
+    useEffect(() => {
+        fetchRooms();
     }, [])
-    console.log(rooms);
-    const gameModes = ["Cooperation", "Against"];
+    const gameModes = [ "Cooperation", "Against" ];
 
     return <div
         style = {{

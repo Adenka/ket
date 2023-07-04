@@ -12,18 +12,17 @@ const AddRoomDialog = (props) => {
         setMode(props.defaultValue);
     }, [props.defaultValue])
 
-    const handleYes = () => {
-        fetch("/newRoom", {
+    const handleYes = async () => {
+        const response = await fetch("/newRoom", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({name: name, gamemode: gameModes[mode]})
-        }).then(
-            response => response.json()
-        ).then(
-            data => navigate(`/${data}/wait`)
-        )
+        });
+        
+        const data = await response.json();
+        navigate(`/${data}/wait`);
     }
 
     const handleNameOnChange = (event) => {
