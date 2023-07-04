@@ -106,6 +106,7 @@ const Card = ({cardObject, onClick}) => {
                 : `solid 0 white`,
         }}
         onTouchStart = {onClick}
+        onClick = {onClick}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
