@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Fade, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { kolorki } from "../../assets/kolorki"
@@ -92,8 +92,18 @@ const Card = ({cardObject, onClickFun}) => {
 
     let playerInRes = returnPlayer();
 
+    const prevent = useRef(false);
     const handleOnTouchStart = (event) => {
-        event.preventDefault();
+        prevent.current = true;
+        onClickFun();
+    }
+
+    const handleOnClick = () => {
+        if (prevent.current) {
+            prevent.current = false;
+            return;
+        }
+        
         onClickFun();
     }
 
@@ -111,7 +121,7 @@ const Card = ({cardObject, onClickFun}) => {
                 : `solid 0 white`,
         }}
         onTouchStart = {handleOnTouchStart}
-        onClick = {() => {onClickFun()}}
+        onClick = {handleOnClick}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(

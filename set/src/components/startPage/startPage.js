@@ -103,7 +103,7 @@ const MainTitle = () => {
     return <Typography
         sx = {{fontFamily: "Righteous", paddingLeft: "1rem", fontSize: "min(10vw, 8vh)"}}
     >
-        Speedy card klikin
+        Speedy card klikin TEST
     </Typography>
 }
 
