@@ -105,7 +105,7 @@ const Card = ({cardObject, onClick}) => {
                 ? `solid min(0.75vw, 0.25rem) ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
         }}
-        onTouchStart = {onClick}
+        onTouchStart = {(event) => {event.preventDefault(); onClick()}}
         onClick = {onClick}
         >   
             <div className = {classes.dots}>
