@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Room from "./room";
 
-const RoomPaper = (props) => {
+const RoomPaper = ({tabNumber}) => {
     const [rooms, setRooms] = useState([]);
 
     const fetchRooms = async () => {
@@ -31,7 +31,7 @@ const RoomPaper = (props) => {
             flexGrow: 1
         }}
     >
-        {rooms.filter(room => room.gamemode === gameModes[props.alignment]).map((room) => (
+        {rooms.filter(room => room.gamemode === gameModes[tabNumber]).map((room) => (
             <Room roomObject = {room} />
         ))}
     </div>

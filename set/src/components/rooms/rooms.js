@@ -1,62 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
-import RoomPaper from "./roomPaper";
+import React, { useState } from "react";
 import AddRoomButton from "./addRoomButton";
 import AddRoomDialog from "./addRoomDialog";
 import CatsCorner from "../../assets/cats/catsCorner.svg"
-import { Tab, Tabs } from "@mui/material";
 import "../../assets/fonts.css";
-import {TabPanel, TabContext} from "@mui/lab";
-import SwipeableViews from 'react-swipeable-views';
 import TopMenu from "../topMenu";
-
-const ModeTab = (props) => {
-    return <Tab
-        sx = {{
-            width: "50%",
-            minWidth: "33%",
-            fontSize: "min(4vw, 1.25rem)",
-            height: "4.5rem",
-        }}
-        {...props}
-    />
-}
-
-const ModeTabs = (props) => {
-    return <div style = {{padding: "1rem", paddingTop: "2rem"}}>
-        <TabContext value = {props.value}>
-            <Tabs
-                value = {props.value}
-                onChange = {props.onChange}
-                aria-label = "gamemode"
-                centered
-            >
-                <ModeTab label = "Cooperashun wif othr kittehz" />
-                <ModeTab label = "Aganzt othr kittehz" />
-            </Tabs>
-            <SwipeableViews axis = "x" index = {props.value} onChangeIndex = {props.onChangeIndex}>
-                <TabPanel value = {props.value} index = {0} sx = {{padding: 0}}>
-                    <RoomPaper alignment = {props.value}/>
-                </TabPanel>
-                <TabPanel value = {props.value} index = {1} sx = {{padding: 0}}>
-                    <RoomPaper alignment = {props.value}/>
-                </TabPanel>
-            </SwipeableViews>
-        </TabContext>
-    </div>
-}
+import ModeTabs from "./modeTabs";
+import RoomPaper from "./roomPaper";
 
 const Rooms = () => {
-    const [alignment, setAlignment] = useState(parseInt(localStorage.getItem("alignment")) || 0);
-    const handleAlignment = (event, newAlignment) => {
-        console.log(newAlignment);
-        localStorage.setItem("alignment", newAlignment);
-        setAlignment(newAlignment);
+    const [tabNumber, setTabNumber] = useState(parseInt(localStorage.getItem("tabNumber")) || 0);
+    const handleTabNumberChange = (_, newTabNumber) => {
+        console.log(newTabNumber);
+        localStorage.setItem("tabNumber", newTabNumber);
+        setTabNumber(newTabNumber);
     };
 
     const [openDialog, setOpenDialog] = useState(false);
 
     const handleChangeIndex = (index) => {
-        setAlignment(index);
+        setTabNumber(index);
     }
 
     return <div
@@ -69,11 +31,13 @@ const Rooms = () => {
     >
         <TopMenu content="Wer u playin"/>
         <ModeTabs
-            value = {alignment}
-            onChange = {handleAlignment}
+            value = {tabNumber}
+            onChange = {handleTabNumberChange}
             onChangeIndex = {handleChangeIndex}
+            tabTitles = {["Cooperashun wif othr kittehz", "Aganzt othr kittehz"]}
+            component = {<RoomPaper tabNumber = {tabNumber}/>}
         />
-        <AddRoomDialog open = {openDialog} onClose = {() => setOpenDialog(false)} defaultValue = {alignment}/>
+        <AddRoomDialog open = {openDialog} onClose = {() => setOpenDialog(false)} defaultValue = {tabNumber}/>
         <AddRoomButton onClick = {() => setOpenDialog(true)}/>
     </div>
 }
