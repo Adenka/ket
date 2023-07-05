@@ -10,6 +10,7 @@ const BigIconButton = (props) => (
             height: 64,
             margin: "2rem 1rem 2rem 1rem"
         }}
+        {...props}
     >
         {props.children}
     </IconButton>
