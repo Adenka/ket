@@ -95,7 +95,6 @@ const Card = ({cardObject, onClickFun}) => {
     const handleOnTouchStart = (event) => {
         event.preventDefault();
         onClickFun();
-        alert("touch");
     }
 
     return <Paper
@@ -112,7 +111,7 @@ const Card = ({cardObject, onClickFun}) => {
                 : `solid 0 white`,
         }}
         onTouchStart = {handleOnTouchStart}
-        onClick = {() => {alert("click"); onClickFun()}}
+        onClick = {() => {onClickFun()}}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
