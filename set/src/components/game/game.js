@@ -126,7 +126,7 @@ const Game = () => {
         <div className = {classes.cardWrap}>
             <div className = {clsx(classes.cards, isSmall ? classes.cardsSmall : classes.cardsBig)}>
             {cardsOnTable.map(card =>
-                <Card cardObject = {card} onClick = {() => cardOnClick(card.name)} />
+                <Card cardObject = {card} onClickFun = {() => cardOnClick(card.name)} />
             )}
             </div>
         </div>

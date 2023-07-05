@@ -81,7 +81,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Card = ({cardObject, onClick}) => {
+const Card = ({cardObject, onClickFun}) => {
     const classes = useStyles();
     const theme = useTheme();
     const { amI, returnPlayer } = useContext(GameContext);
@@ -91,6 +91,12 @@ const Card = ({cardObject, onClick}) => {
     const amIInClicked = amI(cardObject);
 
     let playerInRes = returnPlayer();
+
+    const handleOnTouchStart = (event) => {
+        event.preventDefault();
+        onClickFun();
+        alert("touch");
+    }
 
     return <Paper
         className = {isSmall ? classes.rootSmall : classes.rootBig}
@@ -105,8 +111,8 @@ const Card = ({cardObject, onClick}) => {
                 ? `solid min(0.75vw, 0.25rem) ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
         }}
-        onTouchStart = {(event) => {event.preventDefault(); onClick()}}
-        onClick = {onClick}
+        onTouchStart = {handleOnTouchStart}
+        onClick = {() => {alert("click"); onClickFun()}}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
