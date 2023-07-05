@@ -3,50 +3,53 @@ import React from "react";
 import { useTheme } from "@emotion/react";
 import { grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
 import {    BigIconButton,
             BigPersonIcon,
             UsernameTypography,
             DrawerDivider,
             DrawerElement } from "./startPageDrawerComponents";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        minWidth: 400,
-        backgroundColor: theme.palette.secondary.light,
-        color: grey[800],
-        height: "100%"
-    }
-}))
+const CustomDrawer = (props) => (
+    <Drawer
+        PaperProps = {{
+            sx: {
+                minWidth: "min(70vw, 400px)",
+                maxWidth: "70vw",
+                backgroundColor: (theme) => theme.palette.secondary.light,
+                color: grey[800]
+            }
+        }}
+        {...props}
+    >
+        {props.children}
+    </Drawer>
+)
 
 const StartPageDrawer = ({openDrawer, setOpenDrawer}) => {
     const theme = useTheme();
-    const classes = useStyles(theme);
     const navigate = useNavigate(theme);
 
-    return <Drawer
+    return <CustomDrawer
         anchor="right"
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
     >
-        <div className={classes.root}>
-            <div style={{display: "flex"}}>
-                <BigIconButton disabled>
-                    <BigPersonIcon/>
-                </BigIconButton>
-                <UsernameTypography>
-                    {localStorage.getItem("username")}
-                </UsernameTypography>
-            </div>
-            <DrawerDivider/>
-            <DrawerElement
-                onClick = {() => {navigate("/scores")}}
-            >
-                Mah scorez
-            </DrawerElement>
+        <div style={{display: "flex"}}>
+            <BigIconButton disabled>
+                <BigPersonIcon/>
+            </BigIconButton>
+            <UsernameTypography>
+                {localStorage.getItem("username")}
+            </UsernameTypography>
         </div>
-    </Drawer>
+        <DrawerDivider/>
+        <DrawerElement
+            onClick = {() => {navigate("/scores")}}
+        >
+            Mah scorez
+        </DrawerElement>
+    </CustomDrawer>
 }
 
 export default StartPageDrawer;

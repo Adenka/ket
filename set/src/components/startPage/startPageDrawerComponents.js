@@ -31,7 +31,10 @@ const UsernameTypography = (props) => (
             paddingLeft: 0,
             fontFamily: "Righteous",
             letterSpacing: "0.125rem",
-            fontSize: 32
+            fontSize: 32,
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap"
         }}
     >
         {props.children}
