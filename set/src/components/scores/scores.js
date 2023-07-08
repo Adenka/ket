@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TopMenu from "../topMenu";
 import VerticalTabs from "./verticalModes";
 import ScoresWrapper from "./scoresWrapper";

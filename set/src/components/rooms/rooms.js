@@ -11,10 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 const Rooms = () => {
     const localStorageTabNumber = parseInt(localStorage.getItem("tabNumber")) || 0;
     const [openDialog, setOpenDialog] = useState(false);
-    const [tabNumber, setTabNumber] = useState(parseInt(localStorageTabNumber));
-
-    console.log("rooms");
-
+    
     return <div
         style = {{
             minHeight: "100vh",

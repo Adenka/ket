@@ -9,7 +9,7 @@ const TableCellBody = ({text, parity}) => {
         align = "center"
         sx = {{
             fontFamily: "Prompt",
-            fontSize: "1.5rem",
+            fontSize: "min(1.5rem, 4vw)",
             backgroundColor: parity ? theme.palette.secondary.veryLight : theme.palette.secondary.light
         }}
     >

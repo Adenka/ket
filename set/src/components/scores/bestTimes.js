@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Table, TableHead, TableRow, TableContainer, Paper, TableBody, Select, MenuItem, InputLabel, FormControl, IconButton } from "@mui/material";
+import { Typography, Table, TableHead, TableRow, TableContainer, Paper, TableBody, IconButton } from "@mui/material";
 import TableCellHead from "../tableCellHead";
 import TableCellBody from "../tableCellBody";
 import { MAX_SCORES, getSinglePlayerBestTimeArray } from "./singlePlayerBestTimeArray";

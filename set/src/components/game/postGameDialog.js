@@ -2,8 +2,7 @@ import React, {useEffect, useContext} from "react";
 import { Button,
         Dialog, DialogActions, DialogContent, DialogTitle,
         Paper,
-        Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { useTheme } from "@emotion/react";
+        Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material";
 import { GameContext } from "../contexts/gameContext.js";
 import { makeStyles } from "@mui/styles";
 import TableCellHead from "../tableCellHead.js";
