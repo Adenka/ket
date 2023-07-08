@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { GameContext } from "./contexts/gameContext";
+import { addToSinglePlayerBestTimeArray } from "../components/scores/singlePlayerBestTimeArray"
 
 export function Singleplayer() {
     const navigate = useNavigate();
@@ -243,11 +244,14 @@ export function Singleplayer() {
             if (isSetSelected(newSelections)) {
                 setPoints(points => points + 1);
                 setSelections([]);
-                const isssGameOver = handleSelectedSet(newSelections);
-                setIsGameOver(isssGameOver);
+                const _isGameOver = handleSelectedSet(newSelections);
+                setIsGameOver(_isGameOver);
 
-                if (isssGameOver) {
+                if (_isGameOver) {
                     setGameOverTime(Date.now());
+                    addToSinglePlayerBestTimeArray(
+                        Date.now() - gameStartTime, new Date().toLocaleDateString("en-GB")
+                    );
                 }
             }
         }

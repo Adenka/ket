@@ -6,6 +6,8 @@ import { Button,
 import { useTheme } from "@emotion/react";
 import { GameContext } from "../contexts/gameContext.js";
 import { makeStyles } from "@mui/styles";
+import TableCellHead from "../tableCellHead.js";
+import TableCellBody from "../tableCellBody.js";
 
 const useStyles = makeStyles(theme => ({
     resultImg: {
@@ -42,36 +44,6 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.error.main
     }
 }));
-
-const TableCellNicknames = (props) => {
-    const theme = useTheme();
-
-    return <TableCell
-        align = "center"
-        sx = {{
-            fontFamily: "Prompt",
-            fontSize: "1rem",
-            backgroundColor: theme.palette.secondary.main
-        }}
-    >
-        {props.text}
-    </TableCell>
-}
-
-const TableCellResults = (props) => {
-    const theme = useTheme();
-
-    return <TableCell
-        align = "center"
-        sx = {{
-            fontFamily: "Prompt",
-            fontSize: "1.5rem",
-            backgroundColor: theme.palette.secondary.light
-        }}
-    >
-        {props.text}
-    </TableCell>
-}
 
 const WinImage = <img
     alt = "smiling kittehz"
@@ -146,14 +118,14 @@ const DialogContentAgainst = () => {
                 <TableHead>
                     <TableRow>
                         {players.map(player => (
-                            <TableCellNicknames text = {player.username} />
+                            <TableCellHead text = {player.username} />
                         ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow>
                         {players.map(player => (
-                            <TableCellResults text = {player.points} />
+                            <TableCellBody text = {player.points} parity={0} />
                         ))}
                     </TableRow>
                 </TableBody>

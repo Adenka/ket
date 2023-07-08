@@ -8,18 +8,11 @@ import ModeTabs from "./modeTabs";
 import RoomPaper from "./roomPaper";
 
 const Rooms = () => {
-    const [tabNumber, setTabNumber] = useState(parseInt(localStorage.getItem("tabNumber")) || 0);
-    const handleTabNumberChange = (_, newTabNumber) => {
-        console.log(newTabNumber);
-        localStorage.setItem("tabNumber", newTabNumber);
-        setTabNumber(newTabNumber);
-    };
-
+    const localStorageTabNumber = parseInt(localStorage.getItem("tabNumber")) || 0;
     const [openDialog, setOpenDialog] = useState(false);
+    const [tabNumber, setTabNumber] = useState(parseInt(localStorageTabNumber));
 
-    const handleChangeIndex = (index) => {
-        setTabNumber(index);
-    }
+    console.log("rooms");
 
     return <div
         style = {{
@@ -31,13 +24,17 @@ const Rooms = () => {
     >
         <TopMenu content="Wer u playin"/>
         <ModeTabs
-            value = {tabNumber}
-            onChange = {handleTabNumberChange}
-            onChangeIndex = {handleChangeIndex}
+            localStorageElement = "tabNumber"
             tabTitles = {["Cooperashun wif othr kittehz", "Aganzt othr kittehz"]}
-            component = {<RoomPaper tabNumber = {tabNumber}/>}
+            component = {RoomPaper}
+            orientation = "horizontal"
+            wrapperStyle = {{}}
         />
-        <AddRoomDialog open = {openDialog} onClose = {() => setOpenDialog(false)} defaultValue = {tabNumber}/>
+        <AddRoomDialog
+            open = {openDialog}
+            onClose = {() => setOpenDialog(false)}
+            defaultValue = {parseInt(localStorageTabNumber)}
+        />
         <AddRoomButton onClick = {() => setOpenDialog(true)}/>
     </div>
 }

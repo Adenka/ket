@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {TabPanel, TabContext} from "@mui/lab";
 import SwipeableViews from 'react-swipeable-views';
 import {Tab, Tabs} from "@mui/material";
@@ -15,23 +15,31 @@ const ModeTab = (props) => {
     />
 }
 
-const ModeTabs = ({value, onChange, onChangeIndex, tabTitles, component}) => {
+const ModeTabs = ({tabTitles, component, localStorageElement}) => {
+    const [value, setValue] = useState(parseInt(localStorage.getItem(localStorageElement)) || 0);
+    const handleTabNumberChange = (_, newTabNumber) => {
+        console.log(newTabNumber);
+        localStorage.setItem(localStorageElement, newTabNumber);
+        setValue(newTabNumber);
+    };
+
+    const Component = component;
+
     return <div style = {{padding: "1rem", paddingTop: "2rem"}}>
         <TabContext value = {value}>
             <Tabs
                 value = {value}
-                onChange = {onChange}
-                aria-label = "gamemode"
+                onChange = {handleTabNumberChange}
                 centered
             >
                 {tabTitles.map((title, i) => (
                     <ModeTab key = {i} label = {title} />
                 ))}
             </Tabs>
-            <SwipeableViews axis = "x" index = {value} onChangeIndex = {onChangeIndex}>
+            <SwipeableViews axis = "x" index = {value} onChangeIndex = {(index) => setValue(index)}>
                 {Array(tabTitles.length).fill().map((_, i) => (
                     <TabPanel key = {i} value = {value} index = {i} sx = {{padding: 0}}>
-                        {component}
+                        <Component tabNumber = {value} sx = {{backgroundColor: "red"}}/>
                     </TabPanel>
                 ))}
             </SwipeableViews>

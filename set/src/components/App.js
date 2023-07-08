@@ -22,7 +22,8 @@ function App() {
             },
             secondary: {
                 main: "#c0c5ce",
-                light: '#dfe2e6'
+                light: '#dfe2e6',
+                veryLight: '#ebedef'
             },
             error: pink,
         }
