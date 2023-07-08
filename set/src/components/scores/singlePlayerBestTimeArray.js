@@ -2,7 +2,7 @@ import { MAX_SCORES } from "../utils/constants";
 
 const getSinglePlayerBestTimeArray = () => {
     return JSON.parse(localStorage.getItem("bestTimesArray"))
-            || Array(10).fill().map(() => ({time: Number.MAX_VALUE, date: "", dummy: true}));
+            || Array(MAX_SCORES).fill().map(() => ({time: Number.MAX_VALUE, date: "", dummy: true}));
 }
 
 const addToSinglePlayerBestTimeArray = (time, date) => {
