@@ -14,11 +14,12 @@ const useStyles = makeStyles({
 });
 
 const VerticalTab = (props) => {
+    const { isSmall } = useContext(SizeContext);
     return <Tab
         sx = {{
             minWidth: "20%",
             fontSize: "min(4vw, 1.25rem)",
-            height: `calc((100vh - 3rem - 88px)/${props.amount})`,
+            height: !isSmall ? `calc((100vh - 3rem - 88px)/${props.amount})` : `calc(100vh/${props.amount})`
         }}
         {...props}
     />

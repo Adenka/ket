@@ -34,19 +34,21 @@ const BestTimes = () => {
     const bestTimes = getSinglePlayerBestTimeArray();
     const [rowNumber, setRowNumber] = useState(MAX_SCORES);
 
-    return <div style = {{display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
-        <div style={{display: "flex"}}>
+    return <div style = {{
+        display: "flex", flexDirection: "column",
+        alignItems: "center", width: "100%" }}>
+        <div style={{display: "flex", alignItems: "center"}}>
             <RowNumberControlIcon
                 icon = {RemoveCircleIcon}
                 onClick = {() => setRowNumber(rowNumber => Math.max(0, rowNumber - 1))}
             />
             <Typography
-                variant = "h3"
                 sx = {{
                     display: "flex",
                     justifyContent: "center", 
                     fontFamily: "Architects Daughter",
-                    height: 65,
+                    fontSize: "min(8vw, 4rem)",
+                    //height: 65,
                     margin: "1rem",
                 }}
             >
