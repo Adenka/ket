@@ -1,6 +1,5 @@
 import { Fab, keyframes } from "@mui/material";
 import React, { useState } from "react";
-import AddIcon from '@mui/icons-material/Add';
 
 const buttonClockwise = keyframes`
     100% {
@@ -14,12 +13,14 @@ const buttonAnticlockwise = keyframes`
     }
 `;
 
-const AddRoomButton = (props) => {
+const FunctionButton = ({onClickFun, icon}) => {
     const [animationStyle, setAnimationStyle] = useState({});
+
+    const Icon = icon;
 
     return <Fab 
         color = "primary"
-        onClick = {props.onClick}
+        onClick = {onClickFun}
         sx = {{
             position: "fixed",
             right: "min(4rem, 10vw)",
@@ -35,12 +36,12 @@ const AddRoomButton = (props) => {
             }
         }}
     >
-        <AddIcon 
-            sx = {{fontSize: "4rem", color: "#ffffff"}}
+        <Icon 
+            sx = {{fontSize: "3rem", color: "#ffffff"}}
             onMouseOver = {() => setAnimationStyle('clockwise')}
             onMouseOut = {() => setAnimationStyle('anticlockwise')}
         />
     </Fab>
 }
 
-export default AddRoomButton;
+export default FunctionButton;

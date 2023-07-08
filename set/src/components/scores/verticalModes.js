@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {TabPanel, TabContext} from "@mui/lab";
 import SwipeableViews from 'react-swipeable-views';
-import {Tab, Tabs} from "@mui/material";
+import {Drawer, Tab, Tabs} from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { SizeContext } from "../contexts/size";
+import FunctionButton from "../functionButton";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const useStyles = makeStyles({
     indicator: {
@@ -21,9 +24,34 @@ const VerticalTab = (props) => {
     />
 }
 
-const VerticalTabs = ({tabTitles, component, localStorageElement}) => {
+const ActualTabs = ({value, handleTabNumberChange, tabTitles}) => {
     const classes = useStyles();
+
+    return <Tabs
+        value = {value}
+        onChange = {handleTabNumberChange}
+        centered
+        orientation="vertical"
+        classes={{
+            indicator: classes.indicator,
+        }}
+        sx = {{
+            maxWidth: "70vw",
+            margin: 0,
+        }}
+    >
+        {tabTitles.map((title, i) => (
+            <VerticalTab key = {i} label = {title} amount = {tabTitles.length} />
+        ))}
+    </Tabs>
+}
+
+const VerticalTabs = ({tabTitles, component, localStorageElement}) => {
+    const { isSmall } = useContext(SizeContext);
+
     const [value, setValue] = useState(parseInt(localStorage.getItem(localStorageElement)) || 0);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
     const handleTabNumberChange = (_, newTabNumber) => {
         console.log(newTabNumber);
         localStorage.setItem(localStorageElement, newTabNumber);
@@ -33,6 +61,9 @@ const VerticalTabs = ({tabTitles, component, localStorageElement}) => {
     const Component = component;
 
     return <div style = {{padding: "1rem", paddingTop: "2rem"}}>
+        {isSmall
+        ? <FunctionButton onClickFun = {() => setDrawerOpen(true)} icon={MenuIcon}/>
+        : null}
         <TabContext value = {value}>
             <div style = {{display: "flex", width: "100%"}}>
                 <SwipeableViews
@@ -52,23 +83,27 @@ const VerticalTabs = ({tabTitles, component, localStorageElement}) => {
                         </TabPanel>
                     ))}
                 </SwipeableViews>
-                <Tabs
-                    value = {value}
-                    onChange = {handleTabNumberChange}
-                    centered
-                    orientation="vertical"
-                    classes={{
-                        indicator: classes.indicator,
-                    }}
-                    sx = {{
-                        width: "20vw%",
-                        margin: 0,
-                    }}
+                {isSmall
+                ?
+                <Drawer
+                    anchor="right"
+                    open={drawerOpen}
+                    onClose={() => setDrawerOpen(false)}
                 >
-                    {tabTitles.map((title, i) => (
-                        <VerticalTab key = {i} label = {title} amount = {tabTitles.length} />
-                    ))}
-                </Tabs>
+                    <ActualTabs
+                        value = {value}
+                        handleTabNumberChange = {handleTabNumberChange}
+                        tabTitles = {tabTitles}
+                    />
+                </Drawer>
+                :
+                    <ActualTabs
+                        value = {value}
+                        handleTabNumberChange = {handleTabNumberChange}
+                        tabTitles = {tabTitles}
+                    />
+                }
+                
             </div>
         </TabContext>
     </div>

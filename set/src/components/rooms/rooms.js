@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import AddRoomButton from "./addRoomButton";
+import FunctionButton from "../functionButton";
 import AddRoomDialog from "./addRoomDialog";
 import CatsCorner from "../../assets/cats/catsCorner.svg"
 import "../../assets/fonts.css";
 import TopMenu from "../topMenu";
 import ModeTabs from "./modeTabs";
 import RoomPaper from "./roomPaper";
+import AddIcon from '@mui/icons-material/Add';
 
 const Rooms = () => {
     const localStorageTabNumber = parseInt(localStorage.getItem("tabNumber")) || 0;
@@ -35,7 +36,7 @@ const Rooms = () => {
             onClose = {() => setOpenDialog(false)}
             defaultValue = {parseInt(localStorageTabNumber)}
         />
-        <AddRoomButton onClick = {() => setOpenDialog(true)}/>
+        <FunctionButton onClick = {() => setOpenDialog(true)} icon={AddIcon}/>
     </div>
 }
 
