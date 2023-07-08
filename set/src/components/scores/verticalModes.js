@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import {Drawer, Tab, Tabs} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { SizeContext } from "../contexts/size";
-import FunctionButton from "../functionButton";
+import FunctionButton from "../utils/functionButton";
 import MenuIcon from '@mui/icons-material/Menu';
 
 const useStyles = makeStyles({

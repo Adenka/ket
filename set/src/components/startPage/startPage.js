@@ -158,6 +158,7 @@ const StartPage = () => {
     const isBig = useMediaQuery((theme) => theme.breakpoints.up("lg"));
     
     useEffect(() => {
+        //localStorage.setItem("bestTimesArray", null);
         if (localStorage.getItem("username") === null) {
             localStorage.setItem("username", "");
         }

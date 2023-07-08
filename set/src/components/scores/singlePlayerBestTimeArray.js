@@ -1,4 +1,4 @@
-const MAX_SCORES = 10;
+import { MAX_SCORES } from "../utils/constants";
 
 const getSinglePlayerBestTimeArray = () => {
     return JSON.parse(localStorage.getItem("bestTimesArray"))
@@ -16,4 +16,4 @@ const addToSinglePlayerBestTimeArray = (time, date) => {
     localStorage.setItem("bestTimesArray", JSON.stringify(bestTimesArray));
 }
 
-export { getSinglePlayerBestTimeArray, addToSinglePlayerBestTimeArray, MAX_SCORES };
+export { getSinglePlayerBestTimeArray, addToSinglePlayerBestTimeArray };

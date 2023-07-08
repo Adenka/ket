@@ -5,8 +5,8 @@ import { Button,
         Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material";
 import { GameContext } from "../contexts/gameContext.js";
 import { makeStyles } from "@mui/styles";
-import TableCellHead from "../tableCellHead.js";
-import TableCellBody from "../tableCellBody.js";
+import TableCellHead from "../utils/tableCellHead.js";
+import TableCellBody from "../utils/tableCellBody.js";
 
 const useStyles = makeStyles(theme => ({
     resultImg: {

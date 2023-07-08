@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Typography, Table, TableHead, TableRow, TableContainer, Paper, TableBody, IconButton } from "@mui/material";
-import TableCellHead from "../tableCellHead";
-import TableCellBody from "../tableCellBody";
-import { MAX_SCORES, getSinglePlayerBestTimeArray } from "./singlePlayerBestTimeArray";
+import TableCellHead from "../utils/tableCellHead";
+import TableCellBody from "../utils/tableCellBody";
+import { getSinglePlayerBestTimeArray } from "./singlePlayerBestTimeArray";
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { ErrorContext } from "../contexts/errors";
+import { MAX_SCORES } from "../utils/constants";
 
 const TimeCell = ({time, dummy, index}) => {
     const minutes = Math.floor(time / 60000);
@@ -32,7 +34,30 @@ const RowNumberControlIcon = ({icon, onClick}) => {
 
 const BestTimes = () => {
     const bestTimes = getSinglePlayerBestTimeArray();
-    const [rowNumber, setRowNumber] = useState(MAX_SCORES);
+    const [rowNumber, setRowNumber] = useState(localStorage.getItem("rowNumber") || MAX_SCORES / 2);
+    const { setSnackbar } = useContext(ErrorContext);
+
+    useEffect(() => {
+        localStorage.setItem("rowNumber", rowNumber);
+    }, [rowNumber]);
+
+    const decreaseRowNumber = () => {
+        if (rowNumber > 1) {
+            setRowNumber(rowNumber => Math.max(1, rowNumber - 1));
+        }
+        else {
+            setSnackbar("2 few da rows!", "error");
+        }
+    }
+
+    const increaseRowNumber = () => {
+        if (rowNumber < MAX_SCORES) {
+            setRowNumber(rowNumber => Math.min(MAX_SCORES, rowNumber + 1));
+        }
+        else {
+            setSnackbar("2 lotz da rows!", "error");
+        }
+    }
 
     return <div style = {{
         display: "flex", flexDirection: "column",
@@ -40,7 +65,7 @@ const BestTimes = () => {
         <div style={{display: "flex", alignItems: "center"}}>
             <RowNumberControlIcon
                 icon = {RemoveCircleIcon}
-                onClick = {() => setRowNumber(rowNumber => Math.max(0, rowNumber - 1))}
+                onClick = {decreaseRowNumber}
             />
             <Typography
                 sx = {{
@@ -48,7 +73,6 @@ const BestTimes = () => {
                     justifyContent: "center", 
                     fontFamily: "Architects Daughter",
                     fontSize: "min(8vw, 4rem)",
-                    //height: 65,
                     margin: "1rem",
                 }}
             >
@@ -56,7 +80,7 @@ const BestTimes = () => {
             </Typography>
             <RowNumberControlIcon
                 icon = {AddCircleIcon}
-                onClick = {() => setRowNumber(rowNumber => Math.min(rowNumber + 1, MAX_SCORES))}
+                onClick = {increaseRowNumber}
             />
         </div>
         <TableContainer component = {Paper} sx = {{width: "80%", margin: "1rem"}}>

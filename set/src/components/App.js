@@ -9,7 +9,7 @@ import WaitingRoom from "./waitingRoom/waitingRoom";
 import { Sockets } from "./sockets";
 import { Errors } from "./contexts/errors";
 import { Singleplayer } from "./singleplayer";
-import SnackBar from "./snackBar";
+import SnackBar from "./utils/snackBar";
 import { Size } from "./contexts/size";
 import Scores from "./scores/scores";
 

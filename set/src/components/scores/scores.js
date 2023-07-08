@@ -1,5 +1,5 @@
 import React from "react";
-import TopMenu from "../topMenu";
+import TopMenu from "../utils/topMenu";
 import VerticalTabs from "./verticalModes";
 import ScoresWrapper from "./scoresWrapper";
 
