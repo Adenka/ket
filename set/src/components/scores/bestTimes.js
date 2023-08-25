@@ -34,7 +34,8 @@ const RowNumberControlIcon = ({icon, onClick}) => {
 
 const BestTimes = () => {
     const bestTimes = getSinglePlayerBestTimeArray();
-    const [rowNumber, setRowNumber] = useState(localStorage.getItem("rowNumber") || MAX_SCORES / 2);
+    const [rowNumber, setRowNumber] = useState(parseInt(localStorage.getItem("rowNumber"))
+                                               || MAX_SCORES / 2);
     const { setSnackbar } = useContext(ErrorContext);
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const BestTimes = () => {
 
     const decreaseRowNumber = () => {
         if (rowNumber > 1) {
-            setRowNumber(rowNumber => Math.max(1, rowNumber - 1));
+            setRowNumber((prevRowNumber) => prevRowNumber - 1);
         }
         else {
             setSnackbar("2 few da rows!", "error");
@@ -52,7 +53,7 @@ const BestTimes = () => {
 
     const increaseRowNumber = () => {
         if (rowNumber < MAX_SCORES) {
-            setRowNumber(rowNumber => Math.min(MAX_SCORES, rowNumber + 1));
+            setRowNumber((prevRowNumber) => prevRowNumber + 1);
         }
         else {
             setSnackbar("2 lotz da rows!", "error");
@@ -72,7 +73,7 @@ const BestTimes = () => {
                     display: "flex",
                     justifyContent: "center", 
                     fontFamily: "Architects Daughter",
-                    fontSize: "min(8vw, 4rem)",
+                    fontSize: "min(8vw, 3.5rem)",
                     margin: "1rem",
                 }}
             >
