@@ -258,12 +258,15 @@ export function Singleplayer() {
                 const _isGameOver = handleSelectedSet(newSelections);
                 setIsGameOver(_isGameOver);
                 
-                const isPracticeOn = localStorage.getItem("practiceMode") === "true";
-                if (_isGameOver && !isPracticeOn) {
+                if (_isGameOver) {
                     setGameOverTime(Date.now());
-                    addToSinglePlayerBestTimeArray(
-                        Date.now() - gameStartTime, new Date().toLocaleDateString("en-GB")
-                    );
+
+                    const isPracticeOn = localStorage.getItem("practiceMode") === "true";
+                    if (!isPracticeOn) {
+                        addToSinglePlayerBestTimeArray(
+                            Date.now() - gameStartTime, new Date().toLocaleDateString("en-GB")
+                        );
+                    }
                 }
             }
         }
