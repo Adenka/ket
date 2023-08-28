@@ -258,7 +258,7 @@ export function Singleplayer() {
                 const _isGameOver = handleSelectedSet(newSelections);
                 setIsGameOver(_isGameOver);
                 
-                const isPracticeOn = localStorage.getItem("practiceOn") === "true";
+                const isPracticeOn = localStorage.getItem("practiceMode") === "true";
                 if (_isGameOver && !isPracticeOn) {
                     setGameOverTime(Date.now());
                     addToSinglePlayerBestTimeArray(
