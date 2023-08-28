@@ -28,8 +28,11 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "white",
         padding: "min(1rem, 2vw)",
         borderRadius: "min(2rem, 4vw)",
-        width: "100%",
+        width: "calc(100% - 2*min(1rem, 2vw))",
         gap: "min(1rem, 2vw)",
+        position: "absolute",
+        margin: "min(1rem, 2vw)",
+        bottom: 0,
     },
 }));
 

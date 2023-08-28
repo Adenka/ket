@@ -14,7 +14,7 @@ const StartPageDrawer = ({openDrawer, setOpenDrawer}) => {
             subElements: [
                 {
                     text: "Baby kitteh",
-                    contextVariable: "practiceMode",
+                    lsVar: "practiceMode",
                 }
             ]
         }

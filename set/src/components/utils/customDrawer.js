@@ -47,7 +47,7 @@ const CustomDrawer = (props) => {
                 {element.subElements && element.subElements.map((subelement, indexxx) => (
                     <DrawerSubelement
                         key = {indexxx}
-                        contextVariable = {subelement.contextVariable}
+                        lsVar = {subelement.lsVar}
                     >
                         {subelement.text}
                     </DrawerSubelement>

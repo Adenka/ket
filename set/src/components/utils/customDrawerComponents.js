@@ -69,15 +69,15 @@ const DrawerElement = (props) => (
 )
 
 const DrawerSubelement = (props) => {
-    const [isChosen, setIsChosen] = useState(localStorage.getItem(props.contextVariable) === "true");
+    const [isChosen, setIsChosen] = useState(localStorage.getItem(props.lsVar) === "true");
 
-    const subelementOnClick = (contextVariable) => {
+    const subelementOnClick = (lsVar) => {
         setIsChosen((prevIsChosen) => !prevIsChosen);
-        console.log(contextVariable + " is now " + localStorage.getItem(contextVariable));
+        console.log(lsVar + " is now " + localStorage.getItem(lsVar));
     }
 
     useEffect(() => {
-        localStorage.setItem(props.contextVariable, isChosen);
+        localStorage.setItem(props.lsVar, isChosen);
     }, [isChosen]);
 
     return <Typography
@@ -93,8 +93,8 @@ const DrawerSubelement = (props) => {
                 color: grey[800],
             }
         }}
-        onClick = {() => subelementOnClick(props.contextVariable)}
-        isChosen = {localStorage.getItem(props.contextVariable) === "true"}
+        onClick = {() => subelementOnClick(props.lsVar)}
+        isChosen = {localStorage.getItem(props.lsVar) === "true"}
         {...props}
     >
         {props.children}

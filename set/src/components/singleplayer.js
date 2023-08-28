@@ -257,8 +257,9 @@ export function Singleplayer() {
                 setHelperCardsDisplayed(0);
                 const _isGameOver = handleSelectedSet(newSelections);
                 setIsGameOver(_isGameOver);
-
-                if (_isGameOver) {
+                
+                const isPracticeOn = localStorage.getItem("practiceOn") === "true";
+                if (_isGameOver && !isPracticeOn) {
                     setGameOverTime(Date.now());
                     addToSinglePlayerBestTimeArray(
                         Date.now() - gameStartTime, new Date().toLocaleDateString("en-GB")
