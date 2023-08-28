@@ -6,9 +6,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 const BigIconButton = (props) => (
     <IconButton
         sx = {{
-            width: 64,
-            height: 64,
-            margin: "2rem 1rem 2rem 1rem"
+            width: "min(4rem, 12vw)",
+            height: "min(4rem, 12vw)",
+            margin: "min(1.25rem, 4vw) 1rem",
         }}
         {...props}
     >
@@ -22,7 +22,7 @@ const BigIcon = ({iconName}) => {
     return <IconName
         sx = {{
             color: grey[800],
-            fontSize: 40
+            fontSize: "min(2.5rem, 7.5vw)"
         }}
     />
 }
@@ -40,13 +40,14 @@ const DrawerDivider = (props) => (
 const DrawerElement = (props) => (
     <Typography
         sx = {{
-            padding: "1.5rem 2rem",
+            padding: "min(1.5rem, 5vw) min(2rem, 6.25vw)",
             transition: "0.25s",
             color: grey[600],
             fontFamily: "Prompt",
-            fontSize: 22.5,
+            fontSize: "min(1.25rem, 5vw)",
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             "&:hover": {
                 color: (theme) => theme.palette.secondary.light,
                 backgroundColor: (theme) => theme.palette.primary.main
@@ -58,7 +59,7 @@ const DrawerElement = (props) => (
         
         {props.isDropDown
         ?
-        <IconButton onClick={props.toggleExpansion}>
+        <IconButton onClick={props.toggleExpansion} sx={{height: 32, width: 32}}>
             <KeyboardArrowDownIcon/>
         </IconButton>
         :
@@ -81,13 +82,13 @@ const DrawerSubelement = (props) => {
 
     return <Typography
         sx = {{
-            padding: "0.5rem",
-            paddingLeft: "4rem",
+            padding: "min(0.5rem, 2vw)",
+            paddingLeft: "min(4rem, 12vw)",
             transition: "0.25s",
             color: grey[500],
             fontWeight: isChosen ? "bold" : "normal",
             fontFamily: "Prompt",
-            fontSize: 18,
+            fontSize: "min(1rem, 4vw)",
             "&:hover": {
                 color: grey[800],
             }
@@ -103,14 +104,13 @@ const DrawerSubelement = (props) => {
 const DrawerTitleTypography = (props) => (
     <Typography
         sx = {{
-            padding: "2.5rem",
             paddingLeft: 0,
             fontFamily: "Righteous",
             letterSpacing: "0.125rem",
-            fontSize: 32,
+            fontSize: "min(2rem, 7.5vw)",
             textOverflow: "ellipsis",
             overflow: "hidden",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
         }}
     >
         {props.children}
@@ -118,8 +118,8 @@ const DrawerTitleTypography = (props) => (
 )
 
 const DrawerTitle = ({iconName, text}) => {
-    return <div style={{display: "flex"}}>
-        <BigIconButton disabled>
+    return <div style={{display: "flex", alignItems: "center",}}>
+        <BigIconButton>
             <BigIcon iconName={iconName}/>
         </BigIconButton>
         <DrawerTitleTypography>

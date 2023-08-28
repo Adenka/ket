@@ -7,6 +7,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { ErrorContext } from "../contexts/errors";
 import { MAX_SCORES } from "../utils/constants";
+import { SizeContext } from "../contexts/size";
 
 const TimeCell = ({time, dummy, index}) => {
     const minutes = Math.floor(time / 60000);
@@ -23,12 +24,13 @@ const TimeCell = ({time, dummy, index}) => {
 
 const RowNumberControlIcon = ({icon, onClick}) => {
     const Icon = icon;
+    const { isSmall } = useContext(SizeContext);
 
     return <IconButton
         onClick = {onClick}
-        sx = {{ width: "5rem", height: "5rem" }}
+        sx = {{ width: "min(5rem, 15vw)", height: "min(15vw, 5rem)" }}
     >
-        <Icon fontSize = "large" />
+        <Icon fontSize = {isSmall ? "medium" : "large"} />
     </IconButton>
 }
 
@@ -73,7 +75,7 @@ const BestTimes = () => {
                     display: "flex",
                     justifyContent: "center", 
                     fontFamily: "Architects Daughter",
-                    fontSize: "min(8vw, 3.5rem)",
+                    fontSize: "min(7vw, 3.5rem)",
                     margin: "1rem",
                 }}
             >
