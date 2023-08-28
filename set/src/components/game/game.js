@@ -23,29 +23,21 @@ const useStyles = makeStyles(theme => ({
         backgroundImage: `radial-gradient(bottom left, ${cyan[50]} 45%, ${cyan["A100"]} 75%, ${cyan[100]})`,
     },
 
-    gridWrap: {
+    bottomStuffWrap: {
+        display: "flex",
         backgroundColor: "white",
         padding: "min(1rem, 2vw)",
         borderRadius: "min(2rem, 4vw)",
+        width: "100%",
+        gap: "min(1rem, 2vw)",
     },
-
-    bottomStuffWrap: {
-        display: "flex",
-        gap: "2.5vw",
-        width: "100vw",
-        padding: "2vh 2vw",
-        position: "absolute",
-        bottom: "0",
-    }
 }));
 
 const PracticeModeButton = () => {
-    const classes = useStyles();
     const theme = useTheme();
     const { findAndSetHelperSet } = useContext(GameContext);
 
-    return <div className={classes.gridWrap}>
-        <Button
+    return <Button
             variant="contained"
             sx={{
                 background:
@@ -56,16 +48,18 @@ const PracticeModeButton = () => {
                 fontSize: "min(1.35rem, 3vw)",
                 color: theme.palette.secondary.veryLight,
                 fontFamily: "Prompt",
-                borderRadius: "1rem",
+                borderRadius: "min(1rem, 2vw)",
                 fontWeight: "bold",
                 letterSpacing: "0.15rem",
-                height: "100%"
+                maxWidth: "25vw",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
             }}
             onClick={() => findAndSetHelperSet()}
         >
             Plz help
         </Button>
-    </div>
 }
 
 const Game = () => {
