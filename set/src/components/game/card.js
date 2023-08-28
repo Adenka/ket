@@ -84,11 +84,12 @@ const useStyles = makeStyles({
 const Card = ({cardObject, onClickFun}) => {
     const classes = useStyles();
     const theme = useTheme();
-    const { amI, returnPlayer } = useContext(GameContext);
+    const { amIClicked, amIInHelperSet, returnPlayer } = useContext(GameContext);
     const { isSmall } = useContext(SizeContext);
     const shapeMap = isSmall ? shapeMapSmall : shapeMapBig;
 
-    const amIInClicked = amI(cardObject);
+    const presentInClicked = amIClicked(cardObject);
+    const presentInHelperSet = amIInHelperSet(cardObject);
 
     let playerInRes = returnPlayer();
 
@@ -116,9 +117,13 @@ const Card = ({cardObject, onClickFun}) => {
             }),
             
             outline:
-                amIInClicked
+                presentInClicked
                 ? `solid min(0.75vw, 0.25rem) ${kolorki[playerInRes.colorNumber][500]}`
                 : `solid 0 white`,
+            backgroundColor:
+                presentInHelperSet
+                ? theme.palette.secondary.light
+                : "white",
         }}
         onTouchStart = {handleOnTouchStart}
         onClick = {handleOnClick}

@@ -33,7 +33,7 @@ export function Sockets() {
 
     const stupidTimeoutNumber = useRef(null);
 
-    const amI = (cardObject) => {
+    const amIClicked = (cardObject) => {
         return Object.values(cardObject.clicked).some(click => click.playerId === playerId);
     }
 
@@ -246,7 +246,7 @@ export function Sockets() {
 
             gameId,
             gamemode,
-            amI,
+            amIClicked,
             returnPlayer,
             isGameOver,
             gameStartTime,

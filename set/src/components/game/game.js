@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 const PracticeModeButton = () => {
     const classes = useStyles();
     const theme = useTheme();
+    const { findAndSetHelperSet } = useContext(GameContext);
 
     return <div className={classes.gridWrap}>
         <Button
@@ -59,7 +60,8 @@ const PracticeModeButton = () => {
                 fontWeight: "bold",
                 letterSpacing: "0.15rem",
                 height: "100%"
-        }}
+            }}
+            onClick={() => findAndSetHelperSet()}
         >
             Plz help
         </Button>

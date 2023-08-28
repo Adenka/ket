@@ -78,11 +78,15 @@ export function Singleplayer() {
     const [ points, setPoints ]                 = useState(0);
     const [ colorNumber, setColorNumber ]       = useState(0);
 
+    const [ helperSet, setHelperSet ]           = useState([]);
+    const [ helperCardsDisplayed, setHelperCardsDisplayed ] = useState(0);
+
     useEffect(() => {
         if (!isGameOver) {
             setPoints(0);
             setSelections([]);
             setColorNumber(Math.floor(Math.random() * 6));
+            setHelperSet([]);
 
             const shuffledCards = shuffleCards();
             setCards(shuffledCards);
@@ -113,23 +117,27 @@ export function Singleplayer() {
         );
     }
 
-    const includesCard = (cardsssOnTable, card) => {
-        return cardsssOnTable.some(cardOnTable => cardOnTable.name === card.name);
+    const includesCard = (_cardsOnTable, card) => {
+        return _cardsOnTable.some(cardOnTable => cardOnTable.name === card.name);
     }
 
-    const isSetOnTable = (cardsssOnTable) => {
-        for (let i = 0; i < cardsssOnTable.length; ++i) {
-            for (let j = i + 1; j < cardsssOnTable.length; ++j) {
+    const findSetOnTable = (_cardsOnTable) => {
+        for (let i = 0; i < _cardsOnTable.length; ++i) {
+            for (let j = i + 1; j < _cardsOnTable.length; ++j) {
                 const complimentaryCard
-                    = complimentaryToSet(cardsssOnTable[i], cardsssOnTable[j]);
+                    = complimentaryToSet(_cardsOnTable[i], _cardsOnTable[j]);
 
-                if (includesCard(cardsssOnTable, complimentaryCard)) {
-                    return true;
+                if (includesCard(_cardsOnTable, complimentaryCard)) {
+                    return [ _cardsOnTable[i], _cardsOnTable[j], complimentaryCard ];
                 }
             }
         }
 
-        return false;
+        return [];
+    }
+
+    const isSetOnTable = (_cardsOnTable) => {
+        return findSetOnTable(_cardsOnTable).length === SET_AMOUNT;   
     }
 
     const addCardToTable = (_cards, _cardsOnTable, _cardInUse) => {
@@ -245,6 +253,8 @@ export function Singleplayer() {
             if (isSetSelected(newSelections)) {
                 setPoints(points => points + 1);
                 setSelections([]);
+                setHelperSet([]);
+                setHelperCardsDisplayed(0);
                 const _isGameOver = handleSelectedSet(newSelections);
                 setIsGameOver(_isGameOver);
 
@@ -272,6 +282,15 @@ export function Singleplayer() {
         username: localStorage.getItem("username")
     }
 
+    const findAndSetHelperSet = () => {
+        const set = findSetOnTable(cardsOnTable);
+        console.log(set);
+        setHelperSet(set);
+        //todo - shout if > 3
+        console.log(helperCardsDisplayed+1);
+        setHelperCardsDisplayed(helperCardsDisplayed => Math.min(helperCardsDisplayed + 1, 3));
+    }
+
     return <GameContext.Provider
         value = {{
             players: [player],
@@ -281,7 +300,8 @@ export function Singleplayer() {
 
             gamemode,
             gameId,
-            amI: (cardObject) => selections.some(cardSelected => cardSelected.name === cardObject.name),
+            amIClicked: (cardObject) => selections.some(cardSelected => cardSelected.name === cardObject.name),
+
             returnPlayer: () => player,
 
             isGameOver,
@@ -289,7 +309,11 @@ export function Singleplayer() {
             gameOverTime,
 
             rematch: () => setIsGameOver(false),
-            leave
+            leave,
+            
+            findAndSetHelperSet,
+            amIInHelperSet: (cardObject) => helperSet.slice(0, helperCardsDisplayed)
+                                                     .some(card => card.name === cardObject.name),
         }}
     >
         <Outlet/>
