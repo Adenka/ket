@@ -8,7 +8,7 @@ const BigIconButton = (props) => (
         sx = {{
             width: "min(4rem, 12vw)",
             height: "min(4rem, 12vw)",
-            margin: "min(1.25rem, 4vw) 1rem",
+            margin: "min(1.5rem, 6vw) 1rem",
         }}
         {...props}
     >
