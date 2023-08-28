@@ -34,9 +34,8 @@ const CustomDrawer = (props) => {
         />
         <DrawerDivider/>
         {props.drawerBodyElements.map((element, index) => (
-            <div>
+            <div key = {index}>
             <DrawerElement
-                key = {index}
                 onClick = {() => {navigate(element.path); toggleExpansion(index)}}
                 isDropDown = {element.subElements}
                 toggleExpansion = {() => toggleExpansion(index)}
@@ -45,9 +44,9 @@ const CustomDrawer = (props) => {
             </DrawerElement>
             <Fade in = {isExpanded[index]} style={{transitionDuration: "0.25s"}}>
                 <div>
-                {element.subElements && element.subElements.map((subelement, index) => (
+                {element.subElements && element.subElements.map((subelement, indexxx) => (
                     <DrawerSubelement
-                        key = {index}
+                        key = {indexxx}
                         contextVariable = {subelement.contextVariable}
                     >
                         {subelement.text}
