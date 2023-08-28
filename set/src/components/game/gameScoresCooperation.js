@@ -1,57 +1,24 @@
-import { Grid, Paper } from "@mui/material";
 import React, { useContext } from "react";
-import useStyles from "./gameScoreStyles";
-import { kolorki } from "../../assets/kolorki"
 import { GameContext } from "../contexts/gameContext";
-
-function GameScore(props) {
-    const classes = useStyles();
-
-    const { returnPlayer } = useContext(GameContext);
-    const player = returnPlayer();
-
-    return <Grid item xs = {12}>
-        <Paper
-            className = {classes.scoreWrap}
-            sx = {{
-                backgroundColor: kolorki[player.colorNumber][500],
-                fontFamily: "Prompt",
-                borderRadius: "1rem"
-            }}
-        >
-            <div className = {classes.usernameWrap}>
-                {props.teamname}
-            </div>
-            <div className = {classes.pointsWrap}>
-                {props.points}
-            </div>
-        </Paper>
-    </Grid>
-}
+import GameScores from "./gameScores";
 
 function GameScoresCooperation() {
     let totalPoints = 0;
-    const { players } = useContext(GameContext);
-    const classes = useStyles();
+    const { players, returnPlayer } = useContext(GameContext);
+    const player = returnPlayer();
 
     //TODO - players leave with their points!
-    Object.values(players).map(player => totalPoints += player.points);
+    Object.values(players).map(playerrr => totalPoints += playerrr.points);
 
-    return <div className = {classes.root}>
-        <div className = {classes.gridWrap}>
-            <Grid
-                container
-                spacing = {2}
-                className = {classes.scoresWrap}
-                classes = {{root: classes.scoresWrap}}
-            >
-                <GameScore
-                    teamname = "Fuzzzd Kittehz"
-                    points = {totalPoints}
-                />
-            </Grid>
-        </div>
-    </div>
+    const cooperationPlayers = [
+        {
+            username: "Fuzzzd Kittehz",
+            points: totalPoints,
+            colorNumber: player.colorNumber
+        }
+    ]
+
+    return <GameScores players = {cooperationPlayers} />;
 }
 
 export default GameScoresCooperation;

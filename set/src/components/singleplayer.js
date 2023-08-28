@@ -237,6 +237,7 @@ export function Singleplayer() {
         return _isGameOver;
     }
 
+    //TODO - isn't Da hell dude necessary?
     const select = (card) => {
         if (!selections.some(cardSelected => cardSelected.name === card.name)) {
             const newSelections = addSelection(card);

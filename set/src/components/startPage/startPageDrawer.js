@@ -1,55 +1,36 @@
-import { Drawer } from "@mui/material";
 import React from "react";
-import { useTheme } from "@emotion/react";
-import { grey } from "@mui/material/colors";
-import { useNavigate } from "react-router-dom";
-import {    BigIconButton,
-            BigPersonIcon,
-            UsernameTypography,
-            DrawerDivider,
-            DrawerElement } from "./startPageDrawerComponents";
-
-const CustomDrawer = (props) => (
-    <Drawer
-        PaperProps = {{
-            sx: {
-                minWidth: "min(70vw, 400px)",
-                maxWidth: "70vw",
-                backgroundColor: (theme) => theme.palette.secondary.light,
-                color: grey[800]
-            }
-        }}
-        {...props}
-    >
-        {props.children}
-    </Drawer>
-)
+import CustomDrawer from "../utils/customDrawer";
+import PersonIcon from '@mui/icons-material/Person';
 
 const StartPageDrawer = ({openDrawer, setOpenDrawer}) => {
-    const theme = useTheme();
-    const navigate = useNavigate(theme);
+    const drawerBodyElements = [
+        {
+            text: "Mah scorez",
+            path: "/scores"
+        },
+        {
+            text: "Lonely kitteh opshuns",
+            path: "/",
+            subElements: [
+                {
+                    text: "Baby kitteh",
+                    contextVariable: "practiceMode",
+                }
+            ]
+        }
+    ];
 
     return <CustomDrawer
         anchor="right"
         open={openDrawer}
+
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
-    >
-        <div style={{display: "flex"}}>
-            <BigIconButton disabled>
-                <BigPersonIcon/>
-            </BigIconButton>
-            <UsernameTypography>
-                {localStorage.getItem("username")}
-            </UsernameTypography>
-        </div>
-        <DrawerDivider/>
-        <DrawerElement
-            onClick = {() => {navigate("/scores")}}
-        >
-            Mah scorez
-        </DrawerElement>
-    </CustomDrawer>
+
+        drawerTitleIcon={PersonIcon}
+        drawerTitleText={localStorage.getItem("username")}
+        drawerBodyElements={drawerBodyElements}
+    />
 }
 
 export default StartPageDrawer;
