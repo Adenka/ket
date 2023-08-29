@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Divider, IconButton, Typography } from "@mui/material";
+import { Divider, IconButton, Switch, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
@@ -71,9 +71,8 @@ const DrawerElement = (props) => (
 const DrawerSubelement = (props) => {
     const [isChosen, setIsChosen] = useState(localStorage.getItem(props.lsVar) === "true");
 
-    const subelementOnClick = (lsVar) => {
+    const subelementOnClick = () => {
         setIsChosen((prevIsChosen) => !prevIsChosen);
-        console.log(lsVar + " is now " + localStorage.getItem(lsVar));
     }
 
     useEffect(() => {
@@ -82,22 +81,23 @@ const DrawerSubelement = (props) => {
 
     return <Typography
         sx = {{
-            padding: "min(0.5rem, 2vw)",
-            paddingLeft: "min(4rem, 12vw)",
+            padding: "min(0.5rem, 2vw) 1rem min(0.5rem, 2vw) min(4rem, 12vw)",
             transition: "0.25s",
             color: grey[500],
-            fontWeight: isChosen ? "bold" : "normal",
             fontFamily: "Prompt",
             fontSize: "min(1rem, 4vw)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             "&:hover": {
                 color: grey[800],
             }
         }}
-        onClick = {() => subelementOnClick(props.lsVar)}
-        isChosen = {localStorage.getItem(props.lsVar) === "true"}
+        onClick = {() => subelementOnClick()}
         {...props}
     >
         {props.children}
+        <Switch checked={isChosen} />
     </Typography>
 }
 

@@ -288,10 +288,8 @@ export function Singleplayer() {
 
     const findAndSetHelperSet = () => {
         const set = findSetOnTable(cardsOnTable);
-        console.log(set);
         setHelperSet(set);
         //todo - shout if > 3
-        console.log(helperCardsDisplayed+1);
         setHelperCardsDisplayed(helperCardsDisplayed => Math.min(helperCardsDisplayed + 1, 3));
     }
 

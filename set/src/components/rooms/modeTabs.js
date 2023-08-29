@@ -18,7 +18,6 @@ const ModeTab = (props) => {
 const ModeTabs = ({tabTitles, component, localStorageElement}) => {
     const [value, setValue] = useState(parseInt(localStorage.getItem(localStorageElement)) || 0);
     const handleTabNumberChange = (_, newTabNumber) => {
-        console.log(newTabNumber);
         localStorage.setItem(localStorageElement, newTabNumber);
         setValue(newTabNumber);
     };

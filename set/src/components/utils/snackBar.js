@@ -17,8 +17,6 @@ function SnackBar() {
 
         setIsMessageOn(false);
     }
-
-    console.log("current message: ", currentMessage);
     
     return <Snackbar
         open = {isMessageOn}
