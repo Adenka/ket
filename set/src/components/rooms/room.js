@@ -96,7 +96,7 @@ const Room = ({roomObject}) => {
             <AvatarGroup max = {4} classes = {{ avatar: classes.avatar, root: classes.rootAvatar }}>
                 {roomObject.players.map((item, key) =>
                     <Avatar key = {key}
-                        alt = {item.username}
+                        alt = {(item.username) ? item.username : ""}
                         sx = {{backgroundColor: kolorki[item.colorNumber][500]}}
                     >{item.username[0]}</Avatar>
                 )}
