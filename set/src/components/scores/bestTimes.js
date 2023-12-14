@@ -46,7 +46,7 @@ const BestTimes = () => {
 
     const decreaseRowNumber = () => {
         if (rowNumber > 1) {
-            setRowNumber((prevRowNumber) => prevRowNumber - 1);
+            setRowNumber((prevRowNumber) => Math.max(prevRowNumber - 1, 1));
         }
         else {
             setSnackbar("2 few da rows!", "error");
@@ -55,7 +55,7 @@ const BestTimes = () => {
 
     const increaseRowNumber = () => {
         if (rowNumber < MAX_SCORES) {
-            setRowNumber((prevRowNumber) => prevRowNumber + 1);
+            setRowNumber((prevRowNumber) => Math.min(prevRowNumber + 1, 10));
         }
         else {
             setSnackbar("2 lotz da rows!", "error");

@@ -69,8 +69,8 @@ export function Sockets() {
     }
 
     const connect = () => {
-        socket.current = new WebSocket(`wss://${window.location.hostname}`);
-        //socket.current = new WebSocket(`ws://localhost:5000`);
+        //socket.current = new WebSocket(`wss://${window.location.hostname}`);
+        socket.current = new WebSocket(`ws://localhost:5000`);
         
         socket.current.onopen = () => {
             console.log("Connected socket main component");
@@ -179,7 +179,6 @@ export function Sockets() {
                 }
                 
                 case "gotSet": {
-                    console.log("info z okazji seta");
                     setCardsLeft(DECK_AMOUNT - content.cardsUsed);
                     setIsGameOver(content.isGameOver);
                     if (content.isGameOver) {
@@ -190,7 +189,6 @@ export function Sockets() {
                 }
 
                 case "rematch": {
-                    console.log("ja chce jeszcze raz");
                     navigate(`${roomId}/wait`);
                     setIsGameOver(false);
                     break;
@@ -232,6 +230,10 @@ export function Sockets() {
         }
     }
 
+    const amIInHelperSet = () => {
+        return false;
+    }
+
     return <GameContext.Provider
         value = {{
             socket,
@@ -253,6 +255,9 @@ export function Sockets() {
             gameOverTime,
             rematch,
             leave,
+            
+            //TODO - now that's ugly
+            amIInHelperSet
         }}
     >
         {route.path === "/:roomId/game" && socket.current === null ? <div></div> : <Outlet/>}
