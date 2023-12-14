@@ -81,7 +81,6 @@ wss.on("connection", (ws) => {
                 case "game": {
                     let dataToSend = data.data;
                     dataToSend.playerId = ws.playerId;
-
                     room.game.handleGameMessage(dataToSend);
                     break;
                 }
@@ -131,7 +130,7 @@ const interval = setInterval(() => {
         }
 
         ws.isAlive = false;
-        ws.ping(null, false, true);
+        ws.ping();
     })
 }, 10000);
 
