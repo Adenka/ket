@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     }
 })
 
-function WaitingRoomAvatar(props) {
+const WaitingRoomAvatar = (props) => {
     return <Avatar
         title = {props.title}
         sx = {{
@@ -34,8 +34,8 @@ function WaitingRoomAvatar(props) {
     </Avatar>
 }
 
-function WaitingRoomChip(props) {
-    const kolorekodcien = kolorki[props.colorNumber][400];
+const WaitingRoomChip = (props) => {
+    const colorShade = kolorki[props.colorNumber][400];
 
     return <Chip
         avatar = {<WaitingRoomAvatar text = {props.text[0]} colorNumber = {props.colorNumber}/>}
@@ -51,7 +51,7 @@ function WaitingRoomChip(props) {
             fontWeight: 200,
             letterSpacing: "0.125rem",
 
-            backgroundColor: kolorekodcien,
+            backgroundColor: colorShade,
         }}
         label = {props.text}
     />
@@ -74,7 +74,7 @@ function PlayerList(props) {
             {props.players.map((player) => (
                 <WaitingRoomChip
                     key = {player.playerId}
-                    text = {player.username}
+                    text = {(player.username) ? player.username : ""}
                     colorNumber = {player.colorNumber}/>
             ))}
         </div>
