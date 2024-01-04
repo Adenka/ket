@@ -20,11 +20,11 @@ const WaitingRoomAvatar = (props) => {
     return <Avatar
         title = {props.title}
         sx = {{
-            width: "4.5rem",
-            height: "4.5rem",
-            margin: "1rem",
+            width: "min(4.5rem, 15vw)",
+            height: "min(4.5rem, 15vw)",
+            margin: "min(1rem, 2vw)",
 
-            fontSize: "2.25rem",
+            fontSize: "min(2.25rem, 7.5vw)",
             color: kolorki[props.colorNumber][900],
 
             backgroundColor: kolorki[props.colorNumber][200],
@@ -41,12 +41,13 @@ const WaitingRoomChip = (props) => {
         avatar = {<WaitingRoomAvatar text = {props.text[0]} colorNumber = {props.colorNumber}/>}
         sx = {{
             justifyContent: "left",
-            height: "6rem",
+            height: "min(6rem, 20vw)",
             borderRadius: "100rem",
-            margin: "0.5rem",
+            marginBottom: "1rem",
+            marginRight: "2rem",
             paddingRight: "2rem",
 
-            fontSize: "2rem",
+            fontSize: "min(2rem, 8vw)",
             fontFamily: "Prompt",
             fontWeight: 200,
             letterSpacing: "0.125rem",
@@ -57,7 +58,7 @@ const WaitingRoomChip = (props) => {
     />
 }
 
-function PlayerList(props) {
+const PlayerList = (props) => {
     const classes = useStyles();
 
     return <div className = {classes.root}>
@@ -65,7 +66,7 @@ function PlayerList(props) {
             sx = {{
                 fontSize: "min(3.5rem, 10vw)",
                 fontFamily: "Prompt",
-                padding: "1.5rem"
+                padding: "min(1.5rem, 2.5vw)"
             }}
         >
             Kittehs joind

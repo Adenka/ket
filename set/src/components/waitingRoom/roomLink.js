@@ -46,7 +46,7 @@ function RoomLink() {
             style: {
                 fontSize: "min(1.5rem, 5vw)",
                 width: "100%",
-                padding: "2rem",
+                padding: "min(2rem, 5vw)",
                 backgroundColor: theme.palette.secondary.light,
                 borderRadius: "100rem",
                 fontFamily: "Prompt",

@@ -89,8 +89,14 @@ const Room = ({roomObject}) => {
     return <Paper className = {classes.root} sx = {{backgroundColor: theme.palette.secondary.light}}>
         <div className = {classes.leftWrap}>
             <Typography
-                className = {classes.title}
-                sx = {{fontSize: "min(2rem, 6.25vw)", fontFamily: "Prompt"}}>
+                sx = {{
+                    fontSize: "min(2rem, 6.25vw)",
+                    fontFamily: "Prompt",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    maxWidth: "min(30vw, 15.5rem)"
+                }}>
                 {roomObject.name}
             </Typography>
             <AvatarGroup max = {4} classes = {{ avatar: classes.avatar, root: classes.rootAvatar }}>
