@@ -44,7 +44,11 @@ const CardWrap = () => {
     return <div className = {classes.cardWrap}>
         <div className = {clsx(classes.cards, isSmall ? classes.cardsSmall : classes.cardsBig)}>
             {cardsOnTable.map(card =>
-                <Card cardObject = {card} onClickFun = {() => cardOnClick(card.name)} />
+                <Card
+                    key={card.name}
+                    cardObject = {card}
+                    onClickFun = {() => cardOnClick(card.name)}
+                />
             )}
         </div>
     </div>

@@ -131,8 +131,8 @@ const Card = ({cardObject, onClickFun}) => {
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
                 click => click.playerId !== playerInRes.playerId
-            ).map((click) =>
-                <Fade in={true} style={{transitionDuration: "0.25s"}}>
+            ).map((click, index) =>
+                <Fade in={true} style={{transitionDuration: "0.25s"}} key={index}>
                     <div
                         key = {click.playerId}
                         className = {classes.dot}
