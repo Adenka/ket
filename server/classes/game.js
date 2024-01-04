@@ -40,22 +40,19 @@ class Game {
         let cards = new Array();
 
         const traits = {
-            numbers: ["1", "2", "3"],
-            colors: ["red", "green", "purple"],
-            shapes: ["oval", "wave", "diamond"],
-            fills: ["none", "striped", "full"]
+            numbers:    ["1",       "2",        "3"],
+            colors:     ["red",     "green",    "purple"],
+            shapes:     ["oval",    "wave",     "diamond"],
+            fills:      ["none",    "striped",  "full"]
         }
 
-        for (let i = 0; i < 3; ++i) {
-            for (let j = 0; j < 3; ++j) {
-                for (let k = 0; k < 3; ++k) {
-                    for (let l = 0; l < 3; ++l) {
+        for (const number of traits.numbers) {
+            for (const color of traits.colors) {
+                for (const shape of traits.shapes) {
+                    for (const fill of traits.fills) {
                         cards.push(
                             new Card(
-                                traits.numbers[i],
-                                traits.colors[j],
-                                traits.shapes[k],
-                                traits.fills[l]
+                                number, color, shape, fill
                             )
                         );
                     }

@@ -1,5 +1,6 @@
 const { Game } = require("./game");
 const { broadcastToPlayers, getPlayersInfo } = require("../utils");
+const { PLAYER_NUMBER } = require("../constants");
 
 class Room {
     #roomId;
@@ -59,6 +60,18 @@ class Room {
         this.players[hostId].websocket.send(JSON.stringify({type: "madeHost"}));
     }
 
+    #existsPlayerWithColor = (colorId) => {
+        return Object.values(this.players).some(player => player.colorNumber == colorId);
+    }
+
+    #giveColor = () => {
+        for (let i = 0; i < PLAYER_NUMBER; i++) {
+            if (!this.#existsPlayerWithColor(i)) {
+                return i;
+            }
+        }
+    }
+
     addPlayer = (player) => {
         if (this.game !== null) {
             return { added: false, message: "gameOnGoing" };
@@ -66,13 +79,13 @@ class Room {
 
         const playerAmount = Object.keys(this.players).length;
 
-        if (playerAmount === 6) {
+        if (playerAmount === PLAYER_NUMBER) {
             return { added: false, message: "playerLimitExceeded" };
         }
 
         player.websocket.roomId = this.#roomId;
 
-        player.colorNumber = this.colors[Object.keys(this.players).length];
+        player.colorNumber = this.#giveColor();
         this.players[player.playerId] = player;
 
         if (playerAmount == 0) {

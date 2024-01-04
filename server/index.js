@@ -6,6 +6,8 @@ const { broadcastToPlayers, getPlayersInfo } = require("./utils");
 
 const { Player } = require("./classes/player");
 
+const { PLAYER_NUMBER } = require("./constants");
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -162,7 +164,7 @@ app.post("/canPlayerJoin", (req, res) => {
         res.json({addRes: false, message: "Room doesn't exist"});
     }
 
-    if (room.players.length === 6) {
+    if (room.players.length === PLAYER_NUMBER) {
         res.json({addRes: false, message: "2 lotz da kittehz!"});
         return;
     }
