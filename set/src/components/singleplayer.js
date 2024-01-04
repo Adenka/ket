@@ -8,6 +8,7 @@ export function Singleplayer() {
 
     const DECK_AMOUNT = 81;
     const SET_AMOUNT = 3;
+    const PLAYER_NUMBER = 6;
 
     const traits = {
         "numbers":  [ "1",      "2",        "3"         ],
@@ -85,7 +86,7 @@ export function Singleplayer() {
         if (!isGameOver) {
             setPoints(0);
             setSelections([]);
-            setColorNumber(Math.floor(Math.random() * 6));
+            setColorNumber(Math.floor(Math.random() * PLAYER_NUMBER));
             setHelperSet([]);
 
             const shuffledCards = shuffleCards();
