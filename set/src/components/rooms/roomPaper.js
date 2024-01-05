@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Room from "./room";
+import { useContext } from "react";
+import { ErrorContext } from "../contexts/errors";
+import { gameModes } from "../utils/constants";
 
 const RoomPaper = ({tabNumber}) => {
     const [rooms, setRooms] = useState([]);
+    const { setSnackbar } = useContext(ErrorContext);
 
     const fetchRooms = async () => {
         const response = await fetch("/rooms", {
             method: "POST"
         });
+
+        if (!response.ok) {
+            setSnackbar("Error fetching rooms", "error");
+            return;
+        }
 
         const data = await response.json();
 
@@ -17,7 +26,6 @@ const RoomPaper = ({tabNumber}) => {
     useEffect(() => {
         fetchRooms();
     }, [])
-    const gameModes = [ "Cooperation", "Against" ];
 
     return <div
         style = {{

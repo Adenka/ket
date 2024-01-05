@@ -38,7 +38,7 @@ const ModeTabs = ({tabTitles, component, localStorageElement}) => {
             <SwipeableViews axis = "x" index = {value} onChangeIndex = {(index) => setValue(index)}>
                 {Array(tabTitles.length).fill().map((_, i) => (
                     <TabPanel key = {i} value = {value} index = {i} sx = {{padding: 0}}>
-                        <Component tabNumber = {value} sx = {{backgroundColor: "red"}}/>
+                        <Component tabNumber = {value}/>
                     </TabPanel>
                 ))}
             </SwipeableViews>

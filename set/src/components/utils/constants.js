@@ -1,3 +1,5 @@
+const gameModes = ["Cooperation", "Competitive"];
+
 const MAX_SCORES = 10;
 
-export { MAX_SCORES };
+export { gameModes, MAX_SCORES };

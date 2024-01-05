@@ -23,7 +23,7 @@ const Rooms = () => {
         <TopMenu content="Wer u playin"/>
         <ModeTabs
             localStorageElement = "tabNumber"
-            tabTitles = {["Cooperashun wif othr kittehz", "Aganzt othr kittehz"]}
+            tabTitles = {["Werk togethr", "Hoo teh best"]}
             component = {RoomPaper}
             orientation = "horizontal"
             wrapperStyle = {{}}

@@ -1,10 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, NativeSelect, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { gameModes } from "../utils/constants";
 
 const AddRoomDialog = (props) => {
     const navigate = useNavigate();
-    const gameModes = ["Cooperation", "Against"];
+    
     const [name, setName] = useState("Ket game");
     const [mode, setMode] = useState(props.defaultValue);
 
@@ -33,7 +34,13 @@ const AddRoomDialog = (props) => {
         setMode(event.target.value);
     }
 
-    return <Dialog open = {props.open} onClose = {props.onClose} maxWidth = "sm" sx = {{padding: "2rem"}} fullWidth >
+    return <Dialog
+        open = {props.open}
+        onClose = {props.onClose}
+        maxWidth = "sm"
+        sx = {{padding: "2rem"}}
+        fullWidth
+    >
         <DialogTitle sx = {{fontSize: "2rem", paddingTop: "1rem"}}>
             New kitteh bed
         </DialogTitle>
@@ -70,7 +77,7 @@ const AddRoomDialog = (props) => {
                     onChange = {handleModeOnChange}
                 >
                     <option value = {0}>Cooperashun</option>
-                    <option value = {1}>Againzt</option>
+                    <option value = {1}>Competitiw</option>
                 </NativeSelect>
             </FormControl>
         </DialogContent>
