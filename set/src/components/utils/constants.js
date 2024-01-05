@@ -1,5 +1,8 @@
+const hostUrl = `wss://${window.location.hostname}`
+//const hostUrl = `ws://localhost:5000`
+
 const gameModes = ["Cooperation", "Competitive"];
 
 const MAX_SCORES = 10;
 
-export { gameModes, MAX_SCORES };
+export { hostUrl, gameModes, MAX_SCORES };

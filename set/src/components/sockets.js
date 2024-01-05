@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Outlet, useLocation, matchRoutes } from "react-router-dom";
 import { ErrorContext } from "./contexts/errors";
 import { GameContext } from "./contexts/gameContext";
+import { hostUrl } from "./utils/constants";
 
 const routes = [{ path: "/:roomId/game" }, {path: "/:roomId/wait"}];
 
@@ -69,8 +70,7 @@ export function Sockets() {
     }
 
     const connect = () => {
-        socket.current = new WebSocket(`wss://${window.location.hostname}`);
-        //socket.current = new WebSocket(`ws://localhost:5000`);
+        socket.current = new WebSocket(hostUrl);
         
         socket.current.onopen = () => {
             console.log("Connected socket main component");
