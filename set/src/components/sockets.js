@@ -106,27 +106,22 @@ export function Sockets() {
             const content = data.content;
 
             switch(type) {
-                case "playerId": {
+                case "playerId":
                     setPlayerId(content);
-
                     break;
-                }
-
-                case "madeHost": {
+            
+                case "madeHost":
                     setSnackbar("U r bos now", "info");
-
                     break;
-                }
 
-                case "players": {
+                case "players":
                     setPlayers(content);
                     break;
-                }
 
                 case "redirectToGame": {
                     const info = content.initialInfo;
                     navigate(`/${content.roomId}/game`);
-
+                    
                     setCardsOnTable(info.cardsOnTable);
                     setCardsLeft(DECK_AMOUNT - info.cardsUsed);
                     setGameStartTime(info.startTime);
@@ -139,36 +134,30 @@ export function Sockets() {
                     break;
                 }
 
-                case "cardClicked": {
+                case "cardClicked":
                     setCardsOnTable(content);
-
                     break;
-                }
 
-                case "error": {
+                case "error":
                     switch(content) {
-                        case "wrongRoomId": {
+                        case "wrongRoomId":
                             setSnackbar("Bad kitteh bed number!", "error");
                             leave();
                             break;
-                        }
-                        case "gameOnGoing": {
+                        case "gameOnGoing":
                             setSnackbar("Kittehz pluying!", "error");
                             leave();
                             break;
-                        }
-                        case "playerLimitExceeded": {
+                        case "playerLimitExceeded":
                             setSnackbar("2 lotz da kittehz!", "error");
                             leave();
                             break;
-                        }
                         case "cardNotOnTable":
                             setSnackbar("Da hell dude", "error");
                             break;
-                        case "startNotByHost": {
+                        case "startNotByHost":
                             setSnackbar("Othr kitteh iz bos", "error");
                             break;
-                        }
                         default:
                             console.log("content: ", content);
                             setSnackbar(content, "error");
@@ -176,28 +165,24 @@ export function Sockets() {
                     }
                     
                     break;
-                }
                 
-                case "gotSet": {
+                case "gotSet":
                     setCardsLeft(DECK_AMOUNT - content.cardsUsed);
                     setIsGameOver(content.isGameOver);
                     if (content.isGameOver) {
                         setGameOverTime(content.time);
-    
                     }
                     break;
-                }
 
-                case "rematch": {
+                case "rematch":
                     navigate(`${roomId}/wait`);
                     setIsGameOver(false);
                     break;
-                }
 
-                default: {
+                default:
                     console.log("sth went wrong");
+                    console.log(data)
                     break;
-                }
             }
         }
     }

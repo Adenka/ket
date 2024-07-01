@@ -75,7 +75,7 @@ const Game = () => {
     if (gamemode === "Cooperation") {
         GameScores = GameScoresCooperation;
     }
-    else if (gamemode === "Against" || gamemode === "Singleplayer") {
+    else if (gamemode === "Competitive" || gamemode === "Singleplayer") {
         GameScores = GameScoresAgainst;
     }
 
@@ -84,7 +84,7 @@ const Game = () => {
         <GameTopMenu/>
         <CardWrap/>
         <div className={classes.bottomStuffWrap}>
-            <GameScores/>
+            {gamemode !== "" ? <GameScores/> : <></>}
             {practiceMode && gamemode === "Singleplayer"
             ? <PracticeModeButton/>
             : <></>}

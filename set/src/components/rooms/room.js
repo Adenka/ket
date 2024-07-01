@@ -4,7 +4,6 @@ import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 import "../../assets/fonts.css"
 import { useTheme } from "@emotion/react";
-import { pink } from "@mui/material/colors";
 import { ErrorContext } from "../contexts/errors";
 import { kolorki } from "../../assets/kolorki";
 

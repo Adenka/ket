@@ -67,7 +67,6 @@ wss.on("connection", (ws) => {
                     broadcastToPlayers("players", getPlayersInfo(room.players), room.players);
                     const initialInfo = room.game.initialInfo();
 
-                    console.log("INITIAL INFO:", initialInfo);
                     broadcastToPlayers(
                         "redirectToGame",
                         {
@@ -77,6 +76,7 @@ wss.on("connection", (ws) => {
                         },
                         room.players
                     );
+                    console.log("redirectToGame end");
                     break;
                 }
 
@@ -107,8 +107,8 @@ wss.on("connection", (ws) => {
         }
     })
 
-    ws.on('close', () => {
-        console.log("leef ", ws.roomId, ws.playerId);
+    ws.on('close', (event) => {
+        console.log("close", ws.roomId, ws.playerId);
         const room = currentRooms.returnRoom(ws.roomId);
 
         if (room != null) {
@@ -119,8 +119,6 @@ wss.on("connection", (ws) => {
             }
         }
     })
-
-    ws.send(JSON.stringify({state: "success"}));
 })
 
 const interval = setInterval(() => {

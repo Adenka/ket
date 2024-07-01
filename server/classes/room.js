@@ -40,7 +40,6 @@ class Room {
     }
 
     newGame = (players) => {
-        console.log("nowa gra");
         this.game = new Game(players, this.#gamemode);
 
         Object.values(this.players).forEach(player => {
