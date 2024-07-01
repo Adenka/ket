@@ -125,8 +125,9 @@ const Card = ({cardObject, onClickFun}) => {
                 ? theme.palette.secondary.light
                 : "white",
         }}
-        onTouchStart = {handleOnTouchStart}
-        onClick = {handleOnClick}
+    //    onTouchStart = {handleOnTouchStart}
+    //    onClick = {handleOnClick}
+        onClick = {onClickFun}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
