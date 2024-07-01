@@ -168,7 +168,7 @@ const StartPage = () => {
         <StartPageTopMenu/>
         <div
             className = {classes.root}
-            style = {{alignItems: isBig ? "center" : "start", paddingTop: isBig ? 0 : "10vh", backgroundColor: "red"}}
+            style = {{alignItems: isBig ? "center" : "start", paddingTop: isBig ? 0 : "10vh", /*backgroundColor: "red"*/}}
         >
             <div className = {classes.leftWrap}>
                 <div>

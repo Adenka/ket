@@ -93,18 +93,8 @@ const Card = ({cardObject, onClickFun}) => {
 
     let playerInRes = returnPlayer();
 
-    const prevent = useRef(false);
     const handleOnTouchStart = (event) => {
-        prevent.current = true;
-        onClickFun();
-    }
-
-    const handleOnClick = () => {
-        if (prevent.current) {
-            prevent.current = false;
-            return;
-        }
-        
+        event.preventDefault();
         onClickFun();
     }
 
@@ -125,8 +115,7 @@ const Card = ({cardObject, onClickFun}) => {
                 ? theme.palette.secondary.light
                 : "white",
         }}
-    //    onTouchStart = {handleOnTouchStart}
-    //    onClick = {handleOnClick}
+        onTouchStart = {handleOnTouchStart}
         onClick = {onClickFun}
         >   
             <div className = {classes.dots}>
