@@ -6,6 +6,7 @@ import { GameContext } from "../contexts/gameContext";
 import { SizeContext } from "../contexts/size";
 import { useTheme } from "@emotion/react";
 import { shapeMapBig, shapeMapSmall } from "../../assets/shapes";
+import {isMobile} from "react-device-detect";
 
 // 192 - scores, 88 - top menu, 24 - padding between cards, 48 - top and bottom wrapper margin
 const heightBig = "min(calc((100vh - 10rem - 88px - 24px - 48px)/3), 12.5rem)";
@@ -93,8 +94,13 @@ const Card = ({cardObject, onClickFun}) => {
 
     let playerInRes = returnPlayer();
 
-    const handleOnTouchStart = (event) => {
-        event.preventDefault();
+    console.log(isMobile);
+
+    const handleOnClick = () => {
+        if (isMobile) {
+            return;
+        }
+
         onClickFun();
     }
 
@@ -115,8 +121,8 @@ const Card = ({cardObject, onClickFun}) => {
                 ? theme.palette.secondary.light
                 : "white",
         }}
-        onTouchStart = {handleOnTouchStart}
-        onClick = {onClickFun}
+        onTouchStart = {onClickFun}
+        onClick = {handleOnClick}
         >   
             <div className = {classes.dots}>
             {Object.values(cardObject.clicked).filter(
