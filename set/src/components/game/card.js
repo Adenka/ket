@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { Fade, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { kolorki } from "../../assets/kolorki"
@@ -93,8 +93,6 @@ const Card = ({cardObject, onClickFun}) => {
     const presentInHelperSet = amIInHelperSet(cardObject);
 
     let playerInRes = returnPlayer();
-
-    console.log(isMobile);
 
     const handleOnClick = () => {
         if (isMobile) {
